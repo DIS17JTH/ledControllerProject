@@ -17,10 +17,8 @@
             android:id="@+id/button2"
             android:layout_width="204dp"
             android:layout_height="match_parent"
-            android:layout_below="@+id/null"
-            android:layout_alignStart="@+id/null"
             android:layout_weight="1"
-            android:text="Mode" />
+            android:text="@string/s_mode" />
     </LinearLayout>
 
 </RelativeLayout>
