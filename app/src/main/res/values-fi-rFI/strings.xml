@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ledControllerProject</string>
+    <string name="s_hello">Moi</string>
+    <string name="s_mode">Tila</string>
+    <string name="s_add">Lisää</string>
+    <string name="s_on">päälle</string>
+    <string name="s_off">pois päältä</string>
+    <string name="s_settings">asetukset</string>
+    <string name="s_menu">valikko</string>
+    <string name="s_title">otsikko</string>
+    <string name="s_status">tila</string>
+    <string name="s_loading">lataa</string>
+    <string name="s_light_emitting_diod">valodiodi</string>
+    <string name="s_log_out">kirjaudu ulos</string>
+    <string name="s_profile">profiili</string>
+    <string name="s_user_name">käyttäjätunnus</string>
+    <string name="s_select_color">valitse väri</string>
+    <string name="s_brightness">kirkkaus</string>
+    <string name="s_back">takaisin</string>
+    <string name="s_audio_sync">äänen synkronointi</string>
+    <string name="s_gradient">kaltevuus</string>
+    <string name="s_strobe">diskovalo</string>
+</resources>

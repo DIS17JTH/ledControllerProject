@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ledControllerProject</string>
+    <string name="s_hello">Hej</string>
+    <string name="s_mode">Läge</string>
+    <string name="s_add">Lägg till</string>
+    <string name="s_on">På</string>
+    <string name="s_off">Av</string>
+    <string name="s_settings">inställningar</string>
+    <string name="s_audio_sync">Musik synkornisering</string>
+    <string name="s_back">tillbaka</string>
+    <string name="s_brightness">ljusstyrka</string>
+    <string name="s_select_color">välj färg</string>
+    <string name="s_user_name">användarnamn</string>
+    <string name="s_profile">profil</string>
+    <string name="s_log_out">logga ut</string>
+    <string name="s_light_emitting_diod">ljusdiod</string>
+    <string name="s_loading">laddar</string>
+    <string name="s_status">status</string>
+    <string name="s_title">titel</string>
+    <string name="s_menu">meny</string>
+    <string name="s_strobe">pulsera</string>
+    <string name="s_gradient">gradient</string>
+</resources>
