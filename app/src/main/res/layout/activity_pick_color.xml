@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".PickColorActivity">
 
 
     <LinearLayout
@@ -15,6 +16,7 @@
 
         <Button
             android:id="@+id/button2"
+            android:onClick="modeButtonClicked"
             android:layout_width="204dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

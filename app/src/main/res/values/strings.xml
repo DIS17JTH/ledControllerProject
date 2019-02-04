@@ -20,4 +20,5 @@
     <string name="s_status">status</string>
     <string name="s_title">title</string>
     <string name="s_menu">menu</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

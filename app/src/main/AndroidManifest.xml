@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.ju.students.malu1798.ledcontrollerproject">
 
@@ -9,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:label="Main">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"/>
@@ -17,7 +18,8 @@
                     android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".PickColorActivity"></activity>
+        <activity android:name=".PickColorActivity" android:label="Pick Color"></activity>
+        <activity android:name=".ModeActivity" android:label="Mode"></activity>
 
     </application>
 </manifest>
