@@ -19,14 +19,14 @@
             android:inputType="textPersonName"
             android:text="@string/app_name" />
 
-            <Button
-                android:id="@+id/b_change_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Change View" />
+        <Button
+            android:id="@+id/b_change_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Change View" />
 
-            <EditText
+        <EditText
             android:id="@+id/t_main_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center_horizontal">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/t_app_tile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/app_name" />
 
-        <EditText
-            android:id="@+id/t_app_tile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/app_name" />
+    <EditText
+        android:id="@+id/t_main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/s_hello" />
 
-        <Button
-            android:id="@+id/b_change_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Change View"
-            android:onClick="changeViewButtonClicked"
-            />
-
-        <EditText
-            android:id="@+id/t_main_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/s_hello" />
-    </LinearLayout>
-</RelativeLayout>
+    <Button
+        android:id="@+id/b_change_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="changeViewButtonClicked"
+        android:text="Change View" />
+</LinearLayout>

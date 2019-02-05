@@ -8,6 +8,5 @@
         android:id="@+id/t_mode_tile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="@string/s_mode" />
 </LinearLayout>

@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
     tools:context=".PickColorActivity">
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/b_mode"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="298dp"
-        android:orientation="horizontal">
+        android:onClick="modeButtonClicked"
+        android:text="@string/s_mode" />
 
-        <Button
-            android:id="@+id/button2"
-            android:onClick="modeButtonClicked"
-            android:layout_width="204dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/s_mode" />
-    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
