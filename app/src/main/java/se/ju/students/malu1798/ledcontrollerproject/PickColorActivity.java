@@ -7,12 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class PickColorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
+
+        //the cast is not nessesary
+        TextView tv = (TextView) findViewById(R.id.t_b);
+
+
+        //bN.setOnNavigationItemSelectListener(this);
     }
 
     public void modeButtonClicked(View view){
