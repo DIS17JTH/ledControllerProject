@@ -48,7 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //for setting color
+    public void setColor(){
+
+    }
+    //for getting color
+    public void getColor(){
+
+    }
+
     public void openColorPicker() {
+        String colorCode = "#258174";
+
         final ColorPicker cPicker = new ColorPicker(this);
         ArrayList<String> colors = new ArrayList<>();
         colors.add("#258174");
@@ -70,36 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         })
-                .setColumns(6)
+                .setColumns(5)
                 .setRoundColorButton(true)
                 .show();
-
-        /*
-        final ColorPicker colorPicker = new ColorPicker(SampleActivity.this);
-        colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-            @Override
-            public void onChooseColor(int position, int color) {
-                // put code
-            }
-
-            @Override
-            public void onCancel() {
-                // put code
-            }
-        })
-                .addListenerButton("newButton", new ColorPicker.OnButtonListener() {
-                    @Override
-                    public void onClick(View v, int position, int color) {
-                        // put code
-                    }
-                })
-                .disableDefaultButtons(true)
-                .setDefaultColor(Color.parseColor("#f84c44"))
-                .setColumns(5)
-                .setDialogFullHeight()
-                .show();
-        */
-
     }
 
     /*
