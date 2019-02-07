@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:gravity="center_horizontal">
-
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
     <EditText
         android:id="@+id/t_app_tile"
         android:layout_width="wrap_content"
@@ -25,4 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change View" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton" />
 </LinearLayout>
