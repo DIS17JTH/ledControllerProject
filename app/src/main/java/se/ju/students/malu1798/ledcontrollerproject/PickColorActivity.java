@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PickColorActivity extends AppCompatActivity {
+public class PickColorActivity extends AppCompatActivity{
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
@@ -62,7 +62,7 @@ public class PickColorActivity extends AppCompatActivity {
     }
 
 
-    public void modeButtonClicked(View view) {
+    public void modeButtonClicked(View view){
         System.out.println("Button clicked");
         Intent intent = new Intent(this, ModeActivity.class);
         startActivity(intent);
@@ -70,7 +70,7 @@ public class PickColorActivity extends AppCompatActivity {
 
     @Override
     //if settings menu should show
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -78,8 +78,8 @@ public class PickColorActivity extends AppCompatActivity {
 
     @Override
     //settings menu
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
             case R.id.action_settings:
                 /*handle*/
                 return true;
