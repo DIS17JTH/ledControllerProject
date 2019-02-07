@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,29 +18,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
-        /*
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGHT_LONG)
-                        .setAction("Action", null).show();
+        Button b_change_v = findViewById(R.id.b_change_view);
+        b_change_v.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                System.out.println("Button clicked");
+                Intent intent = new Intent(v.getContext(), PickColorActivity.class);
+                startActivity(intent);
             }
         });
-        */
 
-        /*
-        ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
-        Button b = new Button(this);
-        b.setText("Change View");
-        b.setOnClickListener(this);
 
-        rootView.addView(b);
-        */
-        //acticivity_main.findViewById(R.id.b_change_view);
-
-        //String s = aContext.getString(R.string.app_name);
 
     }
 
@@ -52,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     */
-
-    public void changeViewButtonClicked(View view){
-        System.out.println("Button clicked");
-        Intent intent = new Intent(this, PickColorActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     //if settings menu should show
