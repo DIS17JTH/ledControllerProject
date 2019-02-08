@@ -16,6 +16,10 @@ import android.widget.TextView;
 
 public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener {
+    int r = 0;
+    int g = 0;
+    int b = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +58,18 @@ public class PickColorActivity extends AppCompatActivity
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
                 System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
-                v.setBackgroundColor(Color.rgb(getColorTranslated(progress),0x43,0x36));
+                r = getColorFullRange(progress);
+                v.setBackgroundColor(Color.rgb(r,g,b));
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
+                g = getColorFullRange(progress);
+                v.setBackgroundColor(Color.rgb(r,g,b));
                 break;
             case R.id.seekBar_b:
                 System.out.println("--SeekBar onChange blue");
+                b = getColorFullRange(progress);
+                v.setBackgroundColor(Color.rgb(r,g,b));
                 break;
             case R.id.seekBar_brightness:
                 System.out.println("--SeekBar onChange brightness");
@@ -71,8 +80,8 @@ public class PickColorActivity extends AppCompatActivity
         }
     }
 
-    private int getColorTranslated(int progress) {
-        double fullRange = progress*2.55;
+    private int getColorFullRange(int procentage) {
+        double fullRange = procentage*2.55;
         return (int)fullRange;
     }
 
