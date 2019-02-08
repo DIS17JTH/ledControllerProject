@@ -1,6 +1,7 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -49,9 +50,11 @@ public class PickColorActivity extends AppCompatActivity
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        View v = findViewById(R.id.layout_top);
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
-                System.out.println("--SeekBar onChange red");
+                System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
+                v.setBackgroundColor(Color.rgb(getColorTranslated(progress),0x43,0x36));
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
@@ -66,6 +69,11 @@ public class PickColorActivity extends AppCompatActivity
                 System.out.println("--SeekBar onChange default");
                 break;
         }
+    }
+
+    private int getColorTranslated(int progress) {
+        double fullRange = progress*2.55;
+        return (int)fullRange;
     }
 
     @Override
