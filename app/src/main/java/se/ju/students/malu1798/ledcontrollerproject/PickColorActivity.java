@@ -19,6 +19,7 @@ public class PickColorActivity extends AppCompatActivity
     int r = 0;
     int g = 0;
     int b = 0;
+    int brightness = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,21 +59,22 @@ public class PickColorActivity extends AppCompatActivity
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
                 System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
-                r = getColorFullRange(progress);
-                v.setBackgroundColor(Color.rgb(r,g,b));
+                r = progress;
+                v.setBackgroundColor(Color.argb(brightness, r, g, b));
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
-                g = getColorFullRange(progress);
-                v.setBackgroundColor(Color.rgb(r,g,b));
+                g = progress;
+                v.setBackgroundColor(Color.argb(brightness, r, g, b));
                 break;
             case R.id.seekBar_b:
                 System.out.println("--SeekBar onChange blue");
-                b = getColorFullRange(progress);
-                v.setBackgroundColor(Color.rgb(r,g,b));
-                break;
+                b = progress;
+                v.setBackgroundColor(Color.argb(brightness, r, g, b));                break;
             case R.id.seekBar_brightness:
-                System.out.println("--SeekBar onChange brightness");
+                brightness = progress;
+                v.setBackgroundColor(Color.argb(brightness, r, g, b));
+                System.out.println("--SeekBar onChange brightness " + progress);
                 break;
             default:
                 System.out.println("--SeekBar onChange default");
