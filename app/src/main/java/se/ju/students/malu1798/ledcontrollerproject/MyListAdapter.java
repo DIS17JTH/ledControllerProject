@@ -55,11 +55,17 @@ public class MyListAdapter extends AppCompatActivity implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View rootView = inflater.inflate(R.layout.palette_item, parent, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.t_mode_amount);
-        textView.setText("Number: " + numbers[position]);
-        return rootView;
+        if(convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            convertView = inflater.inflate(R.layout.palette_item, parent, false);
+            ViewHolder viewHolder = new ViewHolder();
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.t_mode_amount);
+            convertView.setTag(viewHolder);
+        }
+        //TextView textView = (TextView) convertView.findViewById(R.id.t_mode_amount);
+        ((ViewHolder)convertView.getTag()).textView.setText("Number: " + numbers[position]);
+
+        return convertView;
     }
 
     @Override
