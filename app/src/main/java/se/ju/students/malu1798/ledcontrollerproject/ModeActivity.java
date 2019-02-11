@@ -43,8 +43,8 @@ public class ModeActivity extends AppCompatActivity {
 
                         Data.Human human = getItem(position);
                         ((ViewHolder) convertView.getTag()).idTextView.setText(""+human.id);
-                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+human.name);
-                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+human.age);
+                        ((ViewHolder) convertView.getTag()).nameTextView.setText(""+human.name);
+                        ((ViewHolder) convertView.getTag()).ageTextView.setText(""+human.age);
 
                         return convertView;
                     }
