@@ -22,4 +22,5 @@
     <string name="s_menu">Menu</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="s_pick_color">Pick Color</string>
+    <string name="s_amount">Amount</string>
 </resources>
