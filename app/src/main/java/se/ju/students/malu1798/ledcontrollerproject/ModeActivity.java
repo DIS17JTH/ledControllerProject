@@ -22,22 +22,21 @@ public class ModeActivity extends AppCompatActivity {
 
         /*List View*/
         ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
-        //listView.setAdapter(new MyListAdapter());
-        /*
         listView.setAdapter(
                 new ArrayAdapter<Data.Human>(this, 0, Data.humans){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent){
 
                         if(convertView == null){
+
                             LayoutInflater inflater = LayoutInflater.from(getContext());
                             convertView = inflater.inflate(R.layout.list_view_item, parent, false);
 
                             ViewHolder viewHolder = new ViewHolder();
 
                             viewHolder.idTextView = convertView.findViewById(R.id.t_listView_id);
-                            viewHolder.idTextView = convertView.findViewById(R.id.t_listView_name);
-                            viewHolder.idTextView = convertView.findViewById(R.id.t_listView_age);
+                            viewHolder.nameTextView = convertView.findViewById(R.id.t_listView_name);
+                            viewHolder.ageTextView = convertView.findViewById(R.id.t_listView_age);
 
                             convertView.setTag(viewHolder);
                         }
@@ -51,7 +50,7 @@ public class ModeActivity extends AppCompatActivity {
                     }
                 }
         );
-        */
+
     }
 
     public static class ViewHolder{
