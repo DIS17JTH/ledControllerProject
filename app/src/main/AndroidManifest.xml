@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity" android:label="Main">
+        <activity android:name=".MainActivity" android:label="LED Control">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"/>
@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".PickColorActivity" android:label="Pick Color"></activity>
         <activity android:name=".ModeActivity" android:label="Mode"></activity>
+        <activity android:name=".ModeSettingsActivity" android:label="Mode Settings"></activity>
 
     </application>
 </manifest>
