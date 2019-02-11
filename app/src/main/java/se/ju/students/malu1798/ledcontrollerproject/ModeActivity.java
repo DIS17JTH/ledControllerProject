@@ -5,12 +5,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class ModeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
+
+        /*List View*/
+        ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
+        listView.setAdapter(new MyListAdapter());
     }
 
     @Override
