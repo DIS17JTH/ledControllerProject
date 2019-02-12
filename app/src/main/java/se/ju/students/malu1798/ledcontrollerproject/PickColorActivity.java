@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class PickColorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
+        //Image Views
+        View v_top = findViewById(R.id.layout_top);
         //text views
         TextView t_red = findViewById(R.id.t_r);
         TextView t_green = findViewById(R.id.t_g);
@@ -63,6 +67,11 @@ public class PickColorActivity extends AppCompatActivity
         seekB_red.setOnSeekBarChangeListener(this);
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
+
+        t_red.setBackgroundColor(Color.rgb(r, 0, 0));
+        t_green.setBackgroundColor(Color.rgb(0, g, 0));
+        t_blue.setBackgroundColor(Color.rgb(0, 0, b));
+        v_top.setBackgroundColor(Color.argb(brightness, r, g, b));
 
     }
 
