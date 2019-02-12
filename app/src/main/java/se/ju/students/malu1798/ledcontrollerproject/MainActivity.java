@@ -16,7 +16,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    /*
+    @Override
+    protected void onSaveInstanceState(Boundle outState){
+        super.onSaveInstanceState(outState);
+    }
+    */
 
     //for setting color
     public void setColor(){
