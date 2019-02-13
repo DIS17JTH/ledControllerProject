@@ -104,9 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:text="B"
-                android:textAlignment="center"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -136,33 +134,16 @@
         android:layout_weight="1"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <Button
+            android:id="@+id/b_profiles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            android:text="@string/s_profile" />
 
         <Button
             android:id="@+id/b_colorPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
             android:text="@string/s_pick_color" />
     </LinearLayout>
 

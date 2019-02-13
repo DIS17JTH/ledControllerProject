@@ -22,6 +22,7 @@
     <style name="defaultTextViewStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -12,9 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,10 +20,19 @@ import java.util.ArrayList;
 public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener {
 
+    ViewHolder viewHolder = new ViewHolder();
+
+
+    SeekBar seekB_brightness;
+    SeekBar seekB_red;
+    SeekBar seekB_green;
+    SeekBar seekB_blue;
+
     private int r = 255;
     private int g = 255;
     private int b = 255;
     private int brightness = 255;
+    private Color color = new Color();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,15 +41,22 @@ public class PickColorActivity extends AppCompatActivity
 
         //Image Views
         View v_top = findViewById(R.id.layout_top);
+
+        //Color RGB layouts
+        viewHolder.v_header = findViewById(R.id.layout_top);
+        viewHolder.v_r = findViewById(R.id.t_r);
+        viewHolder.v_g = findViewById(R.id.t_g);
+        viewHolder.v_b = findViewById(R.id.t_b);
+
         //text views
         TextView t_red = findViewById(R.id.t_r);
         TextView t_green = findViewById(R.id.t_g);
         TextView t_blue = findViewById(R.id.t_b);
         //Seek bars
-        SeekBar seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
-        SeekBar seekB_red = (SeekBar) findViewById(R.id.seekBar_r);
-        SeekBar seekB_green = (SeekBar) findViewById(R.id.seekBar_g);
-        SeekBar seekB_blue = (SeekBar) findViewById(R.id.seekBar_b);
+        seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
+        seekB_red = (SeekBar) findViewById(R.id.seekBar_r);
+        seekB_green = (SeekBar) findViewById(R.id.seekBar_g);
+        seekB_blue = (SeekBar) findViewById(R.id.seekBar_b);
         //Buttons
         Button b_mode = findViewById(R.id.b_mode);
         Button b_colorPicker = findViewById(R.id.b_colorPicker);
@@ -69,52 +83,36 @@ public class PickColorActivity extends AppCompatActivity
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
 
-        t_red.setBackgroundColor(Color.rgb(getR(), 0, 0));
-        t_green.setBackgroundColor(Color.rgb(0, getG(), 0));
-        t_blue.setBackgroundColor(Color.rgb(0, 0, getB()));
-        v_top.setBackgroundColor(Color.rgb(getR(), getG(), getB()));
-
+        updateViewColors();
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-         View v = findViewById(R.id.layout_top);
-         View v_r = findViewById(R.id.t_r);
-         View v_g = findViewById(R.id.t_g);
-         View v_b = findViewById(R.id.t_b);
+
 
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
                 System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
                 setR(progress);
-                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
-                v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
+                updateViewColors();
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
                 setG(progress);
-                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
-                v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
+                updateViewColors();
                 break;
             case R.id.seekBar_b:
                 System.out.println("--SeekBar onChange blue");
                 setB(progress);
-                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
-                v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
+                updateViewColors();
                 break;
             case R.id.seekBar_brightness:
                 setBrightness(progress);
                 //inverse
                 //brightness = (brightness*(-1))+255;
                 //setBrightness((progress*(-1))+255);
-
-
-                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
-                v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
-                v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
-                v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
+                updateViewColors();
                 System.out.println("--SeekBar onChange brightness " + getBrightness());
-
 
                 break;
             default:
@@ -123,12 +121,26 @@ public class PickColorActivity extends AppCompatActivity
         }
     }
 
+    private void updateViewColors(){
+        viewHolder.v_header.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
+        viewHolder.v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
+        viewHolder.v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
+        viewHolder.v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
+    }
+
+    private void updateSeekBars(){
+        seekB_red.setProgress(getR());
+        seekB_green.setProgress(getG());
+        seekB_blue.setProgress(getB());
+        seekB_brightness.setProgress(getBrightness());
+    }
+
 
     public void openColorPicker() {
         String colorCode = "#258174";
 
         final ColorPicker cPicker = new ColorPicker(this);
-        ArrayList<String> colors = new ArrayList<>();
+        final ArrayList<String> colors = new ArrayList<>();
         colors.add("#258174");
         colors.add("#27AE60");
         colors.add("#3498DB");
@@ -141,6 +153,9 @@ public class PickColorActivity extends AppCompatActivity
                     @Override
                     public void onChooseColor(int position, int color) {
                         System.out.println("Position: " + position + " Color: " + color);
+                        setColorWithHex(colors.get(position));
+                        updateViewColors();
+                        updateSeekBars();
                     }
 
                     @Override
@@ -271,5 +286,18 @@ public class PickColorActivity extends AppCompatActivity
         System.out.println("out Value brightness converter: " + out);
         return out;
     }
+
+    /**
+     * Converts a hex string to a color. If it can't be converted null is returned.
+     * @param hex (i.e. #CCCCCCFF or CCCCCC)
+     * @return Color
+     */
+    private void setColorWithHex(String hex) {
+        String colorStr = hex;
+        setR(Integer.valueOf( colorStr.substring( 1, 3 ), 16 ));
+        setG(Integer.valueOf( colorStr.substring( 3, 5 ), 16 ));
+        setB(Integer.valueOf( colorStr.substring( 5, 7 ), 16 ));
+    }
+
 
 }

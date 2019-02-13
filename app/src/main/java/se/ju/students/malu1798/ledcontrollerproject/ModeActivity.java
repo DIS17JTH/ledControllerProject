@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ModeActivity extends AppCompatActivity {
+    ViewHolder viewHolder = new ViewHolder();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class ModeActivity extends AppCompatActivity {
                             LayoutInflater inflater = LayoutInflater.from(getContext());
                             convertView = inflater.inflate(R.layout.list_view_item, parent, false);
 
-                            ViewHolder viewHolder = new ViewHolder();
+                            //ViewHolder viewHolder = new ViewHolder();
 
                             viewHolder.idTextView = convertView.findViewById(R.id.t_listView_id);
                             viewHolder.nameTextView = convertView.findViewById(R.id.t_listView_name);
@@ -66,11 +68,7 @@ public class ModeActivity extends AppCompatActivity {
 
     }
 
-    public static class ViewHolder{
-        public TextView idTextView;
-        public TextView nameTextView;
-        public TextView ageTextView;
-    }
+
 
     @Override
     //if settings menu should show
