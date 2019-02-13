@@ -16,21 +16,20 @@ public class Data {
         }
     }
 
-    public class Mode{
-        private int m_id;
-        private String m_modeName;
-        private List<Setting> m_settings;
+        public class Mode{
+            private int m_id;
+            private String m_modeName;
+            private List<Setting> m_settings;
 
-        public Mode(int m_id, String m_modeName, List<Setting> m_settings){
-            this.m_id = m_id;
-            this.m_modeName = m_modeName;
-            this.m_settings = m_settings;
-        }
+            public Mode(int m_id, String m_modeName, List<Setting> m_settings){
+                this.m_id = m_id;
+                this.m_modeName = m_modeName;
+                this.m_settings = m_settings;
+            }
 
-        public Mode(){
-            //this(0, "Default mode name", );
-        }
-
+            public Mode(){
+                //this(0, "Default mode name", );
+            }
     }
 
     public class Setting{

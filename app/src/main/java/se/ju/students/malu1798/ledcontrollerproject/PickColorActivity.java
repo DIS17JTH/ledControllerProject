@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener {
+
     private int r = 255;
     private int g = 255;
     private int b = 255;
@@ -68,52 +69,60 @@ public class PickColorActivity extends AppCompatActivity
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
 
-        t_red.setBackgroundColor(Color.rgb(r, 0, 0));
-        t_green.setBackgroundColor(Color.rgb(0, g, 0));
-        t_blue.setBackgroundColor(Color.rgb(0, 0, b));
-        v_top.setBackgroundColor(Color.argb(brightness, r, g, b));
+        t_red.setBackgroundColor(Color.rgb(getR(), 0, 0));
+        t_green.setBackgroundColor(Color.rgb(0, getG(), 0));
+        t_blue.setBackgroundColor(Color.rgb(0, 0, getB()));
+        v_top.setBackgroundColor(Color.rgb(getR(), getG(), getB()));
 
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        View v = findViewById(R.id.layout_top);
-        View v_r = findViewById(R.id.t_r);
-        View v_g = findViewById(R.id.t_g);
-        View v_b = findViewById(R.id.t_b);
+         View v = findViewById(R.id.layout_top);
+         View v_r = findViewById(R.id.t_r);
+         View v_g = findViewById(R.id.t_g);
+         View v_b = findViewById(R.id.t_b);
 
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
                 System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
-                r = progress;
-                v.setBackgroundColor(Color.argb(brightness, r, g, b));
-                v_r.setBackgroundColor(Color.argb(brightness, r, 0, 0));
+                setR(progress);
+                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
+                v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
-                g = progress;
-                v.setBackgroundColor(Color.argb(brightness, r, g, b));
-                v_g.setBackgroundColor(Color.argb(brightness, 0, g, 0));
+                setG(progress);
+                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
+                v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
                 break;
             case R.id.seekBar_b:
                 System.out.println("--SeekBar onChange blue");
-                b = progress;
-                v.setBackgroundColor(Color.argb(brightness, r, g, b));
-                v_b.setBackgroundColor(Color.argb(brightness, 0, 0, b));
+                setB(progress);
+                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
+                v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
                 break;
             case R.id.seekBar_brightness:
-                brightness = progress;
-                v.setBackgroundColor(Color.argb(brightness, r, g, b));
-                v_r.setBackgroundColor(Color.argb(brightness, r, 0, 0));
-                v_g.setBackgroundColor(Color.argb(brightness, 0, g, 0));
-                v_b.setBackgroundColor(Color.argb(brightness, 0, 0, b));
-                System.out.println("--SeekBar onChange brightness " + progress);
+                setBrightness(progress);
+                //inverse
+                //brightness = (brightness*(-1))+255;
+                //setBrightness((progress*(-1))+255);
+
+
+                v.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
+                v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
+                v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
+                v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
+                System.out.println("--SeekBar onChange brightness " + getBrightness());
+
+
                 break;
             default:
                 System.out.println("--SeekBar onChange default");
                 break;
         }
     }
+
 
     public void openColorPicker() {
         String colorCode = "#258174";
@@ -217,5 +226,50 @@ public class PickColorActivity extends AppCompatActivity
         }
     }
 
+
+    public int getR() {
+        return r;
+    }
+
+    public void setR(int r) {
+        this.r = r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public void setG(int g) {
+        this.g = g;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public int colorConvertWithBrightness(int color) {
+        return getValueSetByBrightness(color);
+    }
+
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
+
+    public int getValueSetByBrightness(int in) {
+        int out;
+        //out = (int) ((in * 100 / (getBrightness() + 1))) / 100;
+        out = (getBrightness() * in)/255;
+        System.out.println("out Value brightness converter: " + out);
+        return out;
+    }
 
 }
