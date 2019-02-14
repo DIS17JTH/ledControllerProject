@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ModeActivity extends AppCompatActivity {
-    ViewHolder viewHolder = new ViewHolder();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -32,7 +32,7 @@ public class ModeActivity extends AppCompatActivity {
                     public View getView(int position, View convertView, ViewGroup parent){
 
                         if(convertView == null){
-
+                            ViewHolder viewHolder = new ViewHolder();
                             LayoutInflater inflater = LayoutInflater.from(getContext());
                             convertView = inflater.inflate(R.layout.list_view_item, parent, false);
 
