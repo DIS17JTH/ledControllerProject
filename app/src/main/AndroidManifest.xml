@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity" android:label="LED Control">
+        <activity android:name=".MainActivity" android:label="@string/s_LED_control">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"/>
@@ -20,9 +20,10 @@
                     android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".PickColorActivity" android:label="Pick Color"></activity>
-        <activity android:name=".ModeActivity" android:label="Mode"></activity>
-        <activity android:name=".ModeSettingsActivity" android:label="Mode Settings"></activity>
+        <activity android:name=".PickColorActivity" android:label="@string/s_pick_color"></activity>
+        <activity android:name=".ModeActivity" android:label="@string/s_mode"></activity>
+        <activity android:name=".ModeSettingsActivity" android:label="@string/s_mode_settings"></activity>
+        <activity android:name=".ProfileActivity" android:label="@string/s_profile"></activity>
 
     </application>
 </manifest>

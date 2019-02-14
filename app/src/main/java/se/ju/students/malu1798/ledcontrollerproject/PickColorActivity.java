@@ -60,6 +60,7 @@ public class PickColorActivity extends AppCompatActivity
         //Buttons
         Button b_mode = findViewById(R.id.b_mode);
         Button b_colorPicker = findViewById(R.id.b_colorPicker);
+        Button b_profile = findViewById(R.id.b_profiles);
 
         b_mode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -77,6 +78,16 @@ public class PickColorActivity extends AppCompatActivity
                 openColorPicker();
             }
         });
+
+        b_profile.setOnClickListener(
+                new View.OnClickListener(){
+                    public void onClick(View v){
+                        System.out.println("Button profile clicked");
+                        Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
 
         seekB_brightness.setOnSeekBarChangeListener(this);
         seekB_red.setOnSeekBarChangeListener(this);

@@ -9,19 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ModeSettingsActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mode_settings);
+        setContentView(R.layout.activity_profile);
 
         Intent intentIN = getIntent();
         int i = intentIN.getIntExtra("id", -1);
 
-        TextView t_heading = findViewById(R.id.t_m_s_title);
+        //TextView t_heading = findViewById(R.id.t_m_s_title);
 
-        Data.Human currentData = Data.humans.get(i);
-        t_heading.setText(currentData.name);
+        //Data.Human currentData = Data.humans.get(i);
+        //t_heading.setText(currentData.name);
     }
 
     @Override
@@ -43,5 +43,4 @@ public class ModeSettingsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

@@ -25,4 +25,6 @@
     <string name="s_amount">Amount</string>
     <string name="s_tilt">Tilt</string>
     <string name="s_quit">Quit</string>
+    <string name="s_mode_settings">Mode Settings</string>
+    <string name="s_LED_control">LED Control</string>
 </resources>
