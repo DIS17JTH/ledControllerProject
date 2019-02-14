@@ -161,21 +161,14 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_lightbulb_outline_black_24dp" />
-
         <ToggleButton
-            android:id="@+id/toggleButton"
+            android:id="@+id/tB_on_off"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="4dp"
-            android:text="ToggleButton" />
+            android:text="ON OFF" />
 
 
         <SeekBar

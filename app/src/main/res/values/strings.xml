@@ -23,4 +23,6 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="s_pick_color">Pick Color</string>
     <string name="s_amount">Amount</string>
+    <string name="s_tilt">Tilt</string>
+    <string name="s_quit">Quit</string>
 </resources>

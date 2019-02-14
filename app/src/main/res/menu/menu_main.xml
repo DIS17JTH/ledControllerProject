@@ -8,4 +8,17 @@
         android:title="@string/s_settings"
         app:showAsAction="never">
     </item>
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="101"
+        android:title="@string/s_profile" />
+    <item
+        android:id="@+id/swich_tilt"
+        android:orderInCategory="102"
+        android:title="@string/s_tilt"
+        app:actionLayout="@layout/switch_item" />
+    <item
+        android:id="@+id/action_quit"
+        android:orderInCategory="103"
+        android:title="@string/s_quit" />
 </menu>
