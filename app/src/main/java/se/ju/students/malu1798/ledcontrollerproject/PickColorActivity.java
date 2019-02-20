@@ -177,7 +177,7 @@ public class PickColorActivity extends AppCompatActivity
     }
 
 
-    public void openColorPicker() {
+    private void openColorPicker() {
         String colorCode = "#258174";
 
         final ColorPicker cPicker = new ColorPicker(this);
