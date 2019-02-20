@@ -24,7 +24,10 @@ public class ModeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
 
+        TextView t = findViewById(R.id.t_mode_tile);
+
         /*List View*/
+        /*
         ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
         listView.setAdapter(
                 new ArrayAdapter<Data.Human>(this, 0, Data.humans){
@@ -65,6 +68,7 @@ public class ModeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
 
     }
 
