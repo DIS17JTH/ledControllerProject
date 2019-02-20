@@ -21,4 +21,19 @@
     <string name="s_menu">Meny</string>
     <string name="s_strobe">pulsera</string>
     <string name="s_gradient">gradient</string>
+    <string name="s_pick_color">Välj färg</string>
+    <string name="s_amount">Antal</string>
+    <string name="s_tilt">Rotera</string>
+    <string name="s_quit">Avsluta</string>
+    <string name="s_mode_settings">Läges inställningar</string>
+    <string name="s_LED_control">LED Styrning</string>
+    <string name="title_activity_login">Logga in</string>
+    <string name="prompt_email">E-post</string>
+    <string name="prompt_password">Lösenord (valbart)</string>
+    <string name="action_sign_in">Logga in eller registrera</string>
+    <string name="action_sign_in_short">Logga in</string>
+    <string name="error_invalid_email">Den här e-postadressen är ogiltig</string>
+    <string name="error_invalid_password">Lösenordet är för kort</string>
+    <string name="error_incorrect_password">Lösenordet är felaktigt</string>
+    <string name="error_field_required">Detta fält är obligatoriskt</string>
 </resources>

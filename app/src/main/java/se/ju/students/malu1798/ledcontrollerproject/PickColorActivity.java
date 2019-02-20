@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,6 +89,35 @@ public class PickColorActivity extends AppCompatActivity
                     }
                 }
         );
+
+
+        /*
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //long running computation
+                //final int result = compute();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //runs on thread that created the handler.
+
+                    }
+                });
+            }
+        }).start();
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                //code to be executed in the new thread.
+
+            }
+        };
+        Thread thread = new Thread(runnable);
+        thread.start();
+        */
 
         seekB_brightness.setOnSeekBarChangeListener(this);
         seekB_red.setOnSeekBarChangeListener(this);
@@ -171,7 +201,8 @@ public class PickColorActivity extends AppCompatActivity
 
                     @Override
                     public void onCancel() {
-
+                        //??
+                        finish();
                     }
                 })
                 .setColumns(5)
