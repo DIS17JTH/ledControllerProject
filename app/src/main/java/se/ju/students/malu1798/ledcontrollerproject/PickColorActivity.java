@@ -202,7 +202,7 @@ public class PickColorActivity extends AppCompatActivity
                     @Override
                     public void onCancel() {
                         //??
-                        finish();
+                        //finish();
                     }
                 })
                 .setColumns(5)
