@@ -23,6 +23,13 @@ public class ColorMapping extends AppCompatActivity {
         return (int) (procentage*2.55);
     }
 
+    private void setColorWithHex(String hex) {
+        String colorStr = hex;
+        setRed(Integer.valueOf( colorStr.substring( 1, 3 ), 16 ));
+        setGreen(Integer.valueOf( colorStr.substring( 3, 5 ), 16 ));
+        setBlue(Integer.valueOf( colorStr.substring( 5, 7 ), 16 ));
+    }
+
     /*GETTERS AND SETTERS*/
     public int getRed() {
         return red;
