@@ -13,8 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -23,8 +25,6 @@ public class PickColorActivity extends AppCompatActivity
 
     ViewHolder viewHolder = new ViewHolder();
 
-
-    SeekBar seekB_brightness;
     SeekBar seekB_red;
     SeekBar seekB_green;
     SeekBar seekB_blue;
@@ -33,7 +33,8 @@ public class PickColorActivity extends AppCompatActivity
     private int g = 255;
     private int b = 255;
     private int brightness = 255;
-    private Color color = new Color();
+
+    private int lastBrightnessState = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,43 +50,79 @@ public class PickColorActivity extends AppCompatActivity
         viewHolder.v_g = findViewById(R.id.t_g);
         viewHolder.v_b = findViewById(R.id.t_b);
 
-        //text views
-        TextView t_red = findViewById(R.id.t_r);
-        TextView t_green = findViewById(R.id.t_g);
-        TextView t_blue = findViewById(R.id.t_b);
+        //Color RGB texts
+        viewHolder.t_r = findViewById(R.id.t_r);
+        viewHolder.t_g = findViewById(R.id.t_g);
+        viewHolder.t_b = findViewById(R.id.t_b);
+
         //Seek bars
-        seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
+        viewHolder.seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
         seekB_red = (SeekBar) findViewById(R.id.seekBar_r);
         seekB_green = (SeekBar) findViewById(R.id.seekBar_g);
         seekB_blue = (SeekBar) findViewById(R.id.seekBar_b);
         //Buttons
         Button b_mode = findViewById(R.id.b_mode);
-        Button b_colorPicker = findViewById(R.id.b_colorPicker);
+        ImageButton b_colorPicker = findViewById(R.id.iB_color_picker);
         Button b_profile = findViewById(R.id.b_profiles);
+        //Toggle Button
+        final ToggleButton t_b_on_off = findViewById(R.id.tB_on_off);
+        t_b_on_off.setChecked(true);
 
-        b_mode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                System.out.println("Button mode clicked");
-                Intent intent = new Intent(v.getContext(), ModeActivity.class);
-                startActivity(intent);
-            }
+
+
+        b_mode.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Code here executes on main thread after user presses button
+                        System.out.println("Button mode clicked");
+                        Intent intent = new Intent(v.getContext(), ModeActivity.class);
+                        startActivity(intent);
+                    }
         });
 
-        b_colorPicker.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                System.out.println("Button colorPicker clicked");
-                openColorPicker();
-            }
+        b_colorPicker.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Code here executes on main thread after user presses button
+                        System.out.println("Button colorPicker clicked");
+                        openColorPicker();
+                    }
         });
 
         b_profile.setOnClickListener(
                 new View.OnClickListener(){
+                    @Override
                     public void onClick(View v){
                         System.out.println("Button profile clicked");
                         Intent intent = new Intent(v.getContext(), ProfileActivity.class);
                         startActivity(intent);
+                    }
+                }
+        );
+
+        t_b_on_off.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Toggle Button clicked");
+                        boolean onOff = t_b_on_off.isChecked();
+                        if(onOff){
+                            //ON
+                            if(lastBrightnessState == 0)
+                                setBrightness(255);
+                            else
+                                setBrightness(lastBrightnessState);
+
+                        }else{
+                            //OFF
+                            lastBrightnessState = getBrightness();
+                            setBrightness(0);
+                        }
+                        updateSeekBars();
+                        updateViewColors();
+                        viewHolder.seekB_brightness.setEnabled(onOff);
                     }
                 }
         );
@@ -119,7 +156,7 @@ public class PickColorActivity extends AppCompatActivity
         thread.start();
         */
 
-        seekB_brightness.setOnSeekBarChangeListener(this);
+        viewHolder.seekB_brightness.setOnSeekBarChangeListener(this);
         seekB_red.setOnSeekBarChangeListener(this);
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
@@ -167,13 +204,25 @@ public class PickColorActivity extends AppCompatActivity
         viewHolder.v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
         viewHolder.v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
         viewHolder.v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
+        setTextColorVisible(colorConvertWithBrightness(getR()), viewHolder.t_r);
+        setTextColorVisible(colorConvertWithBrightness(getG()), viewHolder.t_g);
+        setTextColorVisible(colorConvertWithBrightness(getB()), viewHolder.t_b);
+    }
+
+
+    private void setTextColorVisible(int color, TextView tV){
+        int lowerLimit = 120;
+        if(color < lowerLimit)
+            tV.setTextColor(Color.WHITE);
+        else
+            tV.setTextColor(Color.BLACK);
     }
 
     private void updateSeekBars(){
         seekB_red.setProgress(getR());
         seekB_green.setProgress(getG());
         seekB_blue.setProgress(getB());
-        seekB_brightness.setProgress(getBrightness());
+        viewHolder.seekB_brightness.setProgress(getBrightness());
     }
 
 

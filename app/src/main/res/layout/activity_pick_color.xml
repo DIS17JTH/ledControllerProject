@@ -139,16 +139,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="@string/s_profile" />
+            android:layout_weight="2"
+            android:text="@string/s_color_profile" />
 
-        <Button
-            android:id="@+id/b_colorPicker"
+        <ImageButton
+            android:id="@+id/iB_color_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_color_lens_black_36dp"
             android:layout_weight="1"
-            android:text="@string/s_pick_color" />
+            />
+
     </LinearLayout>
 
     <View

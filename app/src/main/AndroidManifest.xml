@@ -43,7 +43,7 @@
             android:label="@string/s_mode_settings" />
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/s_profile" />
+            android:label="@string/s_color_profile" />
     </application>
 
 </manifest>
