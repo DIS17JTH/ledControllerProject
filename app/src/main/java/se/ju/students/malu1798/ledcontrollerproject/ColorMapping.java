@@ -6,6 +6,7 @@ public class ColorMapping extends AppCompatActivity {
     private int red;
     private int green;
     private int blue;
+    private int brightness;
 
     public ColorMapping(int r,int g,int b){
         this.setRed(r);
@@ -14,9 +15,7 @@ public class ColorMapping extends AppCompatActivity {
     }
 
     public ColorMapping() {
-        this.setRed(0);
-        this.setGreen(0);
-        this.setBlue(0);
+        this(0,0,0);
     }
 
     public int procentageToFullRange(int procentage){
