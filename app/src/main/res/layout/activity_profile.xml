@@ -23,7 +23,7 @@
 
 
     <ListView
-        android:id="@+id/listView_mode_dynamic"
+        android:id="@+id/listView_profile_dynamic"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

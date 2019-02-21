@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         int amount = Data.humans.size();
         t_p_amount.setText(Integer.toString(amount));
 
-        ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
+        ListView listView = (ListView) findViewById(R.id.listView_profile_dynamic);
         listView.setAdapter(
                 new ArrayAdapter<Data.Human>(this, 0, Data.humans){
                     @Override

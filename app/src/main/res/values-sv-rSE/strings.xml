@@ -26,7 +26,7 @@
     <string name="s_tilt">Rotera</string>
     <string name="s_quit">Avsluta</string>
     <string name="s_mode_settings">Läges inställningar</string>
-    <string name="s_LED_control">LED Styrning</string>
+    <string name="s_LED_control">LED styrning</string>
     <string name="title_activity_login">Logga in</string>
     <string name="prompt_email">E-post</string>
     <string name="prompt_password">Lösenord (valbart)</string>
