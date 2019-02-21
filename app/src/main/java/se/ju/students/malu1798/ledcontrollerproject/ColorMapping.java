@@ -8,10 +8,15 @@ public class ColorMapping extends AppCompatActivity {
     private int blue;
     private int brightness;
 
-    public ColorMapping(int r,int g,int b){
+    public ColorMapping(int r, int g, int b, int brightness){
         this.setRed(r);
         this.setGreen(g);
         this.setBlue(b);
+        this.setBrightness(brightness);
+    }
+
+    public ColorMapping(int r,int g,int b){
+        this(r,g,b,100);
     }
 
     public ColorMapping() {
@@ -54,5 +59,12 @@ public class ColorMapping extends AppCompatActivity {
         this.blue = blue;
     }
 
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
 
 }
