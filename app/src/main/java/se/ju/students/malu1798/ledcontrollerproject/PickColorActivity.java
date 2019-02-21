@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -24,6 +25,7 @@ public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener {
 
     ViewHolder viewHolder = new ViewHolder();
+    ArrayList<ImageView> a_imageButtons = new ArrayList<>();
 
     SeekBar seekB_red;
     SeekBar seekB_green;
@@ -43,6 +45,19 @@ public class PickColorActivity extends AppCompatActivity
 
         //Image Views
         View v_top = findViewById(R.id.layout_top);
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_1));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_2));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_3));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_4));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_5));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_6));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_7));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_8));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_9));
+
+        //Colors
+        viewHolder.colors = new Data.Colors();
 
         //Color RGB layouts
         viewHolder.v_header = findViewById(R.id.layout_top);
@@ -63,12 +78,30 @@ public class PickColorActivity extends AppCompatActivity
         //Buttons
         Button b_mode = findViewById(R.id.b_mode);
         ImageButton b_colorPicker = findViewById(R.id.iB_color_picker);
+        ImageButton b_saveColor = findViewById(R.id.iB_saveColor);
         Button b_profile = findViewById(R.id.b_profiles);
         //Toggle Button
         final ToggleButton t_b_on_off = findViewById(R.id.tB_on_off);
         t_b_on_off.setChecked(true);
 
 
+        b_saveColor.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("save Color Image Button clicked");
+
+                        //int to hex conversion
+                        String hexColor = intColorToHexString(
+                                colorConvertWithBrightness(getR()),
+                                colorConvertWithBrightness(getG()),
+                                colorConvertWithBrightness(getB()
+                                ));
+
+                        viewHolder.colors.addColor(hexColor);
+                    }
+                }
+        );
 
         b_mode.setOnClickListener(
                 new View.OnClickListener() {
@@ -121,12 +154,11 @@ public class PickColorActivity extends AppCompatActivity
                             setBrightness(0);
                         }
                         updateSeekBars();
-                        updateViewColors();
+                        updateViewColors(getR(), getG(), getB());
                         viewHolder.seekB_brightness.setEnabled(onOff);
                     }
                 }
         );
-
 
         /*
         final Handler handler = new Handler();
@@ -161,7 +193,7 @@ public class PickColorActivity extends AppCompatActivity
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
 
-        updateViewColors();
+        updateViewColors(getR(), getG(), getB());
     }
 
     @Override
@@ -172,41 +204,48 @@ public class PickColorActivity extends AppCompatActivity
             case R.id.seekBar_r:
                 System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
                 setR(progress);
-                updateViewColors();
                 break;
             case R.id.seekBar_g:
                 System.out.println("--SeekBar onChange green");
                 setG(progress);
-                updateViewColors();
                 break;
             case R.id.seekBar_b:
                 System.out.println("--SeekBar onChange blue");
                 setB(progress);
-                updateViewColors();
                 break;
             case R.id.seekBar_brightness:
                 setBrightness(progress);
                 //inverse
                 //brightness = (brightness*(-1))+255;
                 //setBrightness((progress*(-1))+255);
-                updateViewColors();
                 System.out.println("--SeekBar onChange brightness " + getBrightness());
-
                 break;
             default:
                 System.out.println("--SeekBar onChange default");
                 break;
         }
+        updateViewColors(getR(), getG(), getB());
     }
 
-    private void updateViewColors(){
-        viewHolder.v_header.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), colorConvertWithBrightness(getG()), colorConvertWithBrightness(getB())));
-        viewHolder.v_r.setBackgroundColor(Color.rgb(colorConvertWithBrightness(getR()), 0, 0));
-        viewHolder.v_g.setBackgroundColor(Color.rgb(0, colorConvertWithBrightness(getG()), 0));
-        viewHolder.v_b.setBackgroundColor(Color.rgb(0, 0, colorConvertWithBrightness(getB())));
-        setTextColorVisible(colorConvertWithBrightness(getR()), viewHolder.t_r);
-        setTextColorVisible(colorConvertWithBrightness(getG()), viewHolder.t_g);
-        setTextColorVisible(colorConvertWithBrightness(getB()), viewHolder.t_b);
+    private void updateViewColors(int red, int green, int blue){
+        int red_minus_brightness = colorConvertWithBrightness(red);
+        int green_minus_brightness = colorConvertWithBrightness(green);
+        int blue_minus_brightness = colorConvertWithBrightness(blue);
+
+
+
+        //viewHolder.v_header.setBackgroundColor(Color.rgb(red_minus_brightness, green_minus_brightness, blue_minus_brightness));
+        viewHolder.v_header.setBackgroundColor(Color.WHITE);
+        viewHolder.v_r.setBackgroundColor(Color.rgb(red_minus_brightness, 0, 0));
+        viewHolder.v_g.setBackgroundColor(Color.rgb(0, green_minus_brightness, 0));
+        viewHolder.v_b.setBackgroundColor(Color.rgb(0, 0, blue_minus_brightness));
+        setTextColorVisible(red_minus_brightness, viewHolder.t_r);
+        setTextColorVisible(green_minus_brightness, viewHolder.t_g);
+        setTextColorVisible(blue_minus_brightness, viewHolder.t_b);
+        for (ImageView imgView: a_imageButtons) {
+            imgView.setColorFilter(Color.rgb(red_minus_brightness, green_minus_brightness, blue_minus_brightness));
+        }
+
     }
 
 
@@ -231,6 +270,7 @@ public class PickColorActivity extends AppCompatActivity
 
         final ColorPicker cPicker = new ColorPicker(this);
         final ArrayList<String> colors = new ArrayList<>();
+        //final ArrayList<String> colorsArr = viewHolder.colors.getColors();
         colors.add("#258174");
         colors.add("#27AE60");
         colors.add("#3498DB");
@@ -238,13 +278,15 @@ public class PickColorActivity extends AppCompatActivity
         colors.add("#34495E");
         colors.add("#F4D03F");
 
-        cPicker.setColors(colors).setOnChooseColorListener(
+        cPicker.setColors(colors)
+                .setOnChooseColorListener(
                 new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
                         System.out.println("Position: " + position + " Color: " + color);
+                        //setColorWithHex(viewHolder.colors.getColor(position));
                         setColorWithHex(colors.get(position));
-                        updateViewColors();
+                        updateViewColors(getR(), getG(), getB());
                         updateSeekBars();
                     }
 
@@ -388,6 +430,29 @@ public class PickColorActivity extends AppCompatActivity
         setR(Integer.valueOf( colorStr.substring( 1, 3 ), 16 ));
         setG(Integer.valueOf( colorStr.substring( 3, 5 ), 16 ));
         setB(Integer.valueOf( colorStr.substring( 5, 7 ), 16 ));
+    }
+
+    /**
+     * Converts a color to a hex string. If it can't be converted null is returned.
+     * @param r (i.e. 0 to 255)
+     * @param g (i.e. 0 to 255)
+     * @param b (i.e. 0 to 255)
+     * @return String (i.e #000000 to #FFFFFF)
+     */
+    public String intColorToHexString(int r, int g, int b){
+        //int to hex conversion
+        String s_r = Integer.toHexString(r);
+        String s_g = Integer.toHexString(g);
+        String s_b = Integer.toHexString(b);
+        String hexColor = "#" + s_r + s_g + s_b;
+
+        System.out.print("RED" + s_r);
+        System.out.print(" GREEN" + s_g);
+        System.out.print(" BLUE" + s_b);
+
+        System.out.println("---------RESULT----------- hexColor" + hexColor);
+
+        return hexColor;
     }
 
 

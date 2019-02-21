@@ -14,14 +14,107 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/colorButton"
-        android:gravity="center">
+        android:gravity="start">
 
-        <ImageView
-            android:id="@+id/i_p_c_image_v"
+        <ImageButton
+            android:id="@+id/iB_saveColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            app:srcCompat="@drawable/ic_save_black_36dp"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
             android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/i_pC_led_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            android:layout_weight="1"
+
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 
