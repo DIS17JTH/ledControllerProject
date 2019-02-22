@@ -12,10 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +34,12 @@ public class ProfileActivity extends AppCompatActivity {
         //t_heading.setText(currentData.name);
         TextView t_p_title = findViewById(R.id.t_profile_tile);
         TextView t_p_amount = findViewById(R.id.t_profile_amount);
-        int amount = Data.humans.size();
+        int amount = Profile.profiles.size();
         t_p_amount.setText(Integer.toString(amount));
 
         ListView listView = (ListView) findViewById(R.id.listView_profile_dynamic);
         listView.setAdapter(
-                new ArrayAdapter<Data.Human>(this, 0, Data.humans){
+                new ArrayAdapter<Profile>(this, 0, Profile.profiles){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent){
 
@@ -53,10 +57,11 @@ public class ProfileActivity extends AppCompatActivity {
                             convertView.setTag(viewHolder);
                         }
 
-                        Data.Human human = getItem(position);
-                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+human.id);
-                        ((ViewHolder) convertView.getTag()).nameTextView.setText(""+human.name);
-                        ((ViewHolder) convertView.getTag()).ageTextView.setText(""+human.age);
+                        Profile profile = Profile.profiles.get(position);
+                                //getItem(position);
+                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+ position);
+                        ((ViewHolder) convertView.getTag()).nameTextView.setText("" + profile.getP_name());
+                        ((ViewHolder) convertView.getTag()).ageTextView.setText(""+position);
 
                         return convertView;
                     }
