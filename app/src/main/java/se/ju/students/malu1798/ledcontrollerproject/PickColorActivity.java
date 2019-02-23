@@ -369,9 +369,21 @@ public class PickColorActivity extends AppCompatActivity
             case R.id.action_settings:
                 /*handle*/
                 return true;
+            case R.id.action_profile:
+
+                return false;
+            case R.id.swich_tilt:
+
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
 
