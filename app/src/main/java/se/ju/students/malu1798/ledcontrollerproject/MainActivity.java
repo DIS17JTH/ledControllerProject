@@ -17,10 +17,14 @@ import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    //Colors
+    Colors colorsVar = new Colors();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,21 +84,22 @@ public class MainActivity extends AppCompatActivity {
         String colorCode = "#258174";
 
         final ColorPicker cPicker = new ColorPicker(this);
-        final ArrayList<String> colors = new ArrayList<>();
+        final ArrayList<String> arrayColorList = colorsVar.getColors();
+        /*final ArrayList<String> colors = new ArrayList<>();
         colors.add("#258174");
         colors.add("#27AE60");
         colors.add("#3498DB");
         colors.add("#CB4335");
         colors.add("#34495E");
-        colors.add("#F4D03F");
+        colors.add("#F4D03F");*/
 
-        cPicker.setColors(colors).setOnChooseColorListener(
+        cPicker.setColors(arrayColorList).setOnChooseColorListener(
                         new ColorPicker.OnChooseColorListener() {
             @Override
             public void onChooseColor(int position, int color) {
                 System.out.println("Position: " + position + " Color: " + color);
                 View v_background = findViewById(R.id.layout_main_id);
-                setColorWithHex(colors.get(position), v_background);
+                setColorWithHex(arrayColorList.get(position), v_background);
             }
 
             @Override
@@ -127,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-
     @Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,8 +140,10 @@ public class MainActivity extends AppCompatActivity {
                 /*handle*/
                 return true;
             case R.id.action_profile:
-
-                return false;
+                System.out.println("Profile menu button clicked");
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
             case R.id.swich_tilt:
 
                 return false;

@@ -7,28 +7,59 @@ public class Profile{
     static {
         for (int i = 0; i < 15; i++) {
             profiles.add(new Profile(
-                    "Profile"
+                    "Profile " + i
             ));
+            for(int j = 0; j < 18; j++)
+                profiles.get(i).getP_modes().add(new Mode("Mode" +  j));
         }
     }
 
+    private static int totAmountOfProfiles = 0;
     private String p_name;
     private ArrayList<Mode> p_modes;
-    private Data.Colors p_favorite_colors;
+    private Colors p_favorite_colors;
 
-    public Profile(String name, ArrayList<Mode> modes, Data.Colors fav_colors){
+    public Profile(String name, ArrayList<Mode> modes, Colors fav_colors){
         this.p_name = name;
-        this.p_modes = modes;
-        this.p_favorite_colors = fav_colors;
+
+        if(modes == null){
+            this.p_modes = new ArrayList<>();
+        }else
+            this.p_modes = modes;
+        if(fav_colors == null){
+            this.p_favorite_colors = new Colors();
+        }else
+            this.p_favorite_colors = fav_colors;
+
+        if(profiles == null)
+            totAmountOfProfiles = 0;
+        else
+            totAmountOfProfiles++;
+
+    }
+
+    public Profile(String name, ArrayList<Mode> modes){
+        this(name, modes, null);
     }
 
     public Profile(String name){
-        this.p_name = name;
+        this(name, null, null);
+/*        this.p_name = name;
         this.p_modes = new ArrayList<>();
-        this.p_favorite_colors = new Data.Colors();
+        this.p_favorite_colors = new Colors();*/
     }
 
+    public Profile(){
+        this("Default");
+    }
+
+
+
     /*GETTERS AND SETTERS*/
+
+    public static int getTotAmountOfProfiles() {
+        return totAmountOfProfiles;
+    }
 
     public String getP_name() {
         return p_name;
@@ -47,12 +78,15 @@ public class Profile{
     }
 
 
-    public Data.Colors getP_favorite_colors() {
+    public Colors getP_favorite_colors() {
         return p_favorite_colors;
     }
 
-    public void setP_favorite_colors(Data.Colors p_favorite_colors) {
+    public void setP_favorite_colors(Colors p_favorite_colors) {
         this.p_favorite_colors = p_favorite_colors;
     }
 
+    public static ArrayList<Profile> getProfiles() {
+        return profiles;
+    }
 }

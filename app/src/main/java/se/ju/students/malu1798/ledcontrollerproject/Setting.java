@@ -1,7 +1,7 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 public class Setting {
-    private int s_tot_amount = 0;
+    private static int s_tot_amount = 0;
     private int s_id;
     private String s_name;
     private String s_description;

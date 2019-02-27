@@ -38,6 +38,9 @@ public class PickColorActivity extends AppCompatActivity
 
     private int lastBrightnessState = 0;
 
+    //Colors
+    Colors colorsVar = new Colors();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +59,7 @@ public class PickColorActivity extends AppCompatActivity
         a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_8));
         a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_9));
 
-        //Colors
-        viewHolder.colors = new Data.Colors();
+
 
         //Color RGB layouts
         viewHolder.v_header = findViewById(R.id.layout_top);
@@ -98,7 +100,8 @@ public class PickColorActivity extends AppCompatActivity
                                 colorConvertWithBrightness(getB()
                                 ));
 
-                        viewHolder.colors.addColor(hexColor);
+                        Colors.colors.add(hexColor);
+                                //addColor(hexColor);
                     }
                 }
         );
@@ -128,7 +131,7 @@ public class PickColorActivity extends AppCompatActivity
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        System.out.println("Button profile clicked");
+                        System.out.println("Button Color profile clicked");
                         Intent intent = new Intent(v.getContext(), ColorProfileActivity.class);
                         startActivity(intent);
                     }
@@ -270,7 +273,7 @@ public class PickColorActivity extends AppCompatActivity
 
         final ColorPicker cPicker = new ColorPicker(this);
         final ArrayList<String> colors = new ArrayList<>();
-        //final ArrayList<String> colorsArr = viewHolder.colors.getColors();
+        final ArrayList<String> colorsArr = colorsVar.getColors();
         colors.add("#258174");
         colors.add("#27AE60");
         colors.add("#3498DB");
@@ -278,14 +281,14 @@ public class PickColorActivity extends AppCompatActivity
         colors.add("#34495E");
         colors.add("#F4D03F");
 
-        cPicker.setColors(colors)
+        cPicker.setColors(colorsArr)
                 .setOnChooseColorListener(
                 new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
                         System.out.println("Position: " + position + " Color: " + color);
                         //setColorWithHex(viewHolder.colors.getColor(position));
-                        setColorWithHex(colors.get(position));
+                        setColorWithHex(colorsArr.get(position));
                         updateViewColors(getR(), getG(), getB());
                         updateSeekBars();
                     }

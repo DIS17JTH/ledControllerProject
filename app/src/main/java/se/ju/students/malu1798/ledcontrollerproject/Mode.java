@@ -5,16 +5,25 @@ import java.util.List;
 
 public class Mode {
     private String m_modeName;
+    private String m_description;
     private ArrayList<Setting> m_settings;
 
-    public Mode(String m_modeName, ArrayList<Setting> m_settings) {
-        this.m_modeName = m_modeName;
-        this.m_settings = m_settings;
+    public Mode(String modeName, ArrayList<Setting> settings) {
+        this.m_modeName = modeName;
+        if(m_settings == null)
+            this.m_settings = new ArrayList<>();
+        else
+            this.m_settings = settings;
+
+        this.m_description = "Empty";
     }
 
-    public Mode(String m_modeName) {
-        this.m_modeName = m_modeName;
-        this.m_settings = new ArrayList<>();
+    public Mode(String modeName) {
+        this(modeName, null);
+        //this.m_modeName = m_modeName;
+        //if(m_settings == null)
+        //    this.m_settings = new ArrayList<>();
+
     }
 
     public Mode() {

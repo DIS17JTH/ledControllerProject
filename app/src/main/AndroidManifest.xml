@@ -56,7 +56,7 @@
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/s_color_profile"
+            android:label="@string/s_profile"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
     </application>
 
