@@ -19,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PickColorActivity extends AppCompatActivity
@@ -41,10 +42,22 @@ public class PickColorActivity extends AppCompatActivity
     //Colors
     Colors colorsVar = new Colors();
 
+    String ip = null;
+    String port = "0";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            setIp(bundle.getString("ip", "0"));
+            setPort(port = bundle.getString("port", "0"));
+            System.out.println("ip: " + ip + " port: " + port);
+        }
+
+
 
         //Image Views
         View v_top = findViewById(R.id.layout_top);
@@ -100,8 +113,15 @@ public class PickColorActivity extends AppCompatActivity
                                 colorConvertWithBrightness(getB()
                                 ));
 
-                        Colors.colors.add(hexColor);
+                        //Colors.colors.add(hexColor);
                                 //addColor(hexColor);
+                        int tempPort = Integer.parseInt(getPort());
+                        //udpConnect = new Thread(new ClientUDPSend()).start();
+                        ClientUDPSend cliUDPSend = new ClientUDPSend(getIp(), tempPort);
+                        Thread sendThread = new Thread(cliUDPSend);
+                        sendThread.start();
+                        //System.out.println("ip sent data");
+
                     }
                 }
         );
@@ -161,6 +181,7 @@ public class PickColorActivity extends AppCompatActivity
                         viewHolder.seekB_brightness.setEnabled(onOff);
                     }
                 }
+
         );
 
         /*
@@ -387,6 +408,23 @@ public class PickColorActivity extends AppCompatActivity
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 
 

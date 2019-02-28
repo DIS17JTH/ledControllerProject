@@ -7,11 +7,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public class ClientUDPListen implements Runnable {
+    boolean run = true;
+    int port = 8015;
+
+    public ClientUDPListen(int port){
+        this.port = port;
+    }
 
     @Override
     public void run() {
-        boolean run = true;
-        int port = 8015;
         while (run) {
             try {
                 DatagramSocket udpSocket = new DatagramSocket(port);

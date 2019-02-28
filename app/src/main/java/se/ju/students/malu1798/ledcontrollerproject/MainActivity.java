@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,12 +34,24 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+
+
         Button b_change_v = findViewById(R.id.b_change_view);
         b_change_v.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 System.out.println("Change view button clicked");
+                EditText eT_ip = findViewById(R.id.eT_ip);
+                EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
+
+
+                /*WORKING HERE*/
+                intent.putExtra("ip", eT_ip.getText());
+                int i_p = (int) Integer.valueOf(String.valueOf(eT_port.getText()));
+                intent.putExtra("port", i_p);
+                //intent.putExtra("port", eT_port.getText());
+                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_p);
                 startActivity(intent);
             }
         });

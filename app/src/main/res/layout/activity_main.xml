@@ -15,6 +15,22 @@
         android:layout_margin="2dp"
         android:text="@string/s_pick_color" />
 
+    <EditText
+        android:id="@+id/eT_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:ems="10"
+        android:inputType="textUri" />
+
+    <EditText
+        android:id="@+id/eT_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:ems="10"
+        android:inputType="number" />
+
     <Button
         android:id="@+id/b_change_view"
         android:layout_width="wrap_content"
