@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button b_sign_in = findViewById(R.id.b_sign_in);
+/*        Button b_sign_in = findViewById(R.id.b_sign_in);
         b_sign_in.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 System.out.println("Login Button clicked");
                 Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 

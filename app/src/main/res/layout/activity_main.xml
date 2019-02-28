@@ -22,11 +22,5 @@
         android:layout_margin="2dp"
         android:text="@string/s_LED_control" />
 
-    <Button
-        android:id="@+id/b_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:text="@string/action_sign_in" />
 
 </LinearLayout>
