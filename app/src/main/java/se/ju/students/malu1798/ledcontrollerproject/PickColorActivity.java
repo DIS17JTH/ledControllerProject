@@ -61,7 +61,6 @@ public class PickColorActivity extends AppCompatActivity
         a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_9));
 
 
-
         //Color RGB layouts
         viewHolder.v_header = findViewById(R.id.layout_top);
         viewHolder.v_r = findViewById(R.id.t_r);
@@ -102,7 +101,7 @@ public class PickColorActivity extends AppCompatActivity
                                 ));
 
                         Colors.colors.add(hexColor);
-                                //addColor(hexColor);
+                        //addColor(hexColor);
                     }
                 }
         );
@@ -116,7 +115,7 @@ public class PickColorActivity extends AppCompatActivity
                         Intent intent = new Intent(v.getContext(), ModeActivity.class);
                         startActivity(intent);
                     }
-        });
+                });
 
         b_colorPicker.setOnClickListener(
                 new View.OnClickListener() {
@@ -126,12 +125,12 @@ public class PickColorActivity extends AppCompatActivity
                         System.out.println("Button colorPicker clicked");
                         openColorPicker();
                     }
-        });
+                });
 
         b_profile.setOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         System.out.println("Button Color profile clicked");
                         Intent intent = new Intent(v.getContext(), ColorProfileActivity.class);
                         startActivity(intent);
@@ -140,19 +139,19 @@ public class PickColorActivity extends AppCompatActivity
         );
 
         t_b_on_off.setOnClickListener(
-                new View.OnClickListener(){
+                new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         System.out.println("Toggle Button clicked");
                         boolean onOff = t_b_on_off.isChecked();
-                        if(onOff){
+                        if (onOff) {
                             //ON
-                            if(lastBrightnessState == 0)
+                            if (lastBrightnessState == 0)
                                 setBrightness(255);
                             else
                                 setBrightness(lastBrightnessState);
 
-                        }else{
+                        } else {
                             //OFF
                             lastBrightnessState = getBrightness();
                             setBrightness(0);
@@ -231,11 +230,10 @@ public class PickColorActivity extends AppCompatActivity
         updateViewColors(getR(), getG(), getB());
     }
 
-    private void updateViewColors(int red, int green, int blue){
+    private void updateViewColors(int red, int green, int blue) {
         int red_minus_brightness = colorConvertWithBrightness(red);
         int green_minus_brightness = colorConvertWithBrightness(green);
         int blue_minus_brightness = colorConvertWithBrightness(blue);
-
 
 
         //viewHolder.v_header.setBackgroundColor(Color.rgb(red_minus_brightness, green_minus_brightness, blue_minus_brightness));
@@ -246,22 +244,22 @@ public class PickColorActivity extends AppCompatActivity
         setTextColorVisible(red_minus_brightness, viewHolder.t_r);
         setTextColorVisible(green_minus_brightness, viewHolder.t_g);
         setTextColorVisible(blue_minus_brightness, viewHolder.t_b);
-        for (ImageView imgView: a_imageButtons) {
+        for (ImageView imgView : a_imageButtons) {
             imgView.setColorFilter(Color.rgb(red_minus_brightness, green_minus_brightness, blue_minus_brightness));
         }
 
     }
 
 
-    private void setTextColorVisible(int color, TextView tV){
+    private void setTextColorVisible(int color, TextView tV) {
         int lowerLimit = 120;
-        if(color < lowerLimit)
+        if (color < lowerLimit)
             tV.setTextColor(Color.WHITE);
         else
             tV.setTextColor(Color.BLACK);
     }
 
-    private void updateSeekBars(){
+    private void updateSeekBars() {
         seekB_red.setProgress(getR());
         seekB_green.setProgress(getG());
         seekB_blue.setProgress(getB());
@@ -284,26 +282,26 @@ public class PickColorActivity extends AppCompatActivity
 
         cPicker.setColors(colorsArr)
                 .setOnChooseColorListener(
-                new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        if (position != -1) {
-                            Log.d("COLOR", "color = " + position + " - " + color);
-                            System.out.println("Position: " + position + " Color: " + color);
-                            //setColorWithHex(viewHolder.colors.getColor(position));
-                            setColorWithHex(colorsArr.get(position));
-                            updateViewColors(getR(), getG(), getB());
-                            updateSeekBars();
-                        }else
-                            return;
-                    }
+                        new ColorPicker.OnChooseColorListener() {
+                            @Override
+                            public void onChooseColor(int position, int color) {
+                                if (position != -1) {
+                                    Log.d("COLOR", "color = " + position + " - " + color);
+                                    System.out.println("Position: " + position + " Color: " + color);
+                                    //setColorWithHex(viewHolder.colors.getColor(position));
+                                    setColorWithHex(colorsArr.get(position));
+                                    updateViewColors(getR(), getG(), getB());
+                                    updateSeekBars();
+                                } else
+                                    return;
+                            }
 
-                    @Override
-                    public void onCancel() {
-                        //??
-                        //finish();
-                    }
-                })
+                            @Override
+                            public void onCancel() {
+                                //??
+                                //finish();
+                            }
+                        })
                 .setColumns(5)
                 .setRoundColorButton(true)
                 .show();
@@ -389,7 +387,7 @@ public class PickColorActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
@@ -435,31 +433,33 @@ public class PickColorActivity extends AppCompatActivity
     public int getValueSetByBrightness(int in) {
         int out;
         //out = (int) ((in * 100 / (getBrightness() + 1))) / 100;
-        out = (getBrightness() * in)/255;
+        out = (getBrightness() * in) / 255;
         System.out.println("out Value brightness converter: " + out);
         return out;
     }
 
     /**
      * Converts a hex string to a color. If it can't be converted null is returned.
+     *
      * @param hex (i.e. #CCCCCCFF or CCCCCC)
      * @return Color
      */
     private void setColorWithHex(String hex) {
         String colorStr = hex;
-        setR(Integer.valueOf( colorStr.substring( 1, 3 ), 16 ));
-        setG(Integer.valueOf( colorStr.substring( 3, 5 ), 16 ));
-        setB(Integer.valueOf( colorStr.substring( 5, 7 ), 16 ));
+        setR(Integer.valueOf(colorStr.substring(1, 3), 16));
+        setG(Integer.valueOf(colorStr.substring(3, 5), 16));
+        setB(Integer.valueOf(colorStr.substring(5, 7), 16));
     }
 
     /**
      * Converts a color to a hex string. If it can't be converted null is returned.
+     *
      * @param r (i.e. 0 to 255)
      * @param g (i.e. 0 to 255)
      * @param b (i.e. 0 to 255)
      * @return String (i.e #000000 to #FFFFFF)
      */
-    public String intColorToHexString(int r, int g, int b){
+    public String intColorToHexString(int r, int g, int b) {
         //int to hex conversion
         String s_r = Integer.toHexString(r);
         String s_g = Integer.toHexString(g);
