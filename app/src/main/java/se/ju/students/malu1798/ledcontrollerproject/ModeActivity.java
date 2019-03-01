@@ -16,7 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ModeActivity extends AppCompatActivity {
+
+    private int currentMode = 0;
+    ArrayList<Mode> modesArr = Profile.profiles.get(currentMode).getP_modes();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -28,7 +33,7 @@ public class ModeActivity extends AppCompatActivity {
         /*List View*/
         ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
         listView.setAdapter(
-                new ArrayAdapter<Data.Human>(this, 0, Data.humans){
+                new ArrayAdapter<Mode>(this, 0, modesArr){
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent){
 
@@ -46,10 +51,10 @@ public class ModeActivity extends AppCompatActivity {
                             convertView.setTag(viewHolder);
                         }
 
-                        Data.Human human = getItem(position);
-                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+human.id);
-                        ((ViewHolder) convertView.getTag()).nameTextView.setText(""+human.name);
-                        ((ViewHolder) convertView.getTag()).ageTextView.setText(""+human.age);
+                        Mode modes = getItem(position);
+                        ((ViewHolder) convertView.getTag()).idTextView.setText(""+position);
+                        ((ViewHolder) convertView.getTag()).nameTextView.setText(""+modes.get_modeName());
+                        ((ViewHolder) convertView.getTag()).ageTextView.setText(" Other content");//+modes.get_modeName());
 
                         return convertView;
                     }
