@@ -461,14 +461,7 @@ public class PickColorActivity extends AppCompatActivity
      */
     public String intColorToHexString(int r, int g, int b) {
         //int to hex conversion
-        String s_r = Integer.toHexString(r);
-        String s_g = Integer.toHexString(g);
-        String s_b = Integer.toHexString(b);
-        String hexColor = "#" + s_r + s_g + s_b;
-
-        System.out.print("RED" + s_r);
-        System.out.print(" GREEN" + s_g);
-        System.out.print(" BLUE" + s_b);
+        String hexColor = String.format("#%02X%02X%02X", r, g, b); //"#" + s_r + s_g + s_b;
 
         System.out.println("---------RESULT----------- hexColor" + hexColor);
 
