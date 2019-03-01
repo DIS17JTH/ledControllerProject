@@ -271,14 +271,14 @@ public class PickColorActivity extends AppCompatActivity
         String colorCode = "#258174";
 
         final ColorPicker cPicker = new ColorPicker(this);
-        final ArrayList<String> colors = new ArrayList<>();
+        //final ArrayList<String> colors = new ArrayList<>();
         final ArrayList<String> colorsArr = colorsVar.getColors();
-        colors.add("#258174");
+        /*colors.add("#258174");
         colors.add("#27AE60");
         colors.add("#3498DB");
         colors.add("#CB4335");
         colors.add("#34495E");
-        colors.add("#F4D03F");
+        colors.add("#F4D03F");*/
 
         cPicker.setColors(colorsArr)
                 .setOnChooseColorListener(
