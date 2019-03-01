@@ -100,8 +100,8 @@ public class PickColorActivity extends AppCompatActivity
                                 colorConvertWithBrightness(getB()
                                 ));
 
-                        Colors.colors.add(hexColor);
-                        //addColor(hexColor);
+                        colorsVar.addColor(hexColor);
+
                     }
                 }
         );

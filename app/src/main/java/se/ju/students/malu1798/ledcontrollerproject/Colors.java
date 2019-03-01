@@ -1,12 +1,14 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Colors {
-    public static ArrayList<String> colors;
+    private static ArrayList<String> colors;
 
     public Colors() {
-        if (colors == null){
+        if (colors == null) {
             colors = new ArrayList<>();
             colors.add("#258174");
             colors.add("#27AE60");
@@ -18,7 +20,7 @@ public class Colors {
     }
 
     public Colors(String color) {
-        if(colors == null) {
+        if (colors == null) {
             colors = new ArrayList<>();
             colors.add("#258174");
             colors.add("#27AE60");
@@ -44,7 +46,23 @@ public class Colors {
     }
 
     public void addColor(String color) {
-        this.colors.add(color);
+        if (color != null) {
+            if (color.equals("#FFFFFF") || color.equals("#000000"))
+                Log.i("COLOR", "This is fully ON/OFF not a color");
+            else if (!colorExist(color))
+                this.colors.add(color);
+        }
+    }
+
+    private boolean colorExist(String color) {
+        for (String currentColor : colors) {
+            if (currentColor.equals(color)) {
+                Log.i("COLOR", "already exist");
+                //System.out.println("COLOR already exist");
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getColor(int index) {
