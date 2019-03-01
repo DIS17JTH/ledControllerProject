@@ -45,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
                 EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
 
-
                 /*WORKING HERE*/
-                intent.putExtra("ip", eT_ip.getText());
-                int i_p = (int) Integer.valueOf(String.valueOf(eT_port.getText()));
-                intent.putExtra("port", i_p);
+                intent.putExtra("ip", eT_ip.getText().toString());
+                int i_port = Integer.parseInt(eT_port.getText().toString());
+                intent.putExtra("port", i_port);
                 //intent.putExtra("port", eT_port.getText());
-                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_p);
+                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
             }
         });

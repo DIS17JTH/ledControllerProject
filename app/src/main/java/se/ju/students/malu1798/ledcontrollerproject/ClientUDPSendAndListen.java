@@ -14,9 +14,9 @@ public class ClientUDPSendAndListen implements Runnable {
     @Override
     public void run() {
         boolean run = true;
-        String ipVal = "192.168.1.205";
-        int portVal = 8080;
-        int port = 8080;
+        String ipVal = "192.168.1.40";
+        int portVal = 9000;
+        int port = 9000;
 
         try {
             DatagramSocket udpSocket = new DatagramSocket(portVal);

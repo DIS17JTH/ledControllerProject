@@ -9,9 +9,9 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ClientUDPSend implements Runnable {
-    int port = 9003;
+    int port = 9000;
     String ip = "192.168.1.40";
-    boolean stop = false;
+    boolean stop;
 
     public ClientUDPSend(String ip, int port){
         if(ip != null)
@@ -19,11 +19,11 @@ public class ClientUDPSend implements Runnable {
         if(port != 0)
             this.port = port;
 
-        stop = false;
+        this.stop = false;
     }
 
     public ClientUDPSend(String ip){
-        this(ip, 0);
+        this(ip, 9000);
     }
 
 
@@ -31,7 +31,6 @@ public class ClientUDPSend implements Runnable {
     @Override
     public void run() {
         DatagramSocket udpSocket = null;
-        while(!stop) {
             try {
                 udpSocket = new DatagramSocket(port);
                 udpSocket.setSoTimeout(2000);
@@ -49,7 +48,5 @@ public class ClientUDPSend implements Runnable {
                 udpSocket.disconnect();
                 stop = true;
             }
-        }
-
     }
 }

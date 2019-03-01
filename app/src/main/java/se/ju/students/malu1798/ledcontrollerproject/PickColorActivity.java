@@ -42,8 +42,8 @@ public class PickColorActivity extends AppCompatActivity
     //Colors
     Colors colorsVar = new Colors();
 
-    String ip = null;
-    String port = "0";
+    String ip = "192.168.1.210";
+    int port = 9000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class PickColorActivity extends AppCompatActivity
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             setIp(bundle.getString("ip", "0"));
-            setPort(port = bundle.getString("port", "0"));
+            setPort(bundle.getInt("port", 0));
             System.out.println("ip: " + ip + " port: " + port);
         }
 
@@ -115,7 +115,7 @@ public class PickColorActivity extends AppCompatActivity
 
                         //Colors.colors.add(hexColor);
                                 //addColor(hexColor);
-                        int tempPort = Integer.parseInt(getPort());
+                        int tempPort = getPort();
                         //udpConnect = new Thread(new ClientUDPSend()).start();
                         ClientUDPSend cliUDPSend = new ClientUDPSend(getIp(), tempPort);
                         Thread sendThread = new Thread(cliUDPSend);
@@ -419,14 +419,13 @@ public class PickColorActivity extends AppCompatActivity
         this.ip = ip;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(int port) {
         this.port = port;
     }
-
 
     public int getR() {
         return r;
@@ -455,7 +454,6 @@ public class PickColorActivity extends AppCompatActivity
     public int colorConvertWithBrightness(int color) {
         return getValueSetByBrightness(color);
     }
-
 
     public int getBrightness() {
         return brightness;
@@ -507,6 +505,5 @@ public class PickColorActivity extends AppCompatActivity
 
         return hexColor;
     }
-
 
 }
