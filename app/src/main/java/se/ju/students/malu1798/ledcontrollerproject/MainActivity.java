@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 import android.text.Layout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Colors
     Colors colorsVar = new Colors();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
     */
 
     //for setting color
-    public void setColor(){
+    public void setColor() {
 
     }
+
     //for getting color
-    public void getColor(){
+    public void getColor() {
 
     }
 
@@ -94,19 +97,24 @@ public class MainActivity extends AppCompatActivity {
         colors.add("#F4D03F");*/
 
         cPicker.setColors(arrayColorList).setOnChooseColorListener(
-                        new ColorPicker.OnChooseColorListener() {
-            @Override
-            public void onChooseColor(int position, int color) {
-                System.out.println("Position: " + position + " Color: " + color);
-                View v_background = findViewById(R.id.layout_main_id);
-                setColorWithHex(arrayColorList.get(position), v_background);
-            }
+                new ColorPicker.OnChooseColorListener() {
 
-            @Override
-            public void onCancel() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        if (position != -1) {
+                            Log.d("COLOR", "color = " + position + " - " + color);
+                            System.out.println("Position: " + position + " Color: " + color);
+                            View v_background = findViewById(R.id.layout_main_id);
+                            setColorWithHex(arrayColorList.get(position), v_background);
+                        } else
+                            return;
+                    }
 
-            }
-        })
+                    @Override
+                    public void onCancel() {
+
+                    }
+                })
                 .setColumns(5)
                 .setRoundColorButton(true)
                 .show();
@@ -114,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setColorWithHex(String hex, View v) {
         String colorStr = hex;
-        int r  = Integer.valueOf( colorStr.substring( 1, 3 ), 16 );
-        int g  = Integer.valueOf( colorStr.substring( 3, 5 ), 16 );
-        int b  = Integer.valueOf( colorStr.substring( 5, 7 ), 16 );
+        int r = Integer.valueOf(colorStr.substring(1, 3), 16);
+        int g = Integer.valueOf(colorStr.substring(3, 5), 16);
+        int b = Integer.valueOf(colorStr.substring(5, 7), 16);
 
-        v.setBackgroundColor(Color.rgb(r,g,b));
+        v.setBackgroundColor(Color.rgb(r, g, b));
 
     }
 

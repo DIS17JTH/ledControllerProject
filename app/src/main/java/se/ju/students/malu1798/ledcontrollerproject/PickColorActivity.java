@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -286,11 +287,15 @@ public class PickColorActivity extends AppCompatActivity
                 new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
-                        System.out.println("Position: " + position + " Color: " + color);
-                        //setColorWithHex(viewHolder.colors.getColor(position));
-                        setColorWithHex(colorsArr.get(position));
-                        updateViewColors(getR(), getG(), getB());
-                        updateSeekBars();
+                        if (position != -1) {
+                            Log.d("COLOR", "color = " + position + " - " + color);
+                            System.out.println("Position: " + position + " Color: " + color);
+                            //setColorWithHex(viewHolder.colors.getColor(position));
+                            setColorWithHex(colorsArr.get(position));
+                            updateViewColors(getR(), getG(), getB());
+                            updateSeekBars();
+                        }else
+                            return;
                     }
 
                     @Override
