@@ -46,11 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
 
                 /*WORKING HERE*/
-                intent.putExtra("ip", eT_ip.getText().toString());
-                int i_port = Integer.parseInt(eT_port.getText().toString());
-                intent.putExtra("port", i_port);
-                //intent.putExtra("port", eT_port.getText());
-                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
+                if(eT_port.getText().toString() != null) {
+                    System.out.print("DEBUG: " + eT_port.getText().toString() + " :END");
+                    intent.putExtra("ip", eT_ip.getText().toString());
+                    int i_port = Integer.parseInt(eT_port.getText().toString());
+                    intent.putExtra("port", i_port);
+                    //intent.putExtra("port", eT_port.getText());
+                    System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
+                }
                 startActivity(intent);
             }
         });

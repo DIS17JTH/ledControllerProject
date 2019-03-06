@@ -91,8 +91,12 @@ public class PickColorActivity extends AppCompatActivity
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            setIp(bundle.getString("ip", "0"));
-            setPort(bundle.getInt("port", 0));
+            String s_ip = bundle.getString("ip", null);
+            if(s_ip != null)
+                setIp(s_ip);
+            int i_port = bundle.getInt("port", -1);
+            if(i_port >= 0)
+                setPort(i_port);
             System.out.println("ip: " + ip + " port: " + port);
         }
 

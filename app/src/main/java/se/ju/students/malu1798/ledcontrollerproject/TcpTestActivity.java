@@ -30,11 +30,14 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            setIp(bundle.getString("ip", "-1"));
-            setPort(bundle.getInt("port", -1));
+            String s_ip = bundle.getString("ip", null);
+            if(s_ip != null)
+                setIp(s_ip);
+            int i_port = bundle.getInt("port", -1);
+            if(i_port >= 0)
+                setPort(i_port);
             System.out.println("ip: " + ip + " port: " + port);
         }
-
         TextView t_ip = findViewById(R.id.t_tcp_ip);
         TextView t_port = findViewById(R.id.t_tcp_port);
 
