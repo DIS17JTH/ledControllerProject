@@ -39,6 +39,8 @@ public class PickColorActivity extends AppCompatActivity
 
     private int lastBrightnessState = 0;
 
+    String ip = "192.168.1.210";
+    int port = 9000;
     //Colors
     Colors colorsVar = new Colors();
 
@@ -86,6 +88,13 @@ public class PickColorActivity extends AppCompatActivity
         final ToggleButton t_b_on_off = findViewById(R.id.tB_on_off);
         t_b_on_off.setChecked(true);
 
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            setIp(bundle.getString("ip", "0"));
+            setPort(bundle.getInt("port", 0));
+            System.out.println("ip: " + ip + " port: " + port);
+        }
 
         b_saveColor.setOnClickListener(
                 new View.OnClickListener() {
@@ -390,6 +399,27 @@ public class PickColorActivity extends AppCompatActivity
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+
+
+
+    /*GETTERS AND SETTERS*/
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
 

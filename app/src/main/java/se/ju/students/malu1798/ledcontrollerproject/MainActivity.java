@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -40,7 +41,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 System.out.println("Change view button clicked");
+                EditText eT_ip = findViewById(R.id.eT_ip);
+                EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
+
+                /*WORKING HERE*/
+                intent.putExtra("ip", eT_ip.getText().toString());
+                int i_port = Integer.parseInt(eT_port.getText().toString());
+                intent.putExtra("port", i_port);
+                //intent.putExtra("port", eT_port.getText());
+                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
+                startActivity(intent);
+            }
+        });
+
+
+        Button b_tcp = findViewById(R.id.b_tcp_view);
+        b_tcp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                System.out.println("Change view button clicked");
+                EditText eT_ip = findViewById(R.id.eT_ip);
+                EditText eT_port = findViewById(R.id.eT_port);
+                Intent intent = new Intent(v.getContext(), TcpTestActivity.class);
+
+                /*WORKING HERE*/
+                intent.putExtra("ip", eT_ip.getText().toString());
+                int i_port = Integer.parseInt(eT_port.getText().toString());
+                intent.putExtra("port", i_port);
+                //intent.putExtra("port", eT_port.getText());
+                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
             }
         });

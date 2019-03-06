@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/t_tcp_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/t_tcp_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_status" />
+
+    <TextView
+        android:id="@+id/t_tcp_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IP" />
+
+    <TextView
+        android:id="@+id/t_tcp_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="port" />
+</LinearLayout>
