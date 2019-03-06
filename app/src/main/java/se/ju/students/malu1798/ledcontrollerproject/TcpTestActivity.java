@@ -59,9 +59,53 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         //Update ui
-                        Log.i("CONNECTED", "CONNECTION_ESTABLISHED");
+                        Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_ESTABLISHED");
+                    }
+                });
+                break;
+
+            case CONNECTION_STARTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_STARTED");
+                        TextView t_status = findViewById(R.id.t_tcp_status);
+                        t_status.setText("CONNECTION_STARTED");
+                    }
+                });
+                break;
+
+            case CONNECTION_FAILED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_FAILED");
+                        TextView t_status = findViewById(R.id.t_tcp_status);
+                        t_status.setText("CONNECTION_FAILED");
+                    }
+                });
+                break;
+
+            case CONNECTION_LOST:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_LOST");
+                        TextView t_status = findViewById(R.id.t_tcp_status);
+                        t_status.setText("CONNECTION_LOST");
+                    }
+                });
+                break;
+
+            case DISCONNECTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "DISCONNECTED");
+                        TextView t_status = findViewById(R.id.t_tcp_status);
+                        t_status.setText("DISCONNECTED");
                     }
                 });
                 break;
