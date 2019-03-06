@@ -29,6 +29,7 @@ public class TcpClient extends Observable {
     private Socket socket;
 
     public TcpClient() {
+        this("192.168.1.205", 9000);
     }
 
     public TcpClient(String address, int port) {
