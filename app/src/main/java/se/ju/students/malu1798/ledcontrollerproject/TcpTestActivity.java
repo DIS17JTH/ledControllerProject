@@ -24,16 +24,16 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tcp_test);
 
-        this.client = new TcpClient(ip, port);
-        this.client.addObserver(this);
-        client.connect();
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             setIp(bundle.getString("ip", "-1"));
             setPort(bundle.getInt("port", -1));
             System.out.println("ip: " + ip + " port: " + port);
         }
+
+        this.client = new TcpClient(ip, port);
+        this.client.addObserver(this);
+        client.connect();
 
         TextView t_ip = findViewById(R.id.t_tcp_ip);
         TextView t_port = findViewById(R.id.t_tcp_port);
