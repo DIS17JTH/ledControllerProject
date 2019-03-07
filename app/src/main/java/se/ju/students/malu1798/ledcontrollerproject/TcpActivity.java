@@ -56,7 +56,10 @@ public class TcpActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         TcpEvent event = (TcpEvent) arg;
+        updateUi(event);
+    }
 
+    private void updateUi(TcpEvent event) {
         switch (event.getTcpEventType()) {
             case MESSAGE_RECEIVED:
                 //Do something
