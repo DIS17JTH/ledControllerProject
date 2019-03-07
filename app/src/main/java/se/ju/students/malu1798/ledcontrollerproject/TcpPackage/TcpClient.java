@@ -35,7 +35,7 @@ public class TcpClient extends Observable {
 
     public TcpClient(String address, int port) {
         this.address = address;
-        this.port = port;
+        setPort(port);
     }
 
     protected void fireEvent(TcpEvent event) {

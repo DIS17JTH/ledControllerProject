@@ -16,8 +16,8 @@ public class TcpActivity extends AppCompatActivity implements Observer {
 
     TcpClient client;
 
-    String ip = "192.168.1.210";
-    int port = 9000;
+    String ip = "192.168.1.101";
+    int port = 8001;
 
     TextView t_title;
 

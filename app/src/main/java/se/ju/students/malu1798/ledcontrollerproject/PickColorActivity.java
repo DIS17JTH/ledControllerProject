@@ -172,34 +172,6 @@ public class PickColorActivity extends AppCompatActivity
                 }
         );
 
-        /*
-        final Handler handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //long running computation
-                //final int result = compute();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //runs on thread that created the handler.
-
-                    }
-                });
-            }
-        }).start();
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                //code to be executed in the new thread.
-
-            }
-        };
-        Thread thread = new Thread(runnable);
-        thread.start();
-        */
-
         viewHolder.seekB_brightness.setOnSeekBarChangeListener(this);
         seekB_red.setOnSeekBarChangeListener(this);
         seekB_green.setOnSeekBarChangeListener(this);
