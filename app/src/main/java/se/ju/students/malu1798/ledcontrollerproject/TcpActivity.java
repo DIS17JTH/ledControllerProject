@@ -19,6 +19,8 @@ public class TcpActivity extends AppCompatActivity implements Observer {
     String ip = "192.168.1.210";
     int port = 9000;
 
+    TextView t_title;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +39,13 @@ public class TcpActivity extends AppCompatActivity implements Observer {
 
         TextView t_ip = findViewById(R.id.t_tcp_ip);
         TextView t_port = findViewById(R.id.t_tcp_port);
+        t_title = findViewById(R.id.t_tcp_title);
 
         t_ip.setText(getIp());
         t_port.setText(Integer.toString(getPort()));
+        t_title.setText("Message from server:");
+
+
 
         //client.sendMessage("This is test code sent to the server");
 
@@ -55,6 +61,16 @@ public class TcpActivity extends AppCompatActivity implements Observer {
             case MESSAGE_RECEIVED:
                 //Do something
                 Log.i("MASSAGE", "MESSAGE RECEIVED");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String message = client.getMessageFromServer();
+                        if(message != null) {
+                            t_title.setText(message);
+                        }
+                    }
+                });
+
                 break;
             case CONNECTION_ESTABLISHED:
                 runOnUiThread(new Runnable() {
@@ -63,6 +79,7 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_ESTABLISHED");
+                        client.sendMessage("CONNECTION_ESTABLISHED");
                     }
                 });
                 break;
@@ -116,7 +133,7 @@ public class TcpActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //client.disconnect();
+        client.disconnect();
     }
 
     @Override

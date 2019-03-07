@@ -20,6 +20,7 @@ public class TcpClient extends Observable {
     private String address;
     private Integer port;
     private Integer timeout = 2000;
+    private String messageFromServer = null;
 
     private TcpClientState state = TcpClientState.DISCONNECTED;
 
@@ -29,7 +30,7 @@ public class TcpClient extends Observable {
     private Socket socket;
 
     public TcpClient() {
-        this("192.168.1.205", 9000);
+        this("192.168.1.205", 8001);
     }
 
     public TcpClient(String address, int port) {
@@ -60,6 +61,7 @@ public class TcpClient extends Observable {
             throw new RuntimeException("This client is already connected or connecting");
         }
     }
+
 
     private class ConnectThread extends Thread {
         @Override
@@ -93,6 +95,15 @@ public class TcpClient extends Observable {
         }
     }
 
+    public String getMessageFromServer() {
+        return messageFromServer;
+    }
+
+    private void setMessageFromServer(String messageFromServer) {
+        this.messageFromServer = messageFromServer;
+    }
+
+
     private class ReceiveMessagesThread extends Thread {
         @Override
         public void run() {
@@ -101,6 +112,7 @@ public class TcpClient extends Observable {
                     String message = bufferIn.readLine();
                     if (message != null) {
                         fireEvent(new TcpEvent(TcpEventType.MESSAGE_RECEIVED, message));
+                        setMessageFromServer(message);
                     }
                 } catch (IOException e) {
                     fireEvent(new TcpEvent(TcpEventType.CONNECTION_LOST, null));
@@ -157,7 +169,8 @@ public class TcpClient extends Observable {
     }
 
     public void disconnect() {
-        new DisconnectThread().run();
+        if(state == TcpClientState.CONNECTED)
+            new DisconnectThread().run();
     }
 
     private class DisconnectThread extends Thread {
