@@ -30,7 +30,7 @@ public class TcpClient extends Observable {
     private Socket socket;
 
     public TcpClient() {
-        this("192.168.1.205", 8001);
+        this("192.168.1.101", 8001);
     }
 
     public TcpClient(String address, int port) {
