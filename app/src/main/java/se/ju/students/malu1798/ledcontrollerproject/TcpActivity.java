@@ -12,7 +12,7 @@ import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TcpTestActivity extends AppCompatActivity implements Observer {
+public class TcpActivity extends AppCompatActivity implements Observer {
 
     TcpClient client;
 
@@ -111,6 +111,10 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public boolean onSupportNavigateUp(){

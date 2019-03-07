@@ -59,7 +59,7 @@
             android:label="@string/s_profile"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
         <activity
-            android:name=".TcpTestActivity"
+            android:name=".TcpActivity"
             android:label="TCP"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
     </application>
