@@ -118,6 +118,17 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/t_pC_connect_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="STATUS"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <View
         android:id="@+id/divider_top"
         android:layout_width="match_parent"

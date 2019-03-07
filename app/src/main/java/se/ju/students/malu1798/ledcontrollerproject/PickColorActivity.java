@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
+import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
+import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpEvent;
 
 import android.os.Handler;
 import android.util.Log;
@@ -21,9 +23,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 public class PickColorActivity extends AppCompatActivity
-        implements SeekBar.OnSeekBarChangeListener {
+        implements SeekBar.OnSeekBarChangeListener, Observer {
 
     ViewHolder viewHolder = new ViewHolder();
     ArrayList<ImageView> a_imageButtons = new ArrayList<>();
@@ -39,8 +43,11 @@ public class PickColorActivity extends AppCompatActivity
 
     private int lastBrightnessState = 0;
 
-    String ip = "192.168.1.210";
-    int port = 9000;
+    TcpClient client;
+
+    String ip = "192.168.1.101";
+    int port = 8001;
+
     //Colors
     Colors colorsVar = new Colors();
 
@@ -95,6 +102,10 @@ public class PickColorActivity extends AppCompatActivity
             setPort(bundle.getInt("port", 0));
             System.out.println("ip: " + ip + " port: " + port);
         }
+
+        this.client = new TcpClient(ip, port);
+        this.client.addObserver(this);
+        client.connect();
 
         b_saveColor.setOnClickListener(
                 new View.OnClickListener() {
@@ -312,6 +323,7 @@ public class PickColorActivity extends AppCompatActivity
                 System.out.println("--SeekBar onStart default");
                 break;
         }
+
     }
 
     @Override
@@ -333,6 +345,7 @@ public class PickColorActivity extends AppCompatActivity
                 System.out.println("--SeekBar onStop default");
                 break;
         }
+        //tcp send
     }
 
     public void modeButtonClicked(View view) {
@@ -471,4 +484,86 @@ public class PickColorActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void update(Observable o, Object arg) {
+        TcpEvent event = (TcpEvent) arg;
+        updateUi(event);
+    }
+
+    private void updateUi(TcpEvent event) {
+        final TextView t_status = findViewById(R.id.t_pC_connect_status);
+        switch (event.getTcpEventType()) {
+            case MESSAGE_RECEIVED:
+                //Do something
+                Log.i("MASSAGE", "MESSAGE RECEIVED");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String message = client.getMessageFromServer();
+                        if(message != null) {
+                            //t_title.setText(message);
+                        }
+                    }
+                });
+
+                break;
+            case CONNECTION_ESTABLISHED:
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //Update ui
+                        Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
+                        t_status.setText("CONNECTION_ESTABLISHED");
+                        client.sendMessage("CONNECTION_ESTABLISHED");
+                    }
+                });
+                break;
+
+            case CONNECTION_STARTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_STARTED");
+                        t_status.setText("CONNECTION_STARTED");
+                    }
+                });
+                break;
+
+            case CONNECTION_FAILED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_FAILED");
+                        t_status.setText("CONNECTION_FAILED");
+                    }
+                });
+                break;
+
+            case CONNECTION_LOST:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "CONNECTION_LOST");
+                        t_status.setText("CONNECTION_LOST");
+                    }
+                });
+                break;
+
+            case DISCONNECTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("CONNECTION", "DISCONNECTED");
+                        t_status.setText("DISCONNECTED");
+                    }
+                });
+                break;
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        client.disconnect();
+    }
 }
