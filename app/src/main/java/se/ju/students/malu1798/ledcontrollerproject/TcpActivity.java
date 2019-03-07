@@ -41,6 +41,8 @@ public class TcpActivity extends AppCompatActivity implements Observer {
         t_ip.setText(getIp());
         t_port.setText(Integer.toString(getPort()));
 
+        //client.sendMessage("This is test code sent to the server");
+
 
     }
 
@@ -114,6 +116,13 @@ public class TcpActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //client.disconnect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //client.disconnect();
     }
 
     @Override
