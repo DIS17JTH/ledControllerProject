@@ -61,6 +61,7 @@ public class TcpActivity extends AppCompatActivity implements Observer {
 
 
     private void updateUi(TcpEvent event) {
+        final TextView t_status = findViewById(R.id.t_tcp_status);
         switch (event.getTcpEventType()) {
             case MESSAGE_RECEIVED:
                 //Do something
@@ -81,7 +82,6 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                     public void run() {
                         //Update ui
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
-                        TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_ESTABLISHED");
                         client.sendMessage("CONNECTION_ESTABLISHED");
                     }
@@ -93,7 +93,6 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                     @Override
                     public void run() {
                         Log.i("CONNECTION", "CONNECTION_STARTED");
-                        TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_STARTED");
                     }
                 });
@@ -104,7 +103,6 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                     @Override
                     public void run() {
                         Log.i("CONNECTION", "CONNECTION_FAILED");
-                        TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_FAILED");
                     }
                 });
@@ -115,7 +113,6 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                     @Override
                     public void run() {
                         Log.i("CONNECTION", "CONNECTION_LOST");
-                        TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_LOST");
                     }
                 });
@@ -126,7 +123,6 @@ public class TcpActivity extends AppCompatActivity implements Observer {
                     @Override
                     public void run() {
                         Log.i("CONNECTION", "DISCONNECTED");
-                        TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("DISCONNECTED");
                     }
                 });
