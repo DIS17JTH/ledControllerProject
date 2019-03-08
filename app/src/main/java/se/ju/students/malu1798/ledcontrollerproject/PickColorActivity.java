@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -56,36 +57,8 @@ public class PickColorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
-        //Image Views
-        View v_top = findViewById(R.id.layout_top);
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_1));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_2));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_3));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_4));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_5));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_6));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_7));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_8));
-        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_9));
+        this.addToViewHolder();
 
-
-        //Color RGB layouts
-        viewHolder.v_header = findViewById(R.id.layout_top);
-        viewHolder.v_r = findViewById(R.id.t_r);
-        viewHolder.v_g = findViewById(R.id.t_g);
-        viewHolder.v_b = findViewById(R.id.t_b);
-
-        //Color RGB texts
-        viewHolder.t_r = findViewById(R.id.t_r);
-        viewHolder.t_g = findViewById(R.id.t_g);
-        viewHolder.t_b = findViewById(R.id.t_b);
-
-        //Seek bars
-        viewHolder.seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
-        seekB_red = (SeekBar) findViewById(R.id.seekBar_r);
-        seekB_green = (SeekBar) findViewById(R.id.seekBar_g);
-        seekB_blue = (SeekBar) findViewById(R.id.seekBar_b);
         //Buttons
         Button b_mode = findViewById(R.id.b_mode);
         ImageButton b_colorPicker = findViewById(R.id.iB_color_picker);
@@ -179,16 +152,56 @@ public class PickColorActivity extends AppCompatActivity
                         updateSeekBars();
                         updateViewColors(getR(), getG(), getB());
                         viewHolder.seekB_brightness.setEnabled(onOff);
+                        try {
+                            client.sendMessage(sendColorMode());
+                        }catch (RuntimeException e){
+                            Log.e("MESSAGE", "not connected", e);
+                        }
                     }
                 }
         );
 
+        //seek bar
         viewHolder.seekB_brightness.setOnSeekBarChangeListener(this);
         seekB_red.setOnSeekBarChangeListener(this);
         seekB_green.setOnSeekBarChangeListener(this);
         seekB_blue.setOnSeekBarChangeListener(this);
 
         updateViewColors(getR(), getG(), getB());
+    }
+
+    private void addToViewHolder() {
+        //Image Views
+        View v_top = findViewById(R.id.layout_top);
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_1));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_2));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_3));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_4));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_5));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_6));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_7));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_8));
+        a_imageButtons.add((ImageView) findViewById(R.id.i_pC_led_9));
+
+
+        //Color RGB layouts
+        viewHolder.v_header = findViewById(R.id.layout_top);
+        viewHolder.v_r = findViewById(R.id.t_r);
+        viewHolder.v_g = findViewById(R.id.t_g);
+        viewHolder.v_b = findViewById(R.id.t_b);
+
+        //Color RGB texts
+        viewHolder.t_r = findViewById(R.id.t_r);
+        viewHolder.t_g = findViewById(R.id.t_g);
+        viewHolder.t_b = findViewById(R.id.t_b);
+
+        //Seek bars
+        viewHolder.seekB_brightness = (SeekBar) findViewById(R.id.seekBar_brightness);
+        seekB_red = (SeekBar) findViewById(R.id.seekBar_r);
+        seekB_green = (SeekBar) findViewById(R.id.seekBar_g);
+        seekB_blue = (SeekBar) findViewById(R.id.seekBar_b);
+
     }
 
     @Override
@@ -346,13 +359,29 @@ public class PickColorActivity extends AppCompatActivity
                 break;
         }
         //tcp send
+        try {
+            client.sendMessage(sendColorMode());
+        }catch (RuntimeException e){
+            Log.e("MESSAGE", "not connected", e);
+        }
     }
 
-    public void modeButtonClicked(View view) {
+    private String sendColorMode() {
+        String sendMode = String.format("w%03dr%03dg%03db%03d",
+                getBrightness(),
+                getValueSetByBrightness(getR()),
+                getValueSetByBrightness(getG()),
+                getValueSetByBrightness(getB())
+        );
+
+        return sendMode;
+    }
+
+   /* public void modeButtonClicked(View view) {
         System.out.println("Button clicked");
         Intent intent = new Intent(this, ModeActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     //if settings menu should show
@@ -500,7 +529,7 @@ public class PickColorActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         String message = client.getMessageFromServer();
-                        if(message != null) {
+                        if (message != null) {
                             //t_title.setText(message);
                         }
                     }

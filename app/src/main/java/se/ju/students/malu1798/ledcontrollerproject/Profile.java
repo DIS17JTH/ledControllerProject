@@ -5,11 +5,23 @@ import java.util.ArrayList;
 public class Profile{
     public static ArrayList<Profile> profiles = new ArrayList<>();
     static {
+        ArrayList<Setting> settingsGradient = new ArrayList<>();
+        settingsGradient.add(new Setting("Frequency", "Change Frequency", 50, 1));
+        settingsGradient.add(new Setting("Max", "Max value", 100, 1));
+        settingsGradient.add(new Setting("Min", "Min vale", 100, 1));
+        ArrayList<Setting> settingsStrobe = new ArrayList<>();
+        settingsStrobe.add(new Setting("Frequency", "Change Frequency", 50, 1));
+        settingsStrobe.add(new Setting("Max", "Max value", 100, 1));
+        settingsStrobe.add(new Setting("Min", "Min vale", 100, 1));
+
         for (int i = 0; i < 15; i++) {
             profiles.add(new Profile(
                     "Profile " + i
             ));
-            for(int j = 0; j < 18; j++)
+
+            profiles.get(i).getP_modes().add(new Mode("Gradient", "Change color by frequency", settingsGradient));
+            profiles.get(i).getP_modes().add(new Mode("Strobe", "Change brightness by time", settingsStrobe));
+            for(int j = 0; j < 5; j++)
                 profiles.get(i).getP_modes().add(new Mode("Mode" +  j));
         }
     }

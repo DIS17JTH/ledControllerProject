@@ -1,29 +1,27 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Mode {
     private String m_modeName;
     private String m_description;
     private ArrayList<Setting> m_settings;
 
-    public Mode(String modeName, ArrayList<Setting> settings) {
+    public Mode(String modeName, String m_description, ArrayList<Setting> settings) {
         this.m_modeName = modeName;
         if(m_settings == null)
             this.m_settings = new ArrayList<>();
         else
             this.m_settings = settings;
 
-        this.m_description = "Empty";
+        this.m_description = m_description;
     }
 
     public Mode(String modeName) {
-        this(modeName, null);
+        this(modeName, "no description", null);
         //this.m_modeName = m_modeName;
         //if(m_settings == null)
         //    this.m_settings = new ArrayList<>();
-
     }
 
     public Mode() {
@@ -38,7 +36,7 @@ public class Mode {
 
     /*GETTERS AND SETTERS*/
 
-    public List<Setting> getMode_settings() {
+    public ArrayList<Setting> getMode_settings() {
         return m_settings;
     }
 
@@ -48,6 +46,14 @@ public class Mode {
 
     public String get_modeName() {
         return m_modeName;
+    }
+
+    public String get_description() {
+        return m_description;
+    }
+
+    public void set_description(String description) {
+        this.m_description = description;
     }
 
     public void setModeName(String m_modeName) {

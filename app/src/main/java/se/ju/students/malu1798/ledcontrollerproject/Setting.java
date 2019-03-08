@@ -5,20 +5,21 @@ public class Setting {
     private int s_id;
     private String s_name;
     private String s_description;
+    private int s_value;
     private int s_priority;
 
-    public Setting(String s_name, String s_description, int s_priority) {
+    public Setting(String s_name, String s_description, int value, int s_priority) {
         this.s_id = this.s_tot_amount;
         this.s_name = s_name;
         this.s_description = s_description;
+        this.s_value = value;
         this.s_priority = s_priority;
         s_tot_amount++;
     }
 
     public Setting() {
-        this("Default name", "Defult desciption", 100);
+        this("Default name", "Defult desciption", 0,0);
     }
-
 
     public int getS_id() {
         return s_id;
@@ -38,6 +39,14 @@ public class Setting {
 
     public void setS_description(String s_description) {
         this.s_description = s_description;
+    }
+
+    public int getS_value() {
+        return s_value;
+    }
+
+    public void setS_value(int s_value) {
+        this.s_value = s_value;
     }
 
     public int getS_priority() {
