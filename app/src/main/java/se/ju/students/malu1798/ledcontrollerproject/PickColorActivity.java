@@ -542,7 +542,7 @@ public class PickColorActivity extends AppCompatActivity
                         //Update ui
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         t_status.setText("CONNECTION_ESTABLISHED");
-                        client.sendMessage("CONNECTION_ESTABLISHED");
+                        //client.sendMessage("CONNECTION_ESTABLISHED");
                     }
                 });
                 break;
