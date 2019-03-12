@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.material.navigation.NavigationView;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Change view button clicked");
                 EditText eT_ip = findViewById(R.id.eT_ip);
                 EditText eT_port = findViewById(R.id.eT_port);
-                Intent intent = new Intent(v.getContext(), TcpTestActivity.class);
+                Intent intent = new Intent(v.getContext(), TcpActivity.class);
 
                 /*WORKING HERE*/
                 intent.putExtra("ip", eT_ip.getText().toString());

@@ -12,21 +12,19 @@ import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TcpTestActivity extends AppCompatActivity implements Observer {
+public class TcpActivity extends AppCompatActivity implements Observer {
 
     TcpClient client;
 
-    String ip = "192.168.1.210";
-    int port = 9000;
+    String ip = "192.168.1.101";
+    int port = 8001;
+
+    TextView t_title;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tcp_test);
-
-        this.client = new TcpClient(ip, port);
-        this.client.addObserver(this);
-        client.connect();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -38,11 +36,22 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
                 setPort(i_port);
             System.out.println("ip: " + ip + " port: " + port);
         }
+
+        this.client = new TcpClient(ip, port);
+        this.client.addObserver(this);
+        client.connect();
+
         TextView t_ip = findViewById(R.id.t_tcp_ip);
         TextView t_port = findViewById(R.id.t_tcp_port);
+        t_title = findViewById(R.id.t_tcp_title);
 
         t_ip.setText(getIp());
         t_port.setText(Integer.toString(getPort()));
+        t_title.setText("Message from server:");
+
+
+
+        //client.sendMessage("This is test code sent to the server");
 
 
     }
@@ -51,11 +60,24 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         TcpEvent event = (TcpEvent) arg;
+        updateUi(event);
+    }
 
+    private void updateUi(TcpEvent event) {
         switch (event.getTcpEventType()) {
             case MESSAGE_RECEIVED:
                 //Do something
                 Log.i("MASSAGE", "MESSAGE RECEIVED");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String message = client.getMessageFromServer();
+                        if(message != null) {
+                            t_title.setText(message);
+                        }
+                    }
+                });
+
                 break;
             case CONNECTION_ESTABLISHED:
                 runOnUiThread(new Runnable() {
@@ -64,6 +86,7 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         TextView t_status = findViewById(R.id.t_tcp_status);
                         t_status.setText("CONNECTION_ESTABLISHED");
+                        client.sendMessage("CONNECTION_ESTABLISHED");
                     }
                 });
                 break;
@@ -114,6 +137,17 @@ public class TcpTestActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        client.disconnect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //client.disconnect();
+    }
 
     @Override
     public boolean onSupportNavigateUp(){
