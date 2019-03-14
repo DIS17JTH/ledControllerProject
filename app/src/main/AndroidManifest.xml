@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>-->
 
     <application
         android:allowBackup="true"
@@ -16,6 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".StripListActivity"
+            android:label="@string/title_activity_strip_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ColorProfileActivity"
             android:label="@string/title_activity_color_profile"
@@ -45,23 +47,23 @@
         <activity
             android:name=".PickColorActivity"
             android:label="@string/s_pick_color"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
+            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
         <activity
             android:name=".ModeActivity"
             android:label="@string/s_mode"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
+            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
         <activity
             android:name=".ModeSettingsActivity"
             android:label="@string/s_mode_settings"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
+            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
         <activity
             android:name=".ProfileActivity"
             android:label="@string/s_profile"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
+            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
         <activity
             android:name=".TcpActivity"
             android:label="TCP"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"/>
+            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
     </application>
 
 </manifest>

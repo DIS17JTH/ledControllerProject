@@ -45,6 +45,7 @@ public class PickColorActivity extends AppCompatActivity
     private int lastBrightnessState = 0;
 
     TcpClient client;
+    ArrayList<TcpClient> clients = new ArrayList<>();
 
     String ip = "192.168.1.101";
     int port = 8001;
