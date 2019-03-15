@@ -42,4 +42,10 @@
     </string>
     <string name="s_color_profile">Color profile</string>
     <string name="title_activity_color_profile">Color Profile</string>
+    <string name="appwidget_text">LED Control</string>
+    <string name="add_widget">Add widget</string>
+    <string name="s_led_control">LED Control</string>
+    <string name="s_led_control_on_off">LED Control on off</string>
+    <string name="s_on_off">ON OFF</string>
+    <string name="s_led_control_launch">Launch LED Control</string>
 </resources>

@@ -277,7 +277,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="4dp"
-            android:text="ON OFF" />
+            android:text="@string/s_on_off" />
 
 
         <SeekBar
