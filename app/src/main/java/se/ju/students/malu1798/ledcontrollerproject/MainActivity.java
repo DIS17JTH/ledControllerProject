@@ -1,20 +1,33 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.math.BigInteger;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 
@@ -89,6 +102,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+        handleWifi();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handleWifi();
+
     }
 
     /*
@@ -98,14 +120,45 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-    //for setting color
-    public void setColor() {
+    private void handleWifi(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (!checkConnection(getApplicationContext())){
+                Log.i("WIFI", "wifi not connected");
+                Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+            }else {
+                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                int ip = wifiInfo.getIpAddress();
+                String ipString = String.format("%d.%d.%d.", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff));//, (ip >> 24 & 0xff)); --last digit
 
+                EditText eT_ip = findViewById(R.id.eT_ip);
+                eT_ip.setText(ipString);
+
+                EditText eT_port = findViewById(R.id.eT_port);
+                eT_port.setText("8001");
+            }
+        }
     }
 
-    //for getting color
-    public void getColor() {
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    static boolean checkConnection(@Nullable Context context) { //check if wifi is connected
+        if(context != null){
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            Network[] networks = connectivityManager.getAllNetworks();
+            NetworkInfo networkInfo;
+            Network network;
+            for (int i = 0; i < networks.length; i++){
+                network = networks[i];
+                networkInfo = connectivityManager.getNetworkInfo(network);
+                if ((networkInfo.getType() ==     ConnectivityManager.TYPE_WIFI) && (networkInfo.getState().equals(NetworkInfo.State.CONNECTED))) {
+                    ConnectivityManager.setProcessDefaultNetwork(network);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void openColorPicker() {
