@@ -48,4 +48,5 @@
     <string name="s_led_control_on_off">LED Control on off</string>
     <string name="s_on_off">ON OFF</string>
     <string name="s_led_control_launch">Launch LED Control</string>
+    <string name="configure">Configure</string>
 </resources>

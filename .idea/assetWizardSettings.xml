@@ -179,7 +179,19 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="paddingPercent" value="10" />
+                                                <entry key="paddingPercent" value="5" />
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="text">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -191,8 +203,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Lucas\AndroidStudioProjects\ledControllerProject\LED_pictures\iconfinder_SVG_LINE_TECHNOLOGY-01_2897334.svg" />
-                                      <entry key="outputName" value="ic_stat_led_mcu" />
+                                      <entry key="imageAsset" value="C:\Users\Lucas\AndroidStudioProjects\ledControllerProject\LED_pictures\pre_led_widget.PNG" />
+                                      <entry key="outputName" value="led_widget_pre" />
                                     </map>
                                   </option>
                                 </PersistentState>
