@@ -57,6 +57,7 @@ public class PickColorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
+        //listView ViewHolder Pattern
         this.addToViewHolder();
 
         //Buttons
@@ -154,7 +155,7 @@ public class PickColorActivity extends AppCompatActivity
                         viewHolder.seekB_brightness.setEnabled(onOff);
                         try {
                             client.sendMessage(sendColorMode());
-                        }catch (RuntimeException e){
+                        } catch (RuntimeException e) {
                             Log.e("MESSAGE", "not connected", e);
                         }
                     }
@@ -361,7 +362,7 @@ public class PickColorActivity extends AppCompatActivity
         //tcp send
         try {
             client.sendMessage(sendColorMode());
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             Log.e("MESSAGE", "not connected", e);
         }
     }
@@ -543,6 +544,11 @@ public class PickColorActivity extends AppCompatActivity
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         t_status.setText("CONNECTION_ESTABLISHED");
                         //client.sendMessage("CONNECTION_ESTABLISHED");
+                        try {
+                            client.sendMessage(sendColorMode());
+                        } catch (RuntimeException e) {
+                            Log.e("MESSAGE", "not connected", e);
+                        }
                     }
                 });
                 break;
