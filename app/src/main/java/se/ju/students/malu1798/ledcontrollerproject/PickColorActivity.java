@@ -32,6 +32,8 @@ public class PickColorActivity extends AppCompatActivity
 
     ViewHolder viewHolder = new ViewHolder();
     ArrayList<ImageView> a_imageButtons = new ArrayList<>();
+    //tcp clients
+    ArrayList<TcpClient> clients = new ArrayList<>();
 
     SeekBar seekB_red;
     SeekBar seekB_green;
@@ -44,7 +46,7 @@ public class PickColorActivity extends AppCompatActivity
 
     private int lastBrightnessState = 0;
 
-    TcpClient client;
+    //TcpClient client;
 
     String ip = "192.168.1.101";
     int port = 8001;
@@ -57,7 +59,7 @@ public class PickColorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
-        //listView ViewHolder Pattern
+        //ViewHolder Pattern
         this.addToViewHolder();
 
         //Buttons
@@ -75,11 +77,22 @@ public class PickColorActivity extends AppCompatActivity
             setIp(bundle.getString("ip", "0"));
             setPort(bundle.getInt("port", 0));
             System.out.println("ip: " + ip + " port: " + port);
+
+            ArrayList<String> ipList = new ArrayList<>(bundle.getStringArrayList("ipList"));
+            for(String ip : ipList){
+                clients.add(new TcpClient(ip, port));
+            }
         }
 
-        this.client = new TcpClient(ip, port);
-        this.client.addObserver(this);
-        client.connect();
+        for (TcpClient client : clients) {
+            try {
+                client = new TcpClient(ip, port);
+                client.addObserver(this);
+                client.connect();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 
         b_saveColor.setOnClickListener(
                 new View.OnClickListener() {
@@ -153,10 +166,13 @@ public class PickColorActivity extends AppCompatActivity
                         updateSeekBars();
                         updateViewColors(getR(), getG(), getB());
                         viewHolder.seekB_brightness.setEnabled(onOff);
-                        try {
-                            client.sendMessage(sendColorMode());
-                        } catch (RuntimeException e) {
-                            Log.e("MESSAGE", "not connected", e);
+
+                        for(TcpClient client : clients) {
+                            try {
+                                client.sendMessage(sendColorMode());
+                            } catch (RuntimeException e) {
+                                Log.e("MESSAGE", "not connected", e);
+                            }
                         }
                     }
                 }
@@ -298,6 +314,13 @@ public class PickColorActivity extends AppCompatActivity
                                     setColorWithHex(colorsArr.get(position));
                                     updateViewColors(getR(), getG(), getB());
                                     updateSeekBars();
+                                    for(TcpClient client : clients) {
+                                        try {
+                                            client.sendMessage(sendColorMode());
+                                        } catch (RuntimeException e) {
+                                            Log.e("MESSAGE", "not connected", e);
+                                        }
+                                    }
                                 } else
                                     return;
                             }
@@ -360,10 +383,12 @@ public class PickColorActivity extends AppCompatActivity
                 break;
         }
         //tcp send
-        try {
-            client.sendMessage(sendColorMode());
-        } catch (RuntimeException e) {
-            Log.e("MESSAGE", "not connected", e);
+        for(TcpClient client : clients) {
+            try {
+                client.sendMessage(sendColorMode());
+            } catch (RuntimeException e) {
+                Log.e("MESSAGE", "not connected", e);
+            }
         }
     }
 
@@ -529,9 +554,15 @@ public class PickColorActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String message = client.getMessageFromServer();
-                        if (message != null) {
-                            //t_title.setText(message);
+                        for(TcpClient client : clients) {
+                            try {
+                                String message = client.getMessageFromServer();
+                                if (message != null) {
+                                    //t_title.setText(message);
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     }
                 });
@@ -544,10 +575,12 @@ public class PickColorActivity extends AppCompatActivity
                         Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         t_status.setText("CONNECTION_ESTABLISHED");
                         //client.sendMessage("CONNECTION_ESTABLISHED");
-                        try {
-                            client.sendMessage(sendColorMode());
-                        } catch (RuntimeException e) {
-                            Log.e("MESSAGE", "not connected", e);
+                        for(TcpClient client : clients) {
+                            try {
+                                client.sendMessage(sendColorMode());
+                            } catch (RuntimeException e) {
+                                Log.e("MESSAGE", "not connected", e);
+                            }
                         }
                     }
                 });
@@ -599,6 +632,8 @@ public class PickColorActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        client.disconnect();
+        for(TcpClient client : clients) {
+            client.disconnect();
+        }
     }
 }

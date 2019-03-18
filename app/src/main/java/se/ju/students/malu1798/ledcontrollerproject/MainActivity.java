@@ -26,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.math.BigInteger;
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Colors
     Colors colorsVar = new Colors();
+
+    ArrayList<String> ipList = new ArrayList<>();
+    ViewHolder viewHolder = new ViewHolder();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("ip", eT_ip.getText().toString());
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
-                //intent.putCharSequenceArrayListExtra()
+                ipList.add(eT_ip.getText().toString());
+
+                //TODO::Take picked ip:s and add them to arrayList
+                /*
+                for(int i : pickedPosition){
+                    ipList.add(getText(getPosition(i)));
+                }
+                */
+
+                if (ipList != null)
+                    intent.putStringArrayListExtra("ipList", ipList);
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
@@ -96,17 +111,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*        Button b_sign_in = findViewById(R.id.b_sign_in);
-        b_sign_in.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                System.out.println("Login Button clicked");
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
         handleWifi();
 
+        //listView
+        this.addToViewHolder();
+
+
+    }
+
+    private void addToViewHolder() {
+
+        //viewHolder.t_r = findViewById(R.id.t_r);
     }
 
     @Override
