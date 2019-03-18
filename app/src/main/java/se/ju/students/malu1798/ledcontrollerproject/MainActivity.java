@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("ip", eT_ip.getText().toString());
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
+                //intent.putCharSequenceArrayListExtra()
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
