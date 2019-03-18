@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handleWifi();
-
     }
 
     /*
@@ -123,32 +122,13 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-    private void handleWifi(){
+    private void handleWifi() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!checkConnection(getApplicationContext())){
+            if (!checkConnection(getApplicationContext())) {
                 Log.i("WIFI", "wifi not connected");
                 Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
 
-                //TODO::make popup dialog instead of start activity directly
-/*
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                // Add the buttons
-                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK button
-                    }
-                });
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-                // Set other dialog properties
-
-                // Create the AlertDialog
-                AlertDialog dialog = builder.create();
-*/
-
+                //dialog for wifi enable
                 new AlertDialog.Builder(this)
                         .setTitle("Enable Wifi")
                         .setMessage("You need Wifi connection to communicate with LED strip")
@@ -167,8 +147,7 @@ public class MainActivity extends AppCompatActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
 
-
-            }else {
+            } else {
                 Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -186,15 +165,15 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static boolean checkConnection(@Nullable Context context) { //check if wifi is connected
-        if(context != null){
+        if (context != null) {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             Network[] networks = connectivityManager.getAllNetworks();
             NetworkInfo networkInfo;
             Network network;
-            for (int i = 0; i < networks.length; i++){
+            for (int i = 0; i < networks.length; i++) {
                 network = networks[i];
                 networkInfo = connectivityManager.getNetworkInfo(network);
-                if ((networkInfo.getType() ==     ConnectivityManager.TYPE_WIFI) && (networkInfo.getState().equals(NetworkInfo.State.CONNECTED))) {
+                if ((networkInfo.getType() == ConnectivityManager.TYPE_WIFI) && (networkInfo.getState().equals(NetworkInfo.State.CONNECTED))) {
                     ConnectivityManager.setProcessDefaultNetwork(network);
                     return true;
                 }
