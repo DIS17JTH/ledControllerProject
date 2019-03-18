@@ -2,6 +2,7 @@ package se.ju.students.malu1798.ledcontrollerproject;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
@@ -125,7 +127,46 @@ public class MainActivity extends AppCompatActivity {
             if (!checkConnection(getApplicationContext())){
                 Log.i("WIFI", "wifi not connected");
                 Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+
+                //TODO::make popup dialog instead of start activity directly
+/*
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Add the buttons
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+                // Set other dialog properties
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+*/
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+
             }else {
                 Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
