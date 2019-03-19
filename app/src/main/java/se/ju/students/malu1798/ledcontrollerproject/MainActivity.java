@@ -1,6 +1,5 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.math.BigInteger;
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 
@@ -43,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+        Button b_wifiScanboi = findViewById(R.id.b_wifiScan);
+        b_wifiScanboi.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent intent = new Intent(v.getContext(), TcpWifiScanActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button b_change_v = findViewById(R.id.b_change_view);
         b_change_v.setOnClickListener(new View.OnClickListener() {
