@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         //listView
         this.addToViewHolder();
 
-
     }
 
     private void addToViewHolder() {
