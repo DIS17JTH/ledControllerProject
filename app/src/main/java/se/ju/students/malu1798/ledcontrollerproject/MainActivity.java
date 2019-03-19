@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        Button b_wifiScanboi = findViewById(R.id.b_wifiScan);
-        b_wifiScanboi.setOnClickListener(new View.OnClickListener() {
+        Button b_wifiScan = findViewById(R.id.b_wifiScan);
+        b_wifiScan.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 Intent intent = new Intent(v.getContext(), TcpWifiScanActivity.class);
