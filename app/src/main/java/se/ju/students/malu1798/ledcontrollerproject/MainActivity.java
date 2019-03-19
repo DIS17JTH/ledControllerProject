@@ -66,7 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("port", i_port);
 
                 //TODO::Take picked ip:s and add them to arrayList
-                ipList.add(eT_ip.getText().toString());
+                String inIp = eT_ip.getText().toString();
+                boolean exist = false;
+
+                for (String ip : ipList){
+                    if(ip.equals(inIp))
+                        exist = true;
+                }
+                if(!exist)
+                    ipList.add(inIp);
                 /*
                 for(int i : pickedPosition){
                     ipList.add(getText(getPosition(i)));

@@ -86,7 +86,7 @@ public class PickColorActivity extends AppCompatActivity
 
         for (TcpClient client : clients) {
             try {
-                client = new TcpClient(ip, port);
+                //client = new TcpClient(ip, port);
                 client.addObserver(this);
                 client.connect();
             }catch (Exception e){
@@ -545,25 +545,23 @@ public class PickColorActivity extends AppCompatActivity
         updateUi(event);
     }
 
-    private void updateUi(TcpEvent event) {
+    private void updateUi(final TcpEvent eventPayload) {
         final TextView t_status = findViewById(R.id.t_pC_connect_status);
-        switch (event.getTcpEventType()) {
+        switch (eventPayload.getTcpEventType()) {
             case MESSAGE_RECEIVED:
                 //Do something
                 Log.i("MASSAGE", "MESSAGE RECEIVED");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        for(TcpClient client : clients) {
                             try {
-                                String message = client.getMessageFromServer();
-                                if (message != null) {
-                                    //t_title.setText(message);
+                                String payload = eventPayload.getPayload().toString();
+                                if(payload != null) {
+                                    t_status.setText(payload);
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-                        }
                     }
                 });
 
@@ -576,10 +574,12 @@ public class PickColorActivity extends AppCompatActivity
                         t_status.setText("CONNECTION_ESTABLISHED");
                         //client.sendMessage("CONNECTION_ESTABLISHED");
                         for(TcpClient client : clients) {
-                            try {
-                                client.sendMessage(sendColorMode());
-                            } catch (RuntimeException e) {
-                                Log.e("MESSAGE", "not connected", e);
+                            if(client != null) {
+                                try {
+                                    client.sendMessage(sendColorMode());
+                                } catch (RuntimeException e) {
+                                    Log.e("MESSAGE", "not connected", e);
+                                }
                             }
                         }
                     }

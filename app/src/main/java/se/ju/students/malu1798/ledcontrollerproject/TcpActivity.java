@@ -60,18 +60,19 @@ public class TcpActivity extends AppCompatActivity implements Observer {
     }
 
 
-    private void updateUi(TcpEvent event) {
+    private void updateUi(final TcpEvent eventPayload) {
         final TextView t_status = findViewById(R.id.t_tcp_status);
-        switch (event.getTcpEventType()) {
+        switch (eventPayload.getTcpEventType()) {
             case MESSAGE_RECEIVED:
                 //Do something
                 Log.i("MASSAGE", "MESSAGE RECEIVED");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String message = client.getMessageFromServer();
-                        if(message != null) {
-                            t_title.setText(message);
+                        //String message = client.getMessageFromServer();
+                        String payload = eventPayload.getPayload().toString();
+                        if(payload != null) {
+                            t_title.setText(payload);
                         }
                     }
                 });
