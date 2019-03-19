@@ -20,18 +20,20 @@ public class TcpClient extends Observable {
     private String address;
     private Integer port;
     private Integer timeout = 2000;
-    private String messageFromServer = null;
+    //private String messageFromServer = null;
 
     private TcpClientState state = TcpClientState.DISCONNECTED;
 
-    PrintWriter bufferOut;
-    BufferedReader bufferIn;
+    private PrintWriter bufferOut;
+    private BufferedReader bufferIn;
+
+    //private BufferedReader bufferIn;
 
     private Socket socket;
 
-    public TcpClient() {
+    /*public TcpClient() {
         this("192.168.1.101", 8001);
-    }
+    }*/
 
     public TcpClient(String address, int port) {
         this.address = address;
@@ -74,12 +76,13 @@ public class TcpClient extends Observable {
                 socket.connect(new InetSocketAddress(InetAddress.getByName(address), port), timeout);
 
                 bufferOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                bufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                bufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream(), "ASCII"));
 
                 state = TcpClientState.CONNECTED;
                 fireEvent(new TcpEvent(TcpEventType.CONNECTION_ESTABLISHED, null));
 
                 new ReceiveMessagesThread().start();
+
 
             } catch (SocketTimeoutException e) {
                 fireEvent(new TcpEvent(TcpEventType.CONNECTION_FAILED, e));
@@ -95,13 +98,13 @@ public class TcpClient extends Observable {
         }
     }
 
-    public String getMessageFromServer() {
-        return messageFromServer;
+   /* public String getMessageFromServer() {
+        return this.messageFromServer;
     }
 
     private void setMessageFromServer(String messageFromServer) {
         this.messageFromServer = messageFromServer;
-    }
+    }*/
 
 
     private class ReceiveMessagesThread extends Thread {
@@ -112,7 +115,7 @@ public class TcpClient extends Observable {
                     String message = bufferIn.readLine();
                     if (message != null) {
                         fireEvent(new TcpEvent(TcpEventType.MESSAGE_RECEIVED, message));
-                        setMessageFromServer(message);
+                        //setMessageFromServer(message);
                     }
                 } catch (IOException e) {
                     fireEvent(new TcpEvent(TcpEventType.CONNECTION_LOST, null));
@@ -131,6 +134,7 @@ public class TcpClient extends Observable {
                     state = TcpClientState.DISCONNECTED;
                 }
             }
+
         }
     }
 
@@ -146,7 +150,7 @@ public class TcpClient extends Observable {
         private String messageLine;
 
         public SendMessageThread(String message) {
-            this.messageLine = message + "\n";
+            this.messageLine = message + '\n';
         }
 
         @Override
@@ -169,7 +173,7 @@ public class TcpClient extends Observable {
     }
 
     public void disconnect() {
-        if(state == TcpClientState.CONNECTED)
+        if (state == TcpClientState.CONNECTED)
             new DisconnectThread().run();
     }
 

@@ -1,6 +1,7 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
@@ -22,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Colors
     Colors colorsVar = new Colors();
+
+    ArrayList<String> ipList = new ArrayList<>();
+    ViewHolder viewHolder = new ViewHolder();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +69,25 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("ip", eT_ip.getText().toString());
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
+
+                //TODO::Take picked ip:s and add them to arrayList
+                String inIp = eT_ip.getText().toString();
+                boolean exist = false;
+
+                for (String ip : ipList){
+                    if(ip.equals(inIp))
+                        exist = true;
+                }
+                if(!exist)
+                    ipList.add(inIp);
+                /*
+                for(int i : pickedPosition){
+                    ipList.add(getText(getPosition(i)));
+                }
+                */
+
+                if (ipList != null)
+                    intent.putStringArrayListExtra("ipList", ipList);
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
@@ -98,24 +124,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*        Button b_sign_in = findViewById(R.id.b_sign_in);
-        b_sign_in.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                System.out.println("Login Button clicked");
-                Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
         handleWifi();
 
+        //listView
+        this.addToViewHolder();
+
+
+    }
+
+    private void addToViewHolder() {
+
+        //viewHolder.t_r = findViewById(R.id.t_r);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         handleWifi();
-
     }
 
     /*
@@ -125,13 +150,32 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-    private void handleWifi(){
+    private void handleWifi() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!checkConnection(getApplicationContext())){
+            if (!checkConnection(getApplicationContext())) {
                 Log.i("WIFI", "wifi not connected");
                 Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
-            }else {
+
+                //dialog for wifi enable
+                new AlertDialog.Builder(this)
+                        .setTitle("Enable Wifi")
+                        .setMessage("You need Wifi connection to communicate with LED strip")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(getString(android.R.string.cancel), null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            } else {
                 Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
                 WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -149,15 +193,15 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     static boolean checkConnection(@Nullable Context context) { //check if wifi is connected
-        if(context != null){
+        if (context != null) {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             Network[] networks = connectivityManager.getAllNetworks();
             NetworkInfo networkInfo;
             Network network;
-            for (int i = 0; i < networks.length; i++){
+            for (int i = 0; i < networks.length; i++) {
                 network = networks[i];
                 networkInfo = connectivityManager.getNetworkInfo(network);
-                if ((networkInfo.getType() ==     ConnectivityManager.TYPE_WIFI) && (networkInfo.getState().equals(NetworkInfo.State.CONNECTED))) {
+                if ((networkInfo.getType() == ConnectivityManager.TYPE_WIFI) && (networkInfo.getState().equals(NetworkInfo.State.CONNECTED))) {
                     ConnectivityManager.setProcessDefaultNetwork(network);
                     return true;
                 }
