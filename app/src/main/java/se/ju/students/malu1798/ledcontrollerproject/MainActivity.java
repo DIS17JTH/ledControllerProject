@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
 
-                //TODO::Take picked ip:s and add them to arrayList
                 String inIp = eT_ip.getText().toString();
                 boolean exist = false;
 
