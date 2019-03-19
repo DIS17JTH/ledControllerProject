@@ -7,4 +7,11 @@
     <color name="white">#ffff</color>
 
     <color name="colorButton">#1B6A78</color>
+
+    <color name="colorGray">#807B7B</color>
+    <color name="colorDarkBlue">#353C40</color>
+    <color name="colorGrayDark">#6B787F</color>
+    <color name="colorGrayBlue">#C0D8E5</color>
+    <color name="colorGrayBlueDark">#A0B4BF</color>
+
 </resources>
