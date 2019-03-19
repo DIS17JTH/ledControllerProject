@@ -12,10 +12,10 @@
     </style>
 
     <style name="defaultButtonStyle">
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/black_de</item>
-        <item name="android:background">@color/colorGrayBlue</item>
+        <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textAlignment">center</item>
     </style>
 
