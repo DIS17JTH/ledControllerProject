@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/led_controlText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/s_choose_leds" />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <ImageButton
+        android:id="@+id/b_led1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+        ></ImageButton>
+    <ImageButton
+        android:id="@+id/b_led2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+        ></ImageButton>
+    <ImageButton
+        android:id="@+id/b_led3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+        ></ImageButton>
+    <ImageButton
+        android:id="@+id/b_led4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+        ></ImageButton>
+    <ImageButton
+        android:id="@+id/b_led5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+        ></ImageButton>
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ImageButton
+            android:id="@+id/b_led6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            ></ImageButton>
+        <ImageButton
+            android:id="@+id/b_led7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            ></ImageButton>
+        <ImageButton
+            android:id="@+id/b_led8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            ></ImageButton>
+        <ImageButton
+            android:id="@+id/b_led9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            ></ImageButton>
+        <ImageButton
+            android:id="@+id/b_led10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/ic_wb_iridescent_black_op_30_48_dp"
+            ></ImageButton>
+
+
+    </LinearLayout>
+
+</LinearLayout>
