@@ -33,7 +33,7 @@
         android:inputType="number" />
 
     <ListView
-        android:id="@+id/wifiScanList"
+        android:id="@+id/list_view_wifiScanList"
         android:layout_width="match_parent"
         android:layout_height="312dp"
         android:layout_weight="0.97"/>
