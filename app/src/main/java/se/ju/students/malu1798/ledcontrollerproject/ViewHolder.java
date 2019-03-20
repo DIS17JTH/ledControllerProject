@@ -1,6 +1,7 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ public class ViewHolder{
     public TextView idTextView;
     public TextView nameTextView;
     public TextView ageTextView;
+    public TextView ipTextView;
+    public CheckBox ipCheckBox;
     public View v_header;
     public View v_r;
     public View v_g;

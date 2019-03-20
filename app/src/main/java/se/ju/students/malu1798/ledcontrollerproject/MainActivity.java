@@ -18,9 +18,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,10 +47,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ipList);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ipList);
+        //listView = findViewById(R.id.list_view_wifiScanList);
+        //listView.setAdapter(adapter);
 
-        listView = findViewById(R.id.list_view_wifiScanList);
+        adapter = new ArrayAdapter<String>(this, 0, ipList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                if (convertView == null) {
+                    ViewHolder viewHolder = new ViewHolder();
+                    LayoutInflater inflater = LayoutInflater.from(getContext());
+                    convertView = inflater.inflate(R.layout.list_view_layout_ip, parent, false);
+
+                    //ViewHolder viewHolder = new ViewHolder();
+
+                    viewHolder.ipTextView = convertView.findViewById(R.id.t_list_view_ip);
+                    viewHolder.ipCheckBox = convertView.findViewById(R.id.chB_list_view_ip);
+
+                    convertView.setTag(viewHolder);
+                }
+
+                String s = getItem(position);
+                String ip = ipList.get(position);
+                //Mode modes = getItem(position);
+                ((ViewHolder) convertView.getTag()).ipTextView.setText("" + s);
+                //((ViewHolder) convertView.getTag()).ipCheckBox;
+
+                return convertView;
+            }
+        };
+
+        ListView listView = (ListView) findViewById(R.id.list_view_wifiScanList);
         listView.setAdapter(adapter);
 
         Button b_change_v = findViewById(R.id.b_change_view);
@@ -93,12 +124,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Search started!", Toast.LENGTH_SHORT).show();
+                //run in background
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         //wifi scan
                         ipList.clear();
-                        ledDevicesWifiScan(1, 254, 8001);
+                        deviceWifiScan(1, 254, 8001);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -132,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     * scan wifi for a specific port
     * */
-    private void ledDevicesWifiScan(int start, int end, int port) {
+    private void deviceWifiScan(int start, int end, int port) {
         String wifi = getDeviceIP(false);
         for (int s = start; s <= end; s++) {
             String ip = wifi + s;
