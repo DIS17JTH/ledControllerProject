@@ -78,8 +78,8 @@ public class PickColorActivity extends AppCompatActivity
             setPort(bundle.getInt("port", 0));
             System.out.println("ip: " + ip + " port: " + port);
 
-            ArrayList<String> ipList = new ArrayList<>(bundle.getStringArrayList("ipList"));
-            for(String ip : ipList){
+            ArrayList<String> deviceList = new ArrayList<>(bundle.getStringArrayList("networkDevices"));
+            for(String ip : deviceList){
                 clients.add(new TcpClient(ip, port));
             }
         }

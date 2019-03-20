@@ -49,10 +49,5 @@
     <string name="s_on_off">ON OFF</string>
     <string name="s_led_control_launch">Launch LED Control</string>
     <string name="configure">Configure</string>
-    <string name="s_choose_leds">Choose LEDs</string>
-    <string name="s_offset">Offset</string>
-    <string name="s_height">Height</string>
-    <string name="s_amplitude">Amplitude</string>
-    <string name="s_frequency">Frequency</string>
-    <string name="s_waveform">Waveform</string>
+    <string name="s_device_scan">Device Scan</string>
 </resources>

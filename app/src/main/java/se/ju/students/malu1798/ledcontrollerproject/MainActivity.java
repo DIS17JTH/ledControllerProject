@@ -3,12 +3,12 @@ package se.ju.students.malu1798.ledcontrollerproject;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,43 +16,81 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import petrov.kristiyan.colorpicker.ColorPicker;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.SeekBar;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    //Colors
-    Colors colorsVar = new Colors();
-
-    ArrayList<String> ipList = new ArrayList<>();
+    ArrayList<networkDevice> deviceList = new ArrayList<>();
     ViewHolder viewHolder = new ViewHolder();
+
+    ArrayAdapter adapter;
+    ListView listView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, networkDevice);
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        //listView = findViewById(R.id.list_view_wifiScanList);
+        //listView.setAdapter(adapter);
 
-        Button b_wifiScanboi = findViewById(R.id.b_wifiScan);
-        b_wifiScanboi.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                Intent intent = new Intent(v.getContext(), TcpWifiScanActivity.class);
-                startActivity(intent);
+        adapter = new ArrayAdapter<networkDevice>(this, 0, deviceList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                if (convertView == null) {
+                    ViewHolder viewHolder = new ViewHolder();
+                    LayoutInflater inflater = LayoutInflater.from(getContext());
+                    convertView = inflater.inflate(R.layout.list_view_layout_ip, parent, false);
+
+                    //ViewHolder viewHolder = new ViewHolder();
+
+                    viewHolder.ipTextView = convertView.findViewById(R.id.t_list_view_ip);
+                    viewHolder.ipCheckBox = convertView.findViewById(R.id.chB_list_view_ip);
+
+                    convertView.setTag(viewHolder);
+                }
+
+                String s = getItem(position).getIp();//getItem(position);
+                Boolean b = getItem(position).getIsChecked();
+                //Mode modes = getItem(position);
+                ((ViewHolder) convertView.getTag()).ipTextView.setText("" + s);
+                ((ViewHolder) convertView.getTag()).ipCheckBox.setChecked(b);
+
+                return convertView;
+            }
+        };
+
+        ListView listView = (ListView) findViewById(R.id.list_view_wifiScanList);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("ListView clicked id: " + position);
+                networkDevice nd = deviceList.get(position);
+                boolean isChecked = nd.getIsChecked();
+                nd.setIsChecked(!isChecked);
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -70,65 +108,74 @@ public class MainActivity extends AppCompatActivity {
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
 
-                //TODO::Take picked ip:s and add them to arrayList
                 String inIp = eT_ip.getText().toString();
-                boolean exist = false;
+                //Check if the ip is already in the list
 
-                for (String ip : ipList){
-                    if(ip.equals(inIp))
+                /* add ip from editText view
+                boolean exist = false;
+                for (networkDevice ip : deviceList) {
+                    if (ip.getIp().equals(inIp))
                         exist = true;
                 }
-                if(!exist)
-                    ipList.add(inIp);
+                if (!exist)
+                    deviceList.add(new networkDevice(inIp));
+                */
+
                 /*
                 for(int i : pickedPosition){
-                    ipList.add(getText(getPosition(i)));
+                    networkDevice.add(getText(getPosition(i)));
                 }
                 */
 
-                if (ipList != null)
-                    intent.putStringArrayListExtra("ipList", ipList);
+                if (deviceList != null) {
+                    //intent.putParcelableArrayListExtra("networkDevices", (ArrayList) networkDevice);
+                    //intent.putStringArrayListExtra("networkDevices", (ArrayList)deviceList);
+                    ArrayList<String> ipAdresses = new ArrayList<>();
+                    for (networkDevice nd : deviceList) {
+                        ipAdresses.add(nd.getIp());
+                    }
+                    intent.putStringArrayListExtra("networkDevices", ipAdresses);
+                }
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
             }
         });
 
-
-        Button b_tcp = findViewById(R.id.b_tcp_view);
-        b_tcp.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                System.out.println("Change view button clicked");
-                EditText eT_ip = findViewById(R.id.eT_ip);
-                EditText eT_port = findViewById(R.id.eT_port);
-                Intent intent = new Intent(v.getContext(), TcpActivity.class);
-
-                /*WORKING HERE*/
-                intent.putExtra("ip", eT_ip.getText().toString());
-                int i_port = Integer.parseInt(eT_port.getText().toString());
-                intent.putExtra("port", i_port);
-                //intent.putExtra("port", eT_port.getText());
-                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
-                startActivity(intent);
+        Button buttonScan = findViewById(R.id.wifiScanButton);
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Search started!", Toast.LENGTH_SHORT).show();
+                //run in background
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        //wifi scan
+                        deviceList.clear();
+                        deviceWifiScan(1, 254, 8001);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // update UI
+                                adapter.notifyDataSetChanged();
+                                Toast.makeText(MainActivity.this, "Search complete!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
             }
         });
 
-        Button b_pickC = findViewById(R.id.b_pickColor);
-        b_pickC.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                System.out.println("pick color Button clicked");
-                openColorPicker();
+        //RUNTIME CONF. CHANGE HANDLE
+        if (savedInstanceState != null) {
 
-            }
-        });
-
-        handleWifi();
+        } else {
+            //handleWifi();
+        }
 
         //listView
         this.addToViewHolder();
-
 
     }
 
@@ -137,10 +184,44 @@ public class MainActivity extends AppCompatActivity {
         //viewHolder.t_r = findViewById(R.id.t_r);
     }
 
+    /*
+    * scan wifi for a specific port
+    * */
+    private void deviceWifiScan(int start, int end, int port) {
+        String wifi = getDeviceIP(false);
+        for (int s = start; s <= end; s++) {
+            String ip = wifi + s;
+            if (isPortOpen(ip, port, 100)) {
+                deviceList.add(new networkDevice(ip));
+                Log.i("LED DEVICE IP FOUND", ip);
+            }
+        }
+    }
+
+    /*
+    *   returns true if port is open
+    * */
+    private boolean isPortOpen(final String ip, final int port, final int timeout) {
+        try {
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(ip, port), timeout);
+            socket.close();
+            return true;
+        } catch (ConnectException ce) {
+            //ce.printStackTrace();
+            return false;
+        } catch (Exception ex) {
+            //ex.printStackTrace();
+            return false;
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
         handleWifi();
+        adapter.notifyDataSetChanged();
     }
 
     /*
@@ -176,11 +257,8 @@ public class MainActivity extends AppCompatActivity {
                         .show();
 
             } else {
-                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
-                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                int ip = wifiInfo.getIpAddress();
-                String ipString = String.format("%d.%d.%d.", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff));//, (ip >> 24 & 0xff)); --last digit
+                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_SHORT).show();
+                String ipString = getDeviceIP(false);
 
                 EditText eT_ip = findViewById(R.id.eT_ip);
                 eT_ip.setText(ipString);
@@ -188,6 +266,20 @@ public class MainActivity extends AppCompatActivity {
                 EditText eT_port = findViewById(R.id.eT_port);
                 eT_port.setText("8001");
             }
+        }
+    }
+
+    public String getDeviceIP(boolean wholeIP) {
+        if (wholeIP) { //whole ip address
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int ip = wifiInfo.getIpAddress();
+            return String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
+        } else { //ip without last digits
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int ip = wifiInfo.getIpAddress();
+            return String.format("%d.%d.%d.", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff));//, (ip >> 24 & 0xff)); --last digit
         }
     }
 
@@ -209,63 +301,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    private void openColorPicker() {
-        String colorCode = "#258174";
-
-        final ColorPicker cPicker = new ColorPicker(this);
-        final ArrayList<String> arrayColorList = colorsVar.getColors();
-        /*final ArrayList<String> colors = new ArrayList<>();
-        colors.add("#258174");
-        colors.add("#27AE60");
-        colors.add("#3498DB");
-        colors.add("#CB4335");
-        colors.add("#34495E");
-        colors.add("#F4D03F");*/
-
-        cPicker.setColors(arrayColorList).setOnChooseColorListener(
-                new ColorPicker.OnChooseColorListener() {
-
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        if (position != -1) {
-                            Log.d("COLOR", "color = " + position + " - " + color);
-                            System.out.println("Position: " + position + " Color: " + color);
-                            View v_background = findViewById(R.id.layout_main_id);
-                            setColorWithHex(arrayColorList.get(position), v_background);
-                        } else
-                            return;
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                })
-                .setColumns(5)
-                .setRoundColorButton(true)
-                .show();
-    }
-
-    private void setColorWithHex(String hex, View v) {
-        String colorStr = hex;
-        int r = Integer.valueOf(colorStr.substring(1, 3), 16);
-        int g = Integer.valueOf(colorStr.substring(3, 5), 16);
-        int b = Integer.valueOf(colorStr.substring(5, 7), 16);
-
-        v.setBackgroundColor(Color.rgb(r, g, b));
-
-    }
-
-    /*
-    @Override
-    public void onClick(View view){
-        //Button clicked
-        System.out.println("Button change view clicked");
-        Intent intent = new Intent(this, PickColorActivity.class);
-        startActivity(intent);
-    }
-    */
 
     @Override
     //settings menu

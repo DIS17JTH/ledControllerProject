@@ -40,14 +40,6 @@
                 android:value="androidx.appcompat.app.AppCompatActivity" />
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidx.appcompat.app.AppCompatActivity" />
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/s_LED_control"
             android:launchMode="singleTop">
@@ -72,14 +64,6 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/s_profile"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
-        <activity
-            android:name=".TcpActivity"
-            android:label="TCP"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
-        <activity
-            android:name=".TcpWifiScanActivity"
-            android:label="WIFISCAN"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
     </application>
 
