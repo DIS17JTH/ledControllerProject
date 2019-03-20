@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> ipList = new ArrayList<>();
+    ArrayList<networkDevice> deviceList = new ArrayList<>();
     ViewHolder viewHolder = new ViewHolder();
 
     ArrayAdapter adapter;
@@ -47,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ipList);
+        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, networkDevice);
 
         //listView = findViewById(R.id.list_view_wifiScanList);
         //listView.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this, 0, ipList) {
+        adapter = new ArrayAdapter<networkDevice>(this, 0, deviceList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
                     convertView.setTag(viewHolder);
                 }
 
-                String s = getItem(position);
-                String ip = ipList.get(position);
+                String s = getItem(position).getIp();//getItem(position);
+                Boolean b = getItem(position).getIsChecked();
                 //Mode modes = getItem(position);
                 ((ViewHolder) convertView.getTag()).ipTextView.setText("" + s);
-                //((ViewHolder) convertView.getTag()).ipCheckBox;
+                ((ViewHolder) convertView.getTag()).ipCheckBox.setChecked(b);
 
                 return convertView;
             }
@@ -81,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view_wifiScanList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("ListView clicked id: " + position);
+                networkDevice nd = deviceList.get(position);
+                boolean isChecked = nd.getIsChecked();
+                nd.setIsChecked(!isChecked);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         Button b_change_v = findViewById(R.id.b_change_view);
         b_change_v.setOnClickListener(new View.OnClickListener() {
@@ -98,21 +110,32 @@ public class MainActivity extends AppCompatActivity {
 
                 String inIp = eT_ip.getText().toString();
                 //Check if the ip is already in the list
+
+                /* add ip from editText view
                 boolean exist = false;
-                for (String ip : ipList) {
-                    if (ip.equals(inIp))
+                for (networkDevice ip : deviceList) {
+                    if (ip.getIp().equals(inIp))
                         exist = true;
                 }
                 if (!exist)
-                    ipList.add(inIp);
+                    deviceList.add(new networkDevice(inIp));
+                */
+
                 /*
                 for(int i : pickedPosition){
-                    ipList.add(getText(getPosition(i)));
+                    networkDevice.add(getText(getPosition(i)));
                 }
                 */
 
-                if (ipList != null)
-                    intent.putStringArrayListExtra("ipList", ipList);
+                if (deviceList != null) {
+                    //intent.putParcelableArrayListExtra("networkDevices", (ArrayList) networkDevice);
+                    //intent.putStringArrayListExtra("networkDevices", (ArrayList)deviceList);
+                    ArrayList<String> ipAdresses = new ArrayList<>();
+                    for (networkDevice nd : deviceList) {
+                        ipAdresses.add(nd.getIp());
+                    }
+                    intent.putStringArrayListExtra("networkDevices", ipAdresses);
+                }
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
@@ -129,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         //wifi scan
-                        ipList.clear();
+                        deviceList.clear();
                         deviceWifiScan(1, 254, 8001);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -169,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         for (int s = start; s <= end; s++) {
             String ip = wifi + s;
             if (isPortOpen(ip, port, 100)) {
-                ipList.add(ip);
+                deviceList.add(new networkDevice(ip));
                 Log.i("LED DEVICE IP FOUND", ip);
             }
         }
