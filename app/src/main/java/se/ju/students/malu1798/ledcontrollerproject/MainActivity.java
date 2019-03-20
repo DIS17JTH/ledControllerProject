@@ -3,7 +3,6 @@ package se.ju.students.malu1798.ledcontrollerproject;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -17,22 +16,17 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import petrov.kristiyan.colorpicker.ColorPicker;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -40,9 +34,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    //Colors
-    Colors colorsVar = new Colors();
 
     ArrayList<String> ipList = new ArrayList<>();
     ViewHolder viewHolder = new ViewHolder();
@@ -75,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("port", i_port);
 
                 String inIp = eT_ip.getText().toString();
+                //Check if the ip is already in the list
                 boolean exist = false;
-
                 for (String ip : ipList) {
                     if (ip.equals(inIp))
                         exist = true;
@@ -106,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         //wifi scan
-                        ledDevicesWifiScan(1,254, 8001);
+                        ipList.clear();
+                        ledDevicesWifiScan(1, 254, 8001);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -120,7 +112,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        handleWifi();
+        //RUNTIME CONF. CHANGE HANDLE
+        if (savedInstanceState != null) {
+
+        } else {
+            //handleWifi();
+        }
 
         //listView
         this.addToViewHolder();
@@ -132,18 +129,23 @@ public class MainActivity extends AppCompatActivity {
         //viewHolder.t_r = findViewById(R.id.t_r);
     }
 
-
+    /*
+    * scan wifi for a specific port
+    * */
     private void ledDevicesWifiScan(int start, int end, int port) {
         String wifi = getDeviceIP(false);
         for (int s = start; s <= end; s++) {
             String ip = wifi + s;
             if (isPortOpen(ip, port, 100)) {
                 ipList.add(ip);
-                //Toast.makeText(MainActivity.this, "Device found: " + ip, Toast.LENGTH_SHORT).show();
+                Log.i("LED DEVICE IP FOUND", ip);
             }
         }
     }
 
+    /*
+    *   returns true if port is open
+    * */
     private boolean isPortOpen(final String ip, final int port, final int timeout) {
         try {
             Socket socket = new Socket();
@@ -151,10 +153,10 @@ public class MainActivity extends AppCompatActivity {
             socket.close();
             return true;
         } catch (ConnectException ce) {
-            ce.printStackTrace();
+            //ce.printStackTrace();
             return false;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return false;
         }
     }
@@ -164,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         handleWifi();
+        adapter.notifyDataSetChanged();
     }
 
     /*
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                         .show();
 
             } else {
-                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_SHORT).show();
                 String ipString = getDeviceIP(false);
 
                 EditText eT_ip = findViewById(R.id.eT_ip);
@@ -243,65 +246,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    /*private void openColorPicker() {
-        String colorCode = "#258174";
-
-        final ColorPicker cPicker = new ColorPicker(this);
-        final ArrayList<String> arrayColorList = colorsVar.getColors();
-        *//*final ArrayList<String> colors = new ArrayList<>();
-        colors.add("#258174");
-        colors.add("#27AE60");
-        colors.add("#3498DB");
-        colors.add("#CB4335");
-        colors.add("#34495E");
-        colors.add("#F4D03F");*//*
-
-        cPicker.setColors(arrayColorList).setOnChooseColorListener(
-                new ColorPicker.OnChooseColorListener() {
-
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        if (position != -1) {
-                            Log.d("COLOR", "color = " + position + " - " + color);
-                            System.out.println("Position: " + position + " Color: " + color);
-                            View v_background = findViewById(R.id.layout_main_id);
-                            setColorWithHex(arrayColorList.get(position), v_background);
-                        } else
-                            return;
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                })
-                .setColumns(5)
-                .setRoundColorButton(true)
-                .show();
-    }
-*/
-/*
-    private void setColorWithHex(String hex, View v) {
-        String colorStr = hex;
-        int r = Integer.valueOf(colorStr.substring(1, 3), 16);
-        int g = Integer.valueOf(colorStr.substring(3, 5), 16);
-        int b = Integer.valueOf(colorStr.substring(5, 7), 16);
-
-        v.setBackgroundColor(Color.rgb(r, g, b));
-
-    }
-*/
-
-    /*
-    @Override
-    public void onClick(View view){
-        //Button clicked
-        System.out.println("Button change view clicked");
-        Intent intent = new Intent(this, PickColorActivity.class);
-        startActivity(intent);
-    }
-    */
 
     @Override
     //settings menu
