@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter adapter;
     ListView listView;
 
+    Button buttonScan;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
                     //intent.putStringArrayListExtra("networkDevices", (ArrayList)deviceList);
                     ArrayList<String> ipAdresses = new ArrayList<>();
                     for (networkDevice nd : deviceList) {
-                        ipAdresses.add(nd.getIp());
+                        if(nd.getIsChecked())
+                            ipAdresses.add(nd.getIp());
                     }
                     intent.putStringArrayListExtra("networkDevices", ipAdresses);
                 }
@@ -142,12 +145,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonScan = findViewById(R.id.wifiScanButton);
+        buttonScan = findViewById(R.id.wifiScanButton);
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Search started!", Toast.LENGTH_SHORT).show();
                 //run in background
+                //buttonScan.setActivated(false);
+
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

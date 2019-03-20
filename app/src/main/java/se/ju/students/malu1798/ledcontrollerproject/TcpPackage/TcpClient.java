@@ -20,20 +20,13 @@ public class TcpClient extends Observable {
     private String address;
     private Integer port;
     private Integer timeout = 2000;
-    //private String messageFromServer = null;
 
     private TcpClientState state = TcpClientState.DISCONNECTED;
 
     private PrintWriter bufferOut;
     private BufferedReader bufferIn;
 
-    //private BufferedReader bufferIn;
-
     private Socket socket;
-
-    /*public TcpClient() {
-        this("192.168.1.101", 8001);
-    }*/
 
     public TcpClient(String address, int port) {
         this.address = address;
@@ -97,15 +90,6 @@ public class TcpClient extends Observable {
             }
         }
     }
-
-   /* public String getMessageFromServer() {
-        return this.messageFromServer;
-    }
-
-    private void setMessageFromServer(String messageFromServer) {
-        this.messageFromServer = messageFromServer;
-    }*/
-
 
     private class ReceiveMessagesThread extends Thread {
         @Override
