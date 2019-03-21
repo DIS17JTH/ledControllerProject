@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
-    @Override
+/*    @Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                /*handle*/
+                *//*handle*//*
                 return true;
             case R.id.action_profile:
 
@@ -21,7 +21,7 @@ public class MenuActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     @Override
     public boolean onSupportNavigateUp(){
