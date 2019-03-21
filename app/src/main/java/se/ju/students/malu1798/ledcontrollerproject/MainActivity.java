@@ -46,10 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
     Button buttonScan;
 
+    EditText eT_ip;
+    EditText eT_port;
+
+    int startIP = 1;
+    int endIP = 254;
+    int port = 8001;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.initializationOfViews();
 
         adapter = new ArrayAdapter<NetworkDevice>(this, 0, deviceList) {
             @Override
@@ -95,12 +104,10 @@ public class MainActivity extends AppCompatActivity {
         Button b_change_v = findViewById(R.id.b_change_view);
         b_change_v.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText eT_ip = findViewById(R.id.eT_ip);
-                EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
 
-                int i_port = Integer.parseInt(eT_port.getText().toString());
-                intent.putExtra("port", i_port);
+                port = Integer.parseInt(eT_port.getText().toString());
+                intent.putExtra("port", port);
 
                 String inIp = eT_ip.getText().toString();
                 ArrayList<String> ipAddresses = null;
@@ -128,21 +135,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Search started!", Toast.LENGTH_SHORT).show();
-                //run in background
-                //buttonScan.setActivated(false);
+                buttonScan.setEnabled(false);
+                buttonScan.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
+                //run in background
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         //wifi scan
                         deviceList.clear();
-                        deviceWifiScan(1, 254, 8001);
+                        deviceWifiScan(startIP, endIP, port);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 // update UI
                                 adapter.notifyDataSetChanged();
                                 Toast.makeText(MainActivity.this, "Search complete!", Toast.LENGTH_LONG).show();
+                                buttonScan.setEnabled(true);
+                                buttonScan.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                             }
                         });
                     }
@@ -157,14 +167,12 @@ public class MainActivity extends AppCompatActivity {
             //handleWifi();
         }
 
-        //listView
-        this.addToViewHolder();
 
     }
 
-    private void addToViewHolder() {
-
-        //viewHolder.t_r = findViewById(R.id.t_r);
+    private void initializationOfViews() {
+        eT_ip = findViewById(R.id.eT_ip);
+        eT_port = findViewById(R.id.eT_port);
     }
 
     /**
@@ -254,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @returns the phone ip either xyz.xyz.xyz. or xyz.xyz.xyz.xyz
+     * @returns the phone ip either ccc.ccc.ccc. or ccc.ccc.ccc.ccc
      * */
     public String getDeviceIP(boolean wholeIP) {
         if (wholeIP) { //whole ip address
