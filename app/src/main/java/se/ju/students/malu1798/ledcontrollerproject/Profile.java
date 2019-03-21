@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Profile{
     public static ArrayList<Profile> profiles = new ArrayList<>();
     static {
+/*
         ArrayList<Setting> settingsGradient = new ArrayList<>();
         settingsGradient.add(new Setting("Frequency", "Change Frequency", 50, 1));
         settingsGradient.add(new Setting("Max", "Max value", 100, 1));
@@ -13,7 +14,9 @@ public class Profile{
         settingsStrobe.add(new Setting("Frequency", "Change Frequency", 50, 1));
         settingsStrobe.add(new Setting("Max", "Max value", 100, 1));
         settingsStrobe.add(new Setting("Min", "Min vale", 100, 1));
-
+*/
+        profiles.add(new Profile("Profile 1"));
+/*
         for (int i = 0; i < 15; i++) {
             profiles.add(new Profile(
                     "Profile " + i
@@ -23,7 +26,7 @@ public class Profile{
             profiles.get(i).getP_modes().add(new Mode("Strobe", "Change brightness by time", settingsStrobe));
             for(int j = 0; j < 5; j++)
                 profiles.get(i).getP_modes().add(new Mode("Mode" +  j));
-        }
+        }*/
     }
 
     private static int totAmountOfProfiles = 0;
@@ -50,9 +53,9 @@ public class Profile{
 
     }
 
-    public Profile(String name, ArrayList<Mode> modes){
+    /*public Profile(String name, ArrayList<Mode> modes){
         this(name, modes, null);
-    }
+    }*/
 
     public Profile(String name){
         this(name, null, null);

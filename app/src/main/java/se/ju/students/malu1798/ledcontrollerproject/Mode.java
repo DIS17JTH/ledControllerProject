@@ -5,20 +5,23 @@ import java.util.ArrayList;
 public class Mode {
     private String m_modeName;
     private String m_description;
-    private ArrayList<Setting> m_settings;
+    //private ArrayList<Setting> m_settings;
 
-    public Mode(String modeName, String m_description, ArrayList<Setting> settings) {
+    public Mode(String modeName, String m_description) {
         this.m_modeName = modeName;
+
+        /*
         if(m_settings == null)
-            this.m_settings = new ArrayList<>();
+            //this.m_settings = new ArrayList<>();
         else
             this.m_settings = settings;
+        */
 
         this.m_description = m_description;
     }
 
     public Mode(String modeName) {
-        this(modeName, "no description", null);
+        this(modeName, "no description");
         //this.m_modeName = m_modeName;
         //if(m_settings == null)
         //    this.m_settings = new ArrayList<>();
@@ -28,21 +31,22 @@ public class Mode {
         this("Default Mode");
     }
 
-/*
+    /*
         public Mode() {
             //this(0, "Default mode name", );
         }
-*/
+    */
 
     /*GETTERS AND SETTERS*/
 
-    public ArrayList<Setting> getMode_settings() {
+    /*public ArrayList<Setting> getMode_settings() {
         return m_settings;
     }
 
     public void setMode_settings(ArrayList<Setting> m_settings) {
         this.m_settings = m_settings;
     }
+    */
 
     public String get_modeName() {
         return m_modeName;

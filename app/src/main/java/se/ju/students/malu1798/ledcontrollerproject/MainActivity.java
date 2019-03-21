@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         b_change_v.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                System.out.println("Change view button clicked");
+                //System.out.println("Change view button clicked");
                 EditText eT_ip = findViewById(R.id.eT_ip);
                 EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         //viewHolder.t_r = findViewById(R.id.t_r);
     }
 
-    /*
+    /**
     * scan wifi for a specific port
     * */
     private void deviceWifiScan(int start, int end, int port) {
@@ -198,12 +198,12 @@ public class MainActivity extends AppCompatActivity {
             String ip = wifi + s;
             if (isPortOpen(ip, port, 100)) {
                 deviceList.add(new NetworkDevice(ip));
-                Log.i("LED DEVICE IP FOUND", ip);
+                //Log.i("LED DEVICE IP FOUND", ip);
             }
         }
     }
 
-    /*
+    /**
     *   returns true if port is open
     * */
     private boolean isPortOpen(final String ip, final int port, final int timeout) {
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     private void handleWifi() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (!checkConnection(getApplicationContext())) {
-                Log.i("WIFI", "wifi not connected");
+                //Log.i("WIFI", "wifi not connected");
                 Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
 
                 //dialog for wifi enable
@@ -274,6 +274,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @returns the phone ip either xxx.xxx.xxx. or xxx.xxx.xxx.xxx
+     * */
     public String getDeviceIP(boolean wholeIP) {
         if (wholeIP) { //whole ip address
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -315,9 +318,9 @@ public class MainActivity extends AppCompatActivity {
                 /*handle*/
                 return true;
             case R.id.action_profile:
-                System.out.println("Profile menu button clicked");
-                Intent intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
+                //System.out.println("Profile menu button clicked");
+                //Intent intent = new Intent(this, ProfileActivity.class);
+                //startActivity(intent);
                 return true;
             case R.id.swich_tilt:
 

@@ -1,12 +1,10 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,10 +64,10 @@ public class ModeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("ListView clicked id: " + position);
-                Intent intent = new Intent(ModeActivity.this, ModeSettingsActivity.class);
-                intent.putExtra("id", position);
-                startActivity(intent);
+                //System.out.println("ListView clicked id: " + position);
+                //Intent intent = new Intent(ModeActivity.this, ModeSettingsActivity.class);
+                //intent.putExtra("id", position);
+                //startActivity(intent);
             }
         });
 

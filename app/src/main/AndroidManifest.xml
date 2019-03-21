@@ -31,15 +31,6 @@
         </receiver>
 
         <activity
-            android:name=".ColorProfileActivity"
-            android:label="@string/title_activity_color_profile"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="androidx.appcompat.app.AppCompatActivity" />
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/s_LED_control"
             android:launchMode="singleTop">
@@ -56,14 +47,6 @@
         <activity
             android:name=".ModeActivity"
             android:label="@string/s_mode"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
-        <activity
-            android:name=".ModeSettingsActivity"
-            android:label="@string/s_mode_settings"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/s_profile"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
     </application>
 

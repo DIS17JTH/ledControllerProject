@@ -140,9 +140,9 @@ public class PickColorActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("Button Color profile clicked");
-                        Intent intent = new Intent(v.getContext(), ColorProfileActivity.class);
-                        startActivity(intent);
+                        //System.out.println("Button Color profile clicked");
+                        //Intent intent = new Intent(v.getContext(), ColorProfileActivity.class);
+                        //startActivity(intent);
                     }
                 }
         );
