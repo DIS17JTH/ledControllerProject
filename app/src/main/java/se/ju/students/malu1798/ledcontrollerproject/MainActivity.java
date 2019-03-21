@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @returns the phone ip either xxx.xxx.xxx. or xxx.xxx.xxx.xxx
+     * @returns the phone ip either xyz.xyz.xyz. or xyz.xyz.xyz.xyz
      * */
     public String getDeviceIP(boolean wholeIP) {
         if (wholeIP) { //whole ip address
