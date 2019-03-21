@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class ModeActivity extends AppCompatActivity {
 
-    private int currentMode = 0;
-    ArrayList<Mode> modesArr = Profile.profiles.get(currentMode).getP_modes();
+    private int currentProfile = 0;
+    ArrayList<Mode> modesArr = Profile.profiles.get(currentProfile).getP_modes();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class ModeActivity extends AppCompatActivity {
                             convertView.setTag(viewHolder);
                         }
 
-                        Mode mode = Profile.getProfiles().get(currentMode).getP_modes().get(position);
+                        Mode mode = Profile.getProfiles().get(currentProfile).getP_modes().get(position);
                         //Mode modes = getItem(position);
                         ((ViewHolder) convertView.getTag()).idTextView.setText("" + position);
                         ((ViewHolder) convertView.getTag()).nameTextView.setText("" + mode.get_modeName());
@@ -82,23 +82,24 @@ public class ModeActivity extends AppCompatActivity {
     }
 
 
+/*
     @Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                /*handle*/
+                */
+/*handle*//*
+
                 return true;
             case R.id.action_profile:
-
-                return false;
-            case R.id.swich_tilt:
 
                 return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+*/
 
     @Override
     public boolean onSupportNavigateUp() {

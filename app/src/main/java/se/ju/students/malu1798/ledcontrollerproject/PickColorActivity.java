@@ -429,26 +429,24 @@ public class PickColorActivity extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
+
     /**
      * Handle options menu
      */
-    @Override
+    /*@Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                /*handle*/
+                *//*handle*//*
                 return true;
             case R.id.action_profile:
-
-                return false;
-            case R.id.swich_tilt:
 
                 return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     /**
      * handle back arrow in app bar

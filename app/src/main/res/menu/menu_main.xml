@@ -2,18 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="se.ju.students.malu1798.basicappaddicon.MainActivity">
+
+    <!--
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/s_settings"
         app:showAsAction="never"></item>
+    -->
+    <!--
     <item
         android:id="@+id/action_profile"
         android:orderInCategory="101"
         android:title="@string/s_profile" />
-    <item
-        android:id="@+id/swich_tilt"
-        android:orderInCategory="102"
-        android:title="@string/s_tilt"
-        app:actionLayout="@layout/switch_item" />
+    -->
+
 </menu>

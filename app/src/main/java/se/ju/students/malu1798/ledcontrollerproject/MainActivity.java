@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, NetworkDevice);
-
-        //listView = findViewById(R.id.list_view_wifiScanList);
-        //listView.setAdapter(adapter);
 
         adapter = new ArrayAdapter<NetworkDevice>(this, 0, deviceList) {
             @Override
@@ -132,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
                 if (deviceList != null) {
                     //intent.putParcelableArrayListExtra("networkDevices", (ArrayList) NetworkDevice);
                     //intent.putStringArrayListExtra("networkDevices", (ArrayList)deviceList);
-                    ArrayList<String> ipAdresses = new ArrayList<>();
+                    ArrayList<String> ipAddresses = new ArrayList<>();
                     for (NetworkDevice nd : deviceList) {
                         if(nd.getIsChecked())
-                            ipAdresses.add(nd.getIp());
+                            ipAddresses.add(nd.getIp());
                     }
-                    intent.putStringArrayListExtra("networkDevices", ipAdresses);
+                    intent.putStringArrayListExtra("networkDevices", ipAddresses);
                 }
                 //intent.putExtra("port", eT_port.getText());
                 System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
@@ -310,25 +306,22 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
+    /*@Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                /*handle*/
+                *//*handle*//*
                 return true;
             case R.id.action_profile:
                 //System.out.println("Profile menu button clicked");
                 //Intent intent = new Intent(this, ProfileActivity.class);
                 //startActivity(intent);
                 return true;
-            case R.id.swich_tilt:
-
-                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     @Override
     //if settings menu should show

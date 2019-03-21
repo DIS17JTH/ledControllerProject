@@ -16,15 +16,6 @@
         android:background="@color/colorPrimaryDark"
         android:gravity="start">
 
-        <ImageButton
-            android:id="@+id/iB_saveColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="12dp"
-            app:srcCompat="@drawable/ic_save_black_36dp"
-            />
-
         <ImageView
             android:id="@+id/i_pC_led"
             android:layout_width="wrap_content"
@@ -235,21 +226,22 @@
         android:id="@+id/layout_favorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/b_profiles"
+        <ImageButton
+            android:id="@+id/iB_saveColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
-            android:text="@string/s_color_profile" />
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_save_black_36dp" />
 
         <ImageButton
             android:id="@+id/iB_color_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             app:srcCompat="@drawable/ic_color_lens_black_36dp"
             android:layout_weight="1"
             />
