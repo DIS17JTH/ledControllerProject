@@ -119,7 +119,7 @@ public class PickColorActivity extends AppCompatActivity
                     public void onClick(View v) {
                         // Code here executes on main thread after user presses button
                         System.out.println("Button mode clicked");
-                        Intent intent = new Intent(v.getContext(), ModeActivity.class);
+                        Intent intent = new Intent(v.getContext(), SelectModeActivity.class);
                         startActivity(intent);
                     }
                 });

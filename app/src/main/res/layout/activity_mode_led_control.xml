@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/led_controlText"
+        android:id="@+id/led_chooseText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
