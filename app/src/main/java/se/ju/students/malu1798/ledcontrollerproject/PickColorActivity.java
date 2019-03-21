@@ -33,7 +33,6 @@ public class PickColorActivity extends AppCompatActivity
     ViewHolder viewHolder = new ViewHolder();
     ArrayList<ImageView> a_imageButtons = new ArrayList<>();
     //tcp clients
-    //TcpClient client;
     ArrayList<TcpClient> clients = new ArrayList<>();
 
     private int lastBrightnessState = 0;
@@ -47,10 +46,10 @@ public class PickColorActivity extends AppCompatActivity
     private int b = 255;
     private int brightness = 255;
 
-    String ip = "192.168.1.101";
+    //String ip = "192.168.1.101";
     int port = 8001;
 
-    //Colors
+    //Favorite Colors
     Colors colorsVar = new Colors();
 
     @Override
@@ -72,20 +71,17 @@ public class PickColorActivity extends AppCompatActivity
         /*GET intent information*/
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            setIp(bundle.getString("ip", "0"));
             setPort(bundle.getInt("port", 0));
-            System.out.println("ip: " + ip + " port: " + port);
 
             ArrayList<String> deviceList = new ArrayList<>(bundle.getStringArrayList("networkDevices"));
             for (String ip : deviceList) {
-                clients.add(new TcpClient(ip, port));
+                clients.add(new TcpClient(ip, getPort()));
             }
         }
 
         /*Try to connect to all clients*/
         for (TcpClient client : clients) {
             try {
-                //client = new TcpClient(ip, port);
                 client.addObserver(this);
                 client.connect();
             } catch (Exception e) {
@@ -181,7 +177,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * adds view to view holder and set view variables
-     * */
+     */
     private void addToViewHolder() {
         //Image Views
         View v_top = findViewById(R.id.layout_top);
@@ -218,7 +214,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * update colors based on seek bar position
-     * */
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         switch (seekBar.getId()) {
@@ -553,15 +549,6 @@ public class PickColorActivity extends AppCompatActivity
     /**
      * GETTERS AND SETTERS
      */
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     public int getPort() {
         return port;
     }

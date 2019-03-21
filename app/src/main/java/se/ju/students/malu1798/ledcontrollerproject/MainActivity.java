@@ -95,48 +95,30 @@ public class MainActivity extends AppCompatActivity {
         Button b_change_v = findViewById(R.id.b_change_view);
         b_change_v.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                //System.out.println("Change view button clicked");
                 EditText eT_ip = findViewById(R.id.eT_ip);
                 EditText eT_port = findViewById(R.id.eT_port);
                 Intent intent = new Intent(v.getContext(), PickColorActivity.class);
 
-                /*WORKING HERE*/
-                intent.putExtra("ip", eT_ip.getText().toString());
                 int i_port = Integer.parseInt(eT_port.getText().toString());
                 intent.putExtra("port", i_port);
 
                 String inIp = eT_ip.getText().toString();
-                //Check if the ip is already in the list
-
-                /* add ip from editText view
-                boolean exist = false;
-                for (NetworkDevice ip : deviceList) {
-                    if (ip.getIp().equals(inIp))
-                        exist = true;
-                }
-                if (!exist)
-                    deviceList.add(new NetworkDevice(inIp));
-                */
-
-                /*
-                for(int i : pickedPosition){
-                    NetworkDevice.add(getText(getPosition(i)));
-                }
-                */
-
+                ArrayList<String> ipAddresses = null;
+                //ADD devices
                 if (deviceList != null) {
-                    //intent.putParcelableArrayListExtra("networkDevices", (ArrayList) NetworkDevice);
-                    //intent.putStringArrayListExtra("networkDevices", (ArrayList)deviceList);
-                    ArrayList<String> ipAddresses = new ArrayList<>();
+                    ipAddresses = new ArrayList<>();
                     for (NetworkDevice nd : deviceList) {
                         if(nd.getIsChecked())
                             ipAddresses.add(nd.getIp());
                     }
-                    intent.putStringArrayListExtra("networkDevices", ipAddresses);
+
+                }else{ //if(deviceList == null){ //add ip from edit text view
+                    deviceList.add(new NetworkDevice(inIp));
                 }
+
+                intent.putStringArrayListExtra("networkDevices", ipAddresses);
                 //intent.putExtra("port", eT_port.getText());
-                System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
+                //System.out.println("ip: " + eT_ip.getText() + " port: " + eT_port.getText() + " " + i_port);
                 startActivity(intent);
             }
         });
