@@ -65,7 +65,6 @@ public class PickColorActivity extends AppCompatActivity
         Button b_mode = findViewById(R.id.b_mode);
         ImageButton b_colorPicker = findViewById(R.id.iB_color_picker);
         ImageButton b_saveColor = findViewById(R.id.iB_saveColor);
-        Button b_profile = findViewById(R.id.b_profiles);
         //Toggle Button
         final ToggleButton t_b_on_off = findViewById(R.id.tB_on_off);
         t_b_on_off.setChecked(true);
@@ -136,16 +135,6 @@ public class PickColorActivity extends AppCompatActivity
                     }
                 });
 
-        b_profile.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //System.out.println("Button Color profile clicked");
-                        //Intent intent = new Intent(v.getContext(), ColorProfileActivity.class);
-                        //startActivity(intent);
-                    }
-                }
-        );
 
         t_b_on_off.setOnClickListener(
                 new View.OnClickListener() {
@@ -430,9 +419,6 @@ public class PickColorActivity extends AppCompatActivity
     }
 
 
-    /**
-     * Handle options menu
-     */
     /*@Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
