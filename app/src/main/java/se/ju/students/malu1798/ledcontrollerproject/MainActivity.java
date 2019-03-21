@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 // update UI
                                 adapter.notifyDataSetChanged();
-                                Toast.makeText(MainActivity.this, "Search complete!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Search complete!", Toast.LENGTH_SHORT).show();
                                 buttonScan.setEnabled(true);
                                 buttonScan.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                             }
