@@ -247,7 +247,8 @@ public class MainActivity extends AppCompatActivity {
                 eT_ip.setText(ipString);
 
                 EditText eT_port = findViewById(R.id.eT_port);
-                eT_port.setText("8001");
+                String defaultPort = "8001";
+                eT_port.setText(defaultPort);
             }
         }
     }
