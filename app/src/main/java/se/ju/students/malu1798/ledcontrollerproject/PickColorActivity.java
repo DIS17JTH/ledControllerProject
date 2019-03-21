@@ -33,7 +33,10 @@ public class PickColorActivity extends AppCompatActivity
     ViewHolder viewHolder = new ViewHolder();
     ArrayList<ImageView> a_imageButtons = new ArrayList<>();
     //tcp clients
+    //TcpClient client;
     ArrayList<TcpClient> clients = new ArrayList<>();
+
+    private int lastBrightnessState = 0;
 
     SeekBar seekB_red;
     SeekBar seekB_green;
@@ -43,10 +46,6 @@ public class PickColorActivity extends AppCompatActivity
     private int g = 255;
     private int b = 255;
     private int brightness = 255;
-
-    private int lastBrightnessState = 0;
-
-    //TcpClient client;
 
     String ip = "192.168.1.101";
     int port = 8001;
@@ -71,7 +70,7 @@ public class PickColorActivity extends AppCompatActivity
         final ToggleButton t_b_on_off = findViewById(R.id.tB_on_off);
         t_b_on_off.setChecked(true);
 
-
+        /*GET intent information*/
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             setIp(bundle.getString("ip", "0"));
@@ -84,16 +83,19 @@ public class PickColorActivity extends AppCompatActivity
             }
         }
 
+        /*Try to connect to all clients*/
         for (TcpClient client : clients) {
             try {
                 //client = new TcpClient(ip, port);
                 client.addObserver(this);
                 client.connect();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("CONNECTION", "ERROR", e);
+                //e.printStackTrace();
             }
         }
 
+        /*BUTTONS*/
         b_saveColor.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -177,6 +179,7 @@ public class PickColorActivity extends AppCompatActivity
                     }
                 }
         );
+        /*end BUTTONS*/
 
         //seek bar
         viewHolder.seekB_brightness.setOnSeekBarChangeListener(this);
@@ -187,6 +190,9 @@ public class PickColorActivity extends AppCompatActivity
         updateViewColors(getR(), getG(), getB());
     }
 
+    /**
+     * adds view to view holder and set view variables
+     * */
     private void addToViewHolder() {
         //Image Views
         View v_top = findViewById(R.id.layout_top);
@@ -221,37 +227,38 @@ public class PickColorActivity extends AppCompatActivity
 
     }
 
+    /**
+     * update colors based on seek bar position
+     * */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
-                System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
+                //System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
                 setR(progress);
                 break;
             case R.id.seekBar_g:
-                System.out.println("--SeekBar onChange green");
+                //System.out.println("--SeekBar onChange green");
                 setG(progress);
                 break;
             case R.id.seekBar_b:
-                System.out.println("--SeekBar onChange blue");
+                //System.out.println("--SeekBar onChange blue");
                 setB(progress);
                 break;
             case R.id.seekBar_brightness:
+                //System.out.println("--SeekBar onChange brightness " + getBrightness());
                 setBrightness(progress);
-                //inverse
-                //brightness = (brightness*(-1))+255;
-                //setBrightness((progress*(-1))+255);
-                System.out.println("--SeekBar onChange brightness " + getBrightness());
                 break;
             default:
-                System.out.println("--SeekBar onChange default");
+                //System.out.println("--SeekBar onChange default");
                 break;
         }
         updateViewColors(getR(), getG(), getB());
     }
 
+    /**
+     * display a specific color to multiple views
+     */
     private void updateViewColors(int red, int green, int blue) {
         int red_minus_brightness = colorConvertWithBrightness(red);
         int green_minus_brightness = colorConvertWithBrightness(green);
@@ -273,6 +280,9 @@ public class PickColorActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Change background to avoid letters disappear into the background
+     */
     private void setTextColorVisible(int color, TextView tV) {
         int lowerLimit = 120;
         if (color < lowerLimit)
@@ -281,6 +291,9 @@ public class PickColorActivity extends AppCompatActivity
             tV.setTextColor(Color.BLACK);
     }
 
+    /**
+     *
+     * */
     private void updateSeekBars() {
         seekB_red.setProgress(getR());
         seekB_green.setProgress(getG());
@@ -288,7 +301,9 @@ public class PickColorActivity extends AppCompatActivity
         viewHolder.seekB_brightness.setProgress(getBrightness());
     }
 
-
+    /**
+     * Handle color picker
+     */
     private void openColorPicker() {
         String colorCode = "#258174";
 
@@ -327,11 +342,15 @@ public class PickColorActivity extends AppCompatActivity
                 .show();
     }
 
-    private int getColorFullRange(int procentage) {
-        double fullRange = procentage * 2.55;
+    private int getColorFullRange(int percentage) {
+        double fullRange = percentage * 2.55;
         return (int) fullRange;
     }
 
+
+    /**
+     * Handle seek bar start tracking touch
+     */
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
@@ -354,6 +373,9 @@ public class PickColorActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Handle seek bar stop tracking touch
+     */
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
@@ -384,8 +406,8 @@ public class PickColorActivity extends AppCompatActivity
     }
 
     /**
-     * returns string following
-     * */
+     * returns string following the protocol for communication with MCU
+     */
     private String sendColorMode() {
         String sendMode = String.format("w%03dr%03dg%03db%03d",
                 getBrightness(),
@@ -399,7 +421,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * menu
-     * */
+     */
     @Override
     //if settings menu should show
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -409,7 +431,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * Handle options menu
-     * */
+     */
     @Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -429,8 +451,8 @@ public class PickColorActivity extends AppCompatActivity
     }
 
     /**
-     *  handle back arrow in app bar
-     * */
+     * handle back arrow in app bar
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -439,7 +461,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * Observe TCP connection events
-     * */
+     */
     @Override
     public void update(Observable o, Object arg) {
         TcpEvent event = (TcpEvent) arg;
@@ -448,7 +470,7 @@ public class PickColorActivity extends AppCompatActivity
 
     /**
      * Update GUI when event was fired
-     * */
+     */
     private void updateUi(final TcpEvent eventPayload) {
         final TextView t_status = findViewById(R.id.t_pC_connect_status);
         switch (eventPayload.getTcpEventType()) {

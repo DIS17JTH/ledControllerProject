@@ -1,22 +1,22 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
-public class networkDevice {
+public class NetworkDevice {
     private String ip;
     private String macAddress;
     private boolean isChecked;
 
-    private networkDevice(String ip, String macAddress, Boolean isChecked) {
+    private NetworkDevice(String ip, String macAddress, Boolean isChecked) {
         this.ip = ip;
         this.macAddress = macAddress;
         this.isChecked = isChecked;
     }
 
-    private networkDevice(String ip, Boolean isChecked) {
+    private NetworkDevice(String ip, Boolean isChecked) {
         this.ip = ip;
         this.isChecked = isChecked;
     }
 
-    public networkDevice(String ip) {
+    public NetworkDevice(String ip) {
         this.ip = ip;
         this.isChecked = false;
     }
