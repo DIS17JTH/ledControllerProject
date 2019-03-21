@@ -79,7 +79,7 @@ public class PickColorActivity extends AppCompatActivity
             System.out.println("ip: " + ip + " port: " + port);
 
             ArrayList<String> deviceList = new ArrayList<>(bundle.getStringArrayList("networkDevices"));
-            for(String ip : deviceList){
+            for (String ip : deviceList) {
                 clients.add(new TcpClient(ip, port));
             }
         }
@@ -89,7 +89,7 @@ public class PickColorActivity extends AppCompatActivity
                 //client = new TcpClient(ip, port);
                 client.addObserver(this);
                 client.connect();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -167,7 +167,7 @@ public class PickColorActivity extends AppCompatActivity
                         updateViewColors(getR(), getG(), getB());
                         viewHolder.seekB_brightness.setEnabled(onOff);
 
-                        for(TcpClient client : clients) {
+                        for (TcpClient client : clients) {
                             try {
                                 client.sendMessage(sendColorMode());
                             } catch (RuntimeException e) {
@@ -293,14 +293,7 @@ public class PickColorActivity extends AppCompatActivity
         String colorCode = "#258174";
 
         final ColorPicker cPicker = new ColorPicker(this);
-        //final ArrayList<String> colors = new ArrayList<>();
         final ArrayList<String> colorsArr = colorsVar.getColors();
-        /*colors.add("#258174");
-        colors.add("#27AE60");
-        colors.add("#3498DB");
-        colors.add("#CB4335");
-        colors.add("#34495E");
-        colors.add("#F4D03F");*/
 
         cPicker.setColors(colorsArr)
                 .setOnChooseColorListener(
@@ -308,13 +301,11 @@ public class PickColorActivity extends AppCompatActivity
                             @Override
                             public void onChooseColor(int position, int color) {
                                 if (position != -1) {
-                                    Log.d("COLOR", "color = " + position + " - " + color);
-                                    System.out.println("Position: " + position + " Color: " + color);
-                                    //setColorWithHex(viewHolder.colors.getColor(position));
+                                    //Log.d("COLOR", "color = " + position + " - " + color);
                                     setColorWithHex(colorsArr.get(position));
                                     updateViewColors(getR(), getG(), getB());
                                     updateSeekBars();
-                                    for(TcpClient client : clients) {
+                                    for (TcpClient client : clients) {
                                         try {
                                             client.sendMessage(sendColorMode());
                                         } catch (RuntimeException e) {
@@ -345,19 +336,19 @@ public class PickColorActivity extends AppCompatActivity
     public void onStartTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
-                System.out.println("--SeekBar onStart red");
+                //System.out.println("--SeekBar onStart red");
                 break;
             case R.id.seekBar_g:
-                System.out.println("--SeekBar onStart green");
+                //System.out.println("--SeekBar onStart green");
                 break;
             case R.id.seekBar_b:
-                System.out.println("--SeekBar onStart blue");
+                //System.out.println("--SeekBar onStart blue");
                 break;
             case R.id.seekBar_brightness:
-                System.out.println("--SeekBar onStart brightness");
+                //System.out.println("--SeekBar onStart brightness");
                 break;
             default:
-                System.out.println("--SeekBar onStart default");
+                //System.out.println("--SeekBar onStart default");
                 break;
         }
 
@@ -367,31 +358,34 @@ public class PickColorActivity extends AppCompatActivity
     public void onStopTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
             case R.id.seekBar_r:
-                System.out.println("--SeekBar onStop red");
+                //System.out.println("--SeekBar onStop red");
                 break;
             case R.id.seekBar_g:
-                System.out.println("--SeekBar onStop green");
+                //System.out.println("--SeekBar onStop green");
                 break;
             case R.id.seekBar_b:
-                System.out.println("--SeekBar onStop blue");
+                //System.out.println("--SeekBar onStop blue");
                 break;
             case R.id.seekBar_brightness:
-                System.out.println("--SeekBar onStop brightness");
+                //System.out.println("--SeekBar onStop brightness");
                 break;
             default:
-                System.out.println("--SeekBar onStop default");
+                //System.out.println("--SeekBar onStop default");
                 break;
         }
-        //tcp send
-        for(TcpClient client : clients) {
+        //tcp send after every stop tracking of seek bars
+        for (TcpClient client : clients) {
             try {
                 client.sendMessage(sendColorMode());
             } catch (RuntimeException e) {
-                Log.e("MESSAGE", "not connected", e);
+                Log.e("MESSAGE", "could not send message", e);
             }
         }
     }
 
+    /**
+     * returns string following
+     * */
     private String sendColorMode() {
         String sendMode = String.format("w%03dr%03dg%03db%03d",
                 getBrightness(),
@@ -403,12 +397,9 @@ public class PickColorActivity extends AppCompatActivity
         return sendMode;
     }
 
-   /* public void modeButtonClicked(View view) {
-        System.out.println("Button clicked");
-        Intent intent = new Intent(this, ModeActivity.class);
-        startActivity(intent);
-    }*/
-
+    /**
+     * menu
+     * */
     @Override
     //if settings menu should show
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -416,7 +407,9 @@ public class PickColorActivity extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-
+    /**
+     * Handle options menu
+     * */
     @Override
     //settings menu
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -435,16 +428,125 @@ public class PickColorActivity extends AppCompatActivity
         }
     }
 
+    /**
+     *  handle back arrow in app bar
+     * */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
+    /**
+     * Observe TCP connection events
+     * */
+    @Override
+    public void update(Observable o, Object arg) {
+        TcpEvent event = (TcpEvent) arg;
+        updateUi(event);
+    }
+
+    /**
+     * Update GUI when event was fired
+     * */
+    private void updateUi(final TcpEvent eventPayload) {
+        final TextView t_status = findViewById(R.id.t_pC_connect_status);
+        switch (eventPayload.getTcpEventType()) {
+            case MESSAGE_RECEIVED:
+                //Do something
+                //Log.i("MASSAGE", "MESSAGE RECEIVED");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String payload = eventPayload.getPayload().toString();
+                            if (payload != null) {
+                                t_status.setText(payload);
+                            }
+                        } catch (Exception e) {
+                            Log.e("ERROR", "MESSAGE", e);
+                            //e.printStackTrace();
+                        }
+                    }
+                });
+
+                break;
+            case CONNECTION_ESTABLISHED:
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        //Update ui
+                        //Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
+                        t_status.setText("CONNECTION_ESTABLISHED");
+                        //client.sendMessage("CONNECTION_ESTABLISHED");
+                        for (TcpClient client : clients) {
+                            if (client != null) {
+                                try {
+                                    client.sendMessage(sendColorMode());
+                                } catch (RuntimeException e) {
+                                    Log.e("MESSAGE", "not connected", e);
+                                }
+                            }
+                        }
+                    }
+                });
+                break;
+
+            case CONNECTION_STARTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Log.i("CONNECTION", "CONNECTION_STARTED");
+                        t_status.setText("CONNECTION_STARTED");
+                    }
+                });
+                break;
+
+            case CONNECTION_FAILED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Log.i("CONNECTION", "CONNECTION_FAILED");
+                        t_status.setText("CONNECTION_FAILED");
+                    }
+                });
+                break;
+
+            case CONNECTION_LOST:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Log.i("CONNECTION", "CONNECTION_LOST");
+                        t_status.setText("CONNECTION_LOST");
+                    }
+                });
+                break;
+
+            case DISCONNECTED:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Log.i("CONNECTION", "DISCONNECTED");
+                        t_status.setText("DISCONNECTED");
+                    }
+                });
+                break;
+        }
+    }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Disconnect devices
+        for (TcpClient client : clients) {
+            client.disconnect();
+        }
+    }
 
-    /*GETTERS AND SETTERS*/
+
+    /**
+     * GETTERS AND SETTERS
+     */
 
     public String getIp() {
         return ip;
@@ -504,14 +606,14 @@ public class PickColorActivity extends AppCompatActivity
         int out;
         //out = (int) ((in * 100 / (getBrightness() + 1))) / 100;
         out = (getBrightness() * in) / 255;
-        System.out.println("out Value brightness converter: " + out);
+        //System.out.println("out Value brightness converter: " + out);
         return out;
     }
 
     /**
-     * Converts a hex string to a color. If it can't be converted null is returned.
+     * Converts a hex string to a color.
      *
-     * @param hex (i.e. #CCCCCCFF or CCCCCC)
+     * @param hex (i.e. #CCCCCC)
      * @return Color
      */
     private void setColorWithHex(String hex) {
@@ -522,7 +624,7 @@ public class PickColorActivity extends AppCompatActivity
     }
 
     /**
-     * Converts a color to a hex string. If it can't be converted null is returned.
+     * Converts a color to a hex string.
      *
      * @param r (i.e. 0 to 255)
      * @param g (i.e. 0 to 255)
@@ -532,108 +634,7 @@ public class PickColorActivity extends AppCompatActivity
     public String intColorToHexString(int r, int g, int b) {
         //int to hex conversion
         String hexColor = String.format("#%02X%02X%02X", r, g, b); //"#" + s_r + s_g + s_b;
-
-        System.out.println("---------RESULT----------- hexColor" + hexColor);
-
+        //System.out.println("---------RESULT----------- hexColor" + hexColor);
         return hexColor;
-    }
-
-
-    @Override
-    public void update(Observable o, Object arg) {
-        TcpEvent event = (TcpEvent) arg;
-        updateUi(event);
-    }
-
-    private void updateUi(final TcpEvent eventPayload) {
-        final TextView t_status = findViewById(R.id.t_pC_connect_status);
-        switch (eventPayload.getTcpEventType()) {
-            case MESSAGE_RECEIVED:
-                //Do something
-                Log.i("MASSAGE", "MESSAGE RECEIVED");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                            try {
-                                String payload = eventPayload.getPayload().toString();
-                                if(payload != null) {
-                                    t_status.setText(payload);
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                    }
-                });
-
-                break;
-            case CONNECTION_ESTABLISHED:
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        //Update ui
-                        Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
-                        t_status.setText("CONNECTION_ESTABLISHED");
-                        //client.sendMessage("CONNECTION_ESTABLISHED");
-                        for(TcpClient client : clients) {
-                            if(client != null) {
-                                try {
-                                    client.sendMessage(sendColorMode());
-                                } catch (RuntimeException e) {
-                                    Log.e("MESSAGE", "not connected", e);
-                                }
-                            }
-                        }
-                    }
-                });
-                break;
-
-            case CONNECTION_STARTED:
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("CONNECTION", "CONNECTION_STARTED");
-                        t_status.setText("CONNECTION_STARTED");
-                    }
-                });
-                break;
-
-            case CONNECTION_FAILED:
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("CONNECTION", "CONNECTION_FAILED");
-                        t_status.setText("CONNECTION_FAILED");
-                    }
-                });
-                break;
-
-            case CONNECTION_LOST:
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("CONNECTION", "CONNECTION_LOST");
-                        t_status.setText("CONNECTION_LOST");
-                    }
-                });
-                break;
-
-            case DISCONNECTED:
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i("CONNECTION", "DISCONNECTED");
-                        t_status.setText("DISCONNECTED");
-                    }
-                });
-                break;
-        }
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        for(TcpClient client : clients) {
-            client.disconnect();
-        }
     }
 }
