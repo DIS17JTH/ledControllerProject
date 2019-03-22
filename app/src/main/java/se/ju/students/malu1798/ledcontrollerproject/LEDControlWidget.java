@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 
 /**
  * Implementation of App Widget functionality.
+ * Written by Lucas M
  */
 public class LEDControlWidget extends AppWidgetProvider {
 

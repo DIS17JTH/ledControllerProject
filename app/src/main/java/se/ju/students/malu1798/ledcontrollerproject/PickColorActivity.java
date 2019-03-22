@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/*Written by Lucas M*/
 public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener, Observer {
 

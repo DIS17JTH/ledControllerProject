@@ -1,6 +1,6 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
-
+/*Written by Lucas M and Carl M for capability with embedded system */
 /*
 Brightness: W000: [0]-[3]
 RED: R000: [4]-[7]

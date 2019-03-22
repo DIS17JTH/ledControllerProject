@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/*Written by Lucas M*/
 public class ModeActivity extends AppCompatActivity {
 
     private int currentProfile = 0;

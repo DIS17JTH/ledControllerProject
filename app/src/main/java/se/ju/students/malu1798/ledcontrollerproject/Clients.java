@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
 
+/*Written by Lucas M*/
 public class Clients {
     public static ArrayList<TcpClient> tcpClients;
     private static ArrayList<Integer> currentLedControlSettings;

@@ -35,7 +35,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
+/*Written by Lucas M*/
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<NetworkDevice> deviceList = new ArrayList<>();

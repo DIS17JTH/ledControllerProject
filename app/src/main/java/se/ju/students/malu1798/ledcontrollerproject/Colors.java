@@ -3,7 +3,7 @@ package se.ju.students.malu1798.ledcontrollerproject;
 import android.util.Log;
 
 import java.util.ArrayList;
-
+/*Written by Lucas M*/
 public class Colors {
     private static ArrayList<String> colors;
 

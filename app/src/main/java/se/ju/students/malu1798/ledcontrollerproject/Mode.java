@@ -2,6 +2,7 @@ package se.ju.students.malu1798.ledcontrollerproject;
 
 import java.util.ArrayList;
 
+/*Written by Lucas M*/
 public class Mode {
     private String m_modeName;
     private String m_description;

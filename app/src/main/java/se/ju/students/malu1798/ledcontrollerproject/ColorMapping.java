@@ -1,7 +1,7 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+/*Written by Lucas M*/
 public class ColorMapping extends AppCompatActivity {
     private int red;
     private int green;

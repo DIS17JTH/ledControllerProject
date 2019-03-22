@@ -1,5 +1,6 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
+/*Written by Lucas M*/
 public class NetworkDevice {
     private String ip;
     private String macAddress;

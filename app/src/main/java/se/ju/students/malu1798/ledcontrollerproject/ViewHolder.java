@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
+/*Written by Lucas M*/
 public class ViewHolder{
     public TextView textView;
     public TextView idTextView;
