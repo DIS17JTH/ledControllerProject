@@ -6,18 +6,24 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import petrov.kristiyan.colorpicker.ColorPicker;
 import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
 import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpEvent;
 
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -41,6 +47,14 @@ public class PickColorActivity extends AppCompatActivity
     SeekBar seekB_green;
     SeekBar seekB_blue;
 
+    PopupWindow popUp;
+    LinearLayout layout;
+    TextView tv;
+    ViewGroup.LayoutParams params;
+    LinearLayout mainLayout;
+    Button but;
+    boolean click = true;
+
     private int r = 255;
     private int g = 255;
     private int b = 255;
@@ -56,7 +70,6 @@ public class PickColorActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
-
         //ViewHolder Pattern
         this.addToViewHolder();
 
@@ -110,14 +123,19 @@ public class PickColorActivity extends AppCompatActivity
                 }
         );
 
+
         b_mode.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Code here executes on main thread after user presses button
                         System.out.println("Button mode clicked");
-                        Intent intent = new Intent(v.getContext(), ModeActivity.class);
-                        startActivity(intent);
+                        //Fragment dialogFragment = MissileDialog
+                        Fragment fragment = new MissileDialog();
+                        //fragment.startActivity(intent);
+                        //Intent intent = new Intent(v.getContext(), ModeActivity.class);
+                        //startActivity(intent);
+                        //setContentView(R.layout.activity_pick_color);
                     }
                 });
 

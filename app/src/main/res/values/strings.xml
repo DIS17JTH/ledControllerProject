@@ -57,4 +57,8 @@
     <string name="s_amplitude">Amplitude</string>
     <string name="s_frequency">Frequency</string>
     <string name="s_waveform">Waveform</string>
+    <string name="s_dialog_fire_missiles">Fire missiles?</string>
+    <string name="fire">FIRE</string>
+    <string name="dialog_fire_missiles">Fire missiles?</string>
+    <string name="cancel">Cancel</string>
 </resources>
