@@ -30,10 +30,11 @@ import java.util.Observer;
 public class PickColorActivity extends AppCompatActivity
         implements SeekBar.OnSeekBarChangeListener, Observer {
 
+    //tcp clients
+    Clients clients = new Clients();
+
     ViewHolder viewHolder = new ViewHolder();
     ArrayList<ImageView> a_imageButtons = new ArrayList<>();
-    //tcp clients
-    ArrayList<TcpClient> clients = new ArrayList<>();
 
     private int lastBrightnessState = 0;
 
@@ -57,6 +58,8 @@ public class PickColorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_color);
 
+        setClientRGB(brightness, r, g, b);
+
         //ViewHolder Pattern
         this.addToViewHolder();
 
@@ -75,12 +78,12 @@ public class PickColorActivity extends AppCompatActivity
 
             ArrayList<String> deviceList = new ArrayList<>(bundle.getStringArrayList("networkDevices"));
             for (String ip : deviceList) {
-                clients.add(new TcpClient(ip, getPort()));
+                clients.tcpClients.add(new TcpClient(ip, getPort()));
             }
         }
 
         /*Try to connect to all clients*/
-        for (TcpClient client : clients) {
+        for (TcpClient client : clients.tcpClients) {
             try {
                 client.addObserver(this);
                 client.connect();
@@ -140,23 +143,27 @@ public class PickColorActivity extends AppCompatActivity
                         boolean onOff = t_b_on_off.isChecked();
                         if (onOff) {
                             //ON
-                            if (lastBrightnessState == 0)
+                            if (lastBrightnessState == 0) {
                                 setBrightness(255);
-                            else
+                                clients.setControlSetting(ControlLedEnum.BRIGHTNESS, 255);
+                            } else {
                                 setBrightness(lastBrightnessState);
+                                clients.setControlSetting(ControlLedEnum.BRIGHTNESS, lastBrightnessState);
+                            }
 
                         } else {
                             //OFF
                             lastBrightnessState = getBrightness();
                             setBrightness(0);
+                            clients.setControlSetting(ControlLedEnum.BRIGHTNESS, 0);
                         }
                         updateSeekBars();
                         updateViewColors(getR(), getG(), getB());
                         viewHolder.seekB_brightness.setEnabled(onOff);
 
-                        for (TcpClient client : clients) {
+                        for (TcpClient client : clients.tcpClients) {
                             try {
-                                client.sendMessage(sendColorMode());
+                                client.sendMessage(clients.formatQueryString());
                             } catch (RuntimeException e) {
                                 Log.e("MESSAGE", "not connected", e);
                             }
@@ -221,18 +228,22 @@ public class PickColorActivity extends AppCompatActivity
             case R.id.seekBar_r:
                 //System.out.println("--SeekBar onChange red " + progress + fromUser + seekBar);
                 setR(progress);
+                clients.setControlSetting(ControlLedEnum.RED, progress);
                 break;
             case R.id.seekBar_g:
                 //System.out.println("--SeekBar onChange green");
                 setG(progress);
+                clients.setControlSetting(ControlLedEnum.GREEN, progress);
                 break;
             case R.id.seekBar_b:
                 //System.out.println("--SeekBar onChange blue");
                 setB(progress);
+                clients.setControlSetting(ControlLedEnum.BLUE, progress);
                 break;
             case R.id.seekBar_brightness:
                 //System.out.println("--SeekBar onChange brightness " + getBrightness());
                 setBrightness(progress);
+                clients.setControlSetting(ControlLedEnum.BRIGHTNESS, progress);
                 break;
             default:
                 //System.out.println("--SeekBar onChange default");
@@ -240,6 +251,7 @@ public class PickColorActivity extends AppCompatActivity
         }
         updateViewColors(getR(), getG(), getB());
     }
+
 
     /**
      * display a specific color to multiple views
@@ -303,11 +315,12 @@ public class PickColorActivity extends AppCompatActivity
                                 if (position != -1) {
                                     //Log.d("COLOR", "color = " + position + " - " + color);
                                     setColorWithHex(colorsArr.get(position));
+
                                     updateViewColors(getR(), getG(), getB());
                                     updateSeekBars();
-                                    for (TcpClient client : clients) {
+                                    for (TcpClient client : clients.tcpClients) {
                                         try {
-                                            client.sendMessage(sendColorMode());
+                                            client.sendMessage(clients.formatQueryString());
                                         } catch (RuntimeException e) {
                                             Log.e("MESSAGE", "not connected", e);
                                         }
@@ -381,9 +394,9 @@ public class PickColorActivity extends AppCompatActivity
                 break;
         }
         //tcp send after every stop tracking of seek bars
-        for (TcpClient client : clients) {
+        for (TcpClient client : Clients.tcpClients) {
             try {
-                client.sendMessage(sendColorMode());
+                client.sendMessage(Clients.formatQueryString());
             } catch (RuntimeException e) {
                 Log.e("MESSAGE", "could not send message", e);
             }
@@ -393,6 +406,7 @@ public class PickColorActivity extends AppCompatActivity
     /**
      * returns string following the protocol for communication with MCU
      */
+/*
     private String sendColorMode() {
         String sendMode = String.format("w%03dr%03dg%03db%03d",
                 getBrightness(),
@@ -403,6 +417,7 @@ public class PickColorActivity extends AppCompatActivity
 
         return sendMode;
     }
+*/
 
     /**
      * menu
@@ -413,22 +428,6 @@ public class PickColorActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
-    /*@Override
-    //settings menu
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                *//*handle*//*
-                return true;
-            case R.id.action_profile:
-
-                return false;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
 
     /**
      * handle back arrow in app bar
@@ -480,10 +479,10 @@ public class PickColorActivity extends AppCompatActivity
                         //Log.i("CONNECTION", "CONNECTION_ESTABLISHED");
                         t_status.setText("CONNECTION_ESTABLISHED");
                         //client.sendMessage("CONNECTION_ESTABLISHED");
-                        for (TcpClient client : clients) {
+                        for (TcpClient client : Clients.tcpClients) {
                             if (client != null) {
                                 try {
-                                    client.sendMessage(sendColorMode());
+                                    client.sendMessage(Clients.formatQueryString());
                                 } catch (RuntimeException e) {
                                     Log.e("MESSAGE", "not connected", e);
                                 }
@@ -540,9 +539,11 @@ public class PickColorActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         //Disconnect devices
-        for (TcpClient client : clients) {
+        for (TcpClient client : Clients.tcpClients) {
             client.disconnect();
         }
+        //clear clients
+        Clients.tcpClients.clear();
     }
 
 
@@ -614,7 +615,24 @@ public class PickColorActivity extends AppCompatActivity
         setR(Integer.valueOf(colorStr.substring(1, 3), 16));
         setG(Integer.valueOf(colorStr.substring(3, 5), 16));
         setB(Integer.valueOf(colorStr.substring(5, 7), 16));
+        setClientRGB(
+                Integer.valueOf(colorStr.substring(1, 3), 16),
+                Integer.valueOf(colorStr.substring(3, 5), 16),
+                Integer.valueOf(colorStr.substring(5, 7), 16)
+        );
     }
+
+    private void setClientRGB(int r, int g, int b) {
+        clients.setControlSetting(ControlLedEnum.RED, r);
+        clients.setControlSetting(ControlLedEnum.GREEN, g);
+        clients.setControlSetting(ControlLedEnum.BLUE, b);
+    }
+
+    private void setClientRGB(int brightness, int r, int g, int b) {
+        clients.setControlSetting(ControlLedEnum.BRIGHTNESS, brightness);
+        setClientRGB(r,g,b);
+    }
+
 
     /**
      * Converts a color to a hex string.

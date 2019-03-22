@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class Colors {
     private static ArrayList<String> colors;
 
+
+
+
     public Colors() {
         if (colors == null) {
             colors = new ArrayList<>();
@@ -68,4 +71,5 @@ public class Colors {
     public String getColor(int index) {
         return this.colors.get(index);
     }
+
 }

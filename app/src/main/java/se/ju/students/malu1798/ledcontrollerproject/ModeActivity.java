@@ -21,7 +21,6 @@ public class ModeActivity extends AppCompatActivity {
 
     private int currentProfile = 0;
     ArrayList<Mode> modesArr = Profile.profiles.get(currentProfile).getP_modes();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

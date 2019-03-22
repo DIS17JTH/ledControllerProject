@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     int endIP = 254;
     int port = 8001;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,13 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 if (deviceList != null) {
                     ipAddresses = new ArrayList<>();
                     for (NetworkDevice nd : deviceList) {
-                        if(nd.getIsChecked())
+                        if (nd.getIsChecked())
                             ipAddresses.add(nd.getIp());
                     }
-
-                }else{ //if(deviceList == null){ //add ip from edit text view
-                    deviceList.add(new NetworkDevice(inIp));
+                    if (deviceList.size() == 0) { //add ip from edit text view
+                        deviceList.add(new NetworkDevice(inIp));
+                        ipAddresses.add(inIp);
+                    }
                 }
+
 
                 intent.putStringArrayListExtra("networkDevices", ipAddresses);
                 //intent.putExtra("port", eT_port.getText());
@@ -176,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-    * scan wifi for a specific port
-    * */
+     * scan wifi for a specific port
+     */
     private void deviceWifiScan(int start, int end, int port) {
         String wifi = getDeviceIP(false);
         for (int s = start; s <= end; s++) {
@@ -190,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-    *   returns true if port is open
-    * */
+     * returns true if port is open
+     */
     private boolean isPortOpen(final String ip, final int port, final int timeout) {
         try {
             Socket socket = new Socket();
@@ -263,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * @returns the phone ip either ccc.ccc.ccc. or ccc.ccc.ccc.ccc
-     * */
+     */
     public String getDeviceIP(boolean wholeIP) {
         if (wholeIP) { //whole ip address
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -296,23 +299,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    /*@Override
-    //settings menu
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                *//*handle*//*
-                return true;
-            case R.id.action_profile:
-                //System.out.println("Profile menu button clicked");
-                //Intent intent = new Intent(this, ProfileActivity.class);
-                //startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
 
     @Override
     //if settings menu should show
