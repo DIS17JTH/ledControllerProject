@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/b_launch_strobe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/s_strobe" />
+
+    <Button
+        android:id="@+id/b_launch_individual_led_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/s_individual_led_control" />
+
+    <Switch
+        android:id="@+id/b_audio_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_audio_sync"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        />
+</LinearLayout>
