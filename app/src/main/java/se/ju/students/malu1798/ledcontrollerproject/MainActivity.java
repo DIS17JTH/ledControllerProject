@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter adapter;
     ListView listView;
-
     Button buttonScan;
 
     EditText eT_ip;
@@ -115,11 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 //ADD devices
                 if (deviceList != null) {
                     ipAddresses = new ArrayList<>();
+                    boolean someoneChecked = false;
                     for (NetworkDevice nd : deviceList) {
-                        if (nd.getIsChecked())
+                        if (nd.getIsChecked()) {
                             ipAddresses.add(nd.getIp());
+                            someoneChecked = true;
+                        }
                     }
-                    if (deviceList.size() == 0) { //add ip from edit text view
+                    if (deviceList.size() == 0 || !someoneChecked) { //add ip from edit text view
                         deviceList.add(new NetworkDevice(inIp));
                         ipAddresses.add(inIp);
                     }

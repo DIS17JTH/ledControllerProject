@@ -27,6 +27,7 @@ public class ModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mode);
 
         TextView t = findViewById(R.id.t_mode_tile);
+        //Clients.tcpClients.get(0).sendMessage("hej");
 
         /*List View*/
         ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);
