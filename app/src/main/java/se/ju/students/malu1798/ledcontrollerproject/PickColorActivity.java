@@ -60,7 +60,7 @@ public class PickColorActivity extends AppCompatActivity
         setContentView(R.layout.activity_pick_color);
 
         setClientRGB(brightness, r, g, b);
-
+        setLedsOn();
         //ViewHolder Pattern
         this.addToViewHolder();
 
@@ -632,6 +632,10 @@ public class PickColorActivity extends AppCompatActivity
     private void setClientRGB(int brightness, int r, int g, int b) {
         clients.setControlSetting(ControlLedEnum.BRIGHTNESS, brightness);
         setClientRGB(r,g,b);
+    }
+
+    private void setLedsOn(){
+        Clients.setControlSetting(ControlLedEnum.LEDs,1111111111);
     }
 
 

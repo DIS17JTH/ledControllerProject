@@ -53,9 +53,9 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         strobeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    System.out.println("Strobe Switch On");
+                    Clients.setControlSetting(ControlLedEnum.STROBE, 1);
                 } else {
-                    System.out.println("Strobe Switch Off");
+                    Clients.setControlSetting(ControlLedEnum.STROBE, 0);
                 }
             }
         });
@@ -105,15 +105,19 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         switch (button) {
             case 1:
                 b_strobe_sin.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                Clients.setControlSetting(ControlLedEnum.STROBE_WAVEFORM, 0);
                 break;
             case 2:
                 b_strobe_sqr.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                Clients.setControlSetting(ControlLedEnum.STROBE_WAVEFORM, 1);
                 break;
             case 3:
                 b_strobe_tri.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                Clients.setControlSetting(ControlLedEnum.STROBE_WAVEFORM, 2);
                 break;
             case 4:
                 b_strobe_saw.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                Clients.setControlSetting(ControlLedEnum.STROBE_WAVEFORM, 3);
                 break;
             default:
 
@@ -125,6 +129,25 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        switch (seekBar.getId()) {
+            case R.id.seekBar_frequency:
+                Clients.setControlSetting(ControlLedEnum.STROBE_FREQUENCY, progress);
+                break;
+            case R.id.seekBar_amplitude:
+                Clients.setControlSetting(ControlLedEnum.STROBE_AMPLITUDE, progress);
+                break;
+            case R.id.seekBar_height:
+                Clients.setControlSetting(ControlLedEnum.STROBE_HEIGHT, progress);
+                break;
+            case R.id.seekBar_offset:
+                Clients.setControlSetting(ControlLedEnum.STROBE_OFFSET, progress);
+                break;
+            default:
+
+                break;
+
+        }
 
     }
 
@@ -151,17 +174,16 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
             default:
                 System.out.println("--SeekBar onStop default");
                 break;
+
         }
         //tcp send after every stop tracking of seek bars
-        /*
-        for (TcpClient client : clients) {
+        for (TcpClient client : Clients.tcpClients) {
             try {
-                client.sendMessage(sendColorMode());
+                client.sendMessage(Clients.formatQueryString());
             } catch (RuntimeException e) {
                 Log.e("MESSAGE", "could not send message", e);
             }
         }
-        */
 
     }
 

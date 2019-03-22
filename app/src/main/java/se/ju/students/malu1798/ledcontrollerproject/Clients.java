@@ -60,7 +60,7 @@ public class Clients {
         Clients.currentLedControlSettings = currentLedControlSettings;
     }
 
-    private int enumToInt(ControlLedEnum enumVar) {
+    private static int enumToInt(ControlLedEnum enumVar) {
         switch (enumVar) {
             case BRIGHTNESS:
                 return 0;
@@ -92,11 +92,11 @@ public class Clients {
         return 0;
     }
 
-    public void setControlSetting(ControlLedEnum setting, int value) {
+    public static void setControlSetting(ControlLedEnum setting, int value) {
         currentLedControlSettings.set(enumToInt(setting), value);
     }
 
-    public void setControlSetting(int setting, int value) {
+    public static void setControlSetting(int setting, int value) {
         currentLedControlSettings.set(setting, value);
     }
 

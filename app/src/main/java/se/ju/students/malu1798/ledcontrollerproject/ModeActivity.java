@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +29,16 @@ public class ModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mode);
 
         TextView t = findViewById(R.id.t_mode_tile);
-        //Clients.tcpClients.get(0).sendMessage("hej");
+        Clients.tcpClients.get(0).sendMessage("hej");
+
+        //on change
+        Clients.setControlSetting(ControlLedEnum.STROBE, 1);
+
+
+        //on send
+        for(TcpClient cli : Clients.tcpClients){
+            cli.sendMessage(Clients.formatQueryString());
+        }
 
         /*List View*/
         ListView listView = (ListView) findViewById(R.id.listView_mode_dynamic);

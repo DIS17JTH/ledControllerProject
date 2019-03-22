@@ -2,6 +2,7 @@ package se.ju.students.malu1798.ledcontrollerproject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
 
 public class IndividualLEDControlActivity extends AppCompatActivity {
 
@@ -211,8 +213,39 @@ public class IndividualLEDControlActivity extends AppCompatActivity {
                 led10ischecked = !led10ischecked;
                 break;
         }
+        Clients.setControlSetting(ControlLedEnum.LEDs, summerizeToBinary());
+        for (TcpClient client : Clients.tcpClients) {
+            try {
+                client.sendMessage(Clients.formatQueryString());
+            } catch (RuntimeException e) {
+                Log.e("MESSAGE", "could not send message", e);
+            }
+        }
+    }
 
-
+    private int summerizeToBinary(){
+        int sum = 0;
+        if(led1ischecked)
+            sum += 1000000000;
+        if(led2ischecked)
+            sum += 100000000;
+        if(led3ischecked)
+            sum += 10000000;
+        if(led4ischecked)
+            sum += 1000000;
+        if(led5ischecked)
+            sum += 100000;
+        if(led6ischecked)
+            sum += 10000;
+        if(led7ischecked)
+            sum += 1000;
+        if(led8ischecked)
+            sum += 100;
+        if(led9ischecked)
+            sum += 10;
+        if(led10ischecked)
+            sum += 1;
+        return sum;
     }
 
 
