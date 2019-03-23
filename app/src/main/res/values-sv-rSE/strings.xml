@@ -36,4 +36,14 @@
     <string name="error_invalid_password">Lösenordet är för kort</string>
     <string name="error_incorrect_password">Lösenordet är felaktigt</string>
     <string name="error_field_required">Detta fält är obligatoriskt</string>
+    <string name="s_color_profile">Färg Profil</string>
+    <string name="title_activity_color_profile">Färg Profil</string>
+    <string name="appwidget_text">LED Styrning</string>
+    <string name="add_widget">Lägg till widget</string>
+    <string name="s_led_control">LED Styrning</string>
+    <string name="s_led_control_on_off">LED Styrning av på</string>
+    <string name="s_on_off">AV PÅ</string>
+    <string name="s_led_control_launch">Starta LED Styrning</string>
+    <string name="configure">Konfigurera</string>
+    <string name="s_device_scan">Enhetssökning</string>
 </resources>

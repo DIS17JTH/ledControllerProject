@@ -6,11 +6,17 @@ import se.ju.students.malu1798.ledcontrollerproject.TcpPackage.TcpClient;
 
 /*Written by Lucas M*/
 public class Clients {
-    public static ArrayList<TcpClient> tcpClients;
-    private static ArrayList<Integer> currentLedControlSettings;
-    private ControlLedEnum ledProtocol;
+    public static ArrayList<TcpClient> tcpClients = new ArrayList<>();
+    private static ArrayList<Integer> currentLedControlSettings = new ArrayList<>();
+    private ControlLedEnum ledProtocol = ControlLedEnum.BRIGHTNESS;
 
-    public Clients() {
+    static {
+        for (int i = 0; i < ControlLedEnum.values().length; i++) {
+            currentLedControlSettings.add(0);
+        }
+    }
+
+    /*public Clients() {
         if (tcpClients == null) {
             tcpClients = new ArrayList<>();
         }
@@ -33,7 +39,7 @@ public class Clients {
             }
         }
         tcpClients.add(client);
-    }
+    }*/
 
 /*    private Clients(ArrayList<TcpClient> tcpClientsVar){
         tcpClients = tcpClientsVar;
@@ -96,7 +102,7 @@ public class Clients {
         currentLedControlSettings.set(enumToInt(setting), value);
     }
 
-    public static void setControlSetting(int setting, int value) {
+    private static void setControlSetting(int setting, int value) {
         currentLedControlSettings.set(setting, value);
     }
 

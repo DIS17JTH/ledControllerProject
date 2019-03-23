@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("ListView clicked id: " + position);
                 NetworkDevice nd = deviceList.get(position);
-                boolean isChecked = nd.getIsChecked();
-                nd.setIsChecked(!isChecked);
+                boolean isCheckedVar = nd.getIsChecked();
+                nd.setIsChecked(!isCheckedVar);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -124,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                     if (deviceList.size() == 0 || !someoneChecked) { //add ip from edit text view
                         deviceList.add(new NetworkDevice(inIp));
                         ipAddresses.add(inIp);
+                    }
+                    for (NetworkDevice nd : deviceList) {
+                        if (nd.getIsChecked()) {
+
+                        }
+                        Log.i("DEVICES", nd.getIp());
                     }
                 }
 
