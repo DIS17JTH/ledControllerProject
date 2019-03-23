@@ -7,7 +7,7 @@
     <string name="s_on">På</string>
     <string name="s_off">Av</string>
     <string name="s_settings">Inställningar</string>
-    <string name="s_audio_sync">Musik synkornisering</string>
+    <string name="s_audio_sync">Ljud synkornisering</string>
     <string name="s_back">Tillbaka</string>
     <string name="s_brightness">Ljusstyrka</string>
     <string name="s_select_color">Välj färg</string>
@@ -36,4 +36,15 @@
     <string name="error_invalid_password">Lösenordet är för kort</string>
     <string name="error_incorrect_password">Lösenordet är felaktigt</string>
     <string name="error_field_required">Detta fält är obligatoriskt</string>
+
+    <string name="s_choose_leds">Välj LED</string>
+    <string name="s_offset">Förskjutning</string>
+    <string name="s_height">Höjd</string>
+    <string name="s_amplitude">Amplitud</string>
+    <string name="s_frequency">Frekvens</string>
+    <string name="s_waveform">Vågform</string>
+    <string name="s_individual_led_control">Individuell LED Kontroll</string>
+    <string name="s_select_mode">Välj läge</string>
+    <string name="toggle_pulse">Pulsering Av/På</string>
+    <string name="s_STATUS">STATUS</string>
 </resources>
