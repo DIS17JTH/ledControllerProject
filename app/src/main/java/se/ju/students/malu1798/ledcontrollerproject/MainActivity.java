@@ -1,5 +1,6 @@
 package se.ju.students.malu1798.ledcontrollerproject;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -227,41 +228,39 @@ public class MainActivity extends AppCompatActivity {
     */
 
     private void handleWifi() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!checkConnection(getApplicationContext())) {
-                //Log.i("WIFI", "wifi not connected");
-                Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
+        if (!checkConnection(getApplicationContext())) {
+            //Log.i("WIFI", "wifi not connected");
+            Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
 
-                //dialog for wifi enable
-                new AlertDialog.Builder(this)
-                        .setTitle("Enable Wifi")
-                        .setMessage("You need Wifi connection to communicate with LED strip")
+            //dialog for wifi enable
+            new AlertDialog.Builder(this)
+                    .setTitle("Enable Wifi")
+                    .setMessage("You need Wifi connection to communicate with LED strip")
 
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Continue with delete operation
-                                startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
-                            }
-                        })
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Continue with delete operation
+                            startActivity(new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK));
+                        }
+                    })
 
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(getString(android.R.string.cancel), null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(getString(android.R.string.cancel), null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
 
-            } else {
-                Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_SHORT).show();
-                String ipString = getDeviceIP(false);
+        } else {
+            Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_SHORT).show();
+            String ipString = getDeviceIP(false);
 
-                EditText eT_ip = findViewById(R.id.eT_ip);
-                eT_ip.setText(ipString);
+            EditText eT_ip = findViewById(R.id.eT_ip);
+            eT_ip.setText(ipString);
 
-                EditText eT_port = findViewById(R.id.eT_port);
-                String defaultPort = "8001";
-                eT_port.setText(defaultPort);
-            }
+            EditText eT_port = findViewById(R.id.eT_port);
+            String defaultPort = "8001";
+            eT_port.setText(defaultPort);
         }
     }
 
