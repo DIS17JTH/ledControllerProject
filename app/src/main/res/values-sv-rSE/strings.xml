@@ -47,4 +47,20 @@
     <string name="s_select_mode">Välj läge</string>
     <string name="toggle_pulse">Pulsering Av/På</string>
     <string name="s_STATUS">STATUS</string>
+    <string name="s_search_complete">Sökning klar</string>
+    <string name="s_color_profile">Färg profil</string>
+    <string name="title_activity_color_profile">Färg profil</string>
+    <string name="appwidget_text">LED styrning</string>
+    <string name="add_widget">Lägg till widget</string>
+    <string name="s_led_control">LED styrning</string>
+    <string name="s_led_control_on_off">LED styrning på av</string>
+    <string name="s_on_off">PÅ AV</string>
+    <string name="s_led_control_launch">Starta LED kontroll</string>
+    <string name="configure">Konfigrera</string>
+    <string name="s_device_scan">Enhetssökning</string>
+    <string name="s_alert_enable_wifi_desciption">Du behöver en Wi-Fi anslutning för att kommunicera med LED slingor</string>
+    <string name="s_enable_wifi">Sätt på Wi-Fi</string>
+    <string name="s_wifi_not_connected">Wi-Fi är inte ansluten!</string>
+    <string name="s_wifi_connected">Wi-Fi ansluten</string>
+    <string name="s_search_started">Sökning startad</string>
 </resources>
