@@ -39,7 +39,6 @@ public class SelectModeActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("Strobe mode button clicked");
                         Intent intent = new Intent(v.getContext(), StrobeActivity.class);
                         startActivity(intent);
                     }
@@ -49,7 +48,6 @@ public class SelectModeActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("LED control mode button clicked");
                         Intent intent = new Intent(v.getContext(), IndividualLEDControlActivity.class);
                         startActivity(intent);
                     }

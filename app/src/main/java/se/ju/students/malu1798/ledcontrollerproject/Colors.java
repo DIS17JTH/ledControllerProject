@@ -7,9 +7,6 @@ import java.util.ArrayList;
 public class Colors {
     private static ArrayList<String> colors;
 
-
-
-
     public Colors() {
         if (colors == null) {
             colors = new ArrayList<>();
@@ -61,7 +58,6 @@ public class Colors {
         for (String currentColor : colors) {
             if (currentColor.equals(color)) {
                 Log.i("COLOR", "already exist");
-                //System.out.println("COLOR already exist");
                 return true;
             }
         }

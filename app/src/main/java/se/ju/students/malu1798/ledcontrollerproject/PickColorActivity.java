@@ -99,7 +99,6 @@ public class PickColorActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("save Color Image Button clicked");
 
                         //int to hex conversion
                         String hexColor = intColorToHexString(
@@ -119,7 +118,6 @@ public class PickColorActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         // Code here executes on main thread after user presses button
-                        System.out.println("Button mode clicked");
                         Intent intent = new Intent(v.getContext(), SelectModeActivity.class);
                         startActivity(intent);
                     }
@@ -130,7 +128,6 @@ public class PickColorActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         // Code here executes on main thread after user presses button
-                        System.out.println("Button colorPicker clicked");
                         openColorPicker();
                     }
                 });
@@ -140,7 +137,6 @@ public class PickColorActivity extends AppCompatActivity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("Toggle Button clicked");
                         boolean onOff = t_b_on_off.isChecked();
                         if (onOff) {
                             //ON

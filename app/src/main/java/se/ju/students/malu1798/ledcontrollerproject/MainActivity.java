@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("ListView clicked id: " + position);
+                //System.out.println("ListView clicked id: " + position);
                 NetworkDevice nd = deviceList.get(position);
                 boolean isChecked = nd.getIsChecked();
                 nd.setIsChecked(!isChecked);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Search started!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.s_search_started), Toast.LENGTH_SHORT).show();
                 buttonScan.setEnabled(false);
                 buttonScan.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 // update UI
                                 adapter.notifyDataSetChanged();
-                                Toast.makeText(MainActivity.this, "Search complete!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.s_search_complete), Toast.LENGTH_SHORT).show();
                                 buttonScan.setEnabled(true);
                                 buttonScan.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                             }
@@ -230,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
     private void handleWifi() {
         if (!checkConnection(getApplicationContext())) {
             //Log.i("WIFI", "wifi not connected");
-            Toast.makeText(MainActivity.this, "WIFI not connected!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getString(R.string.s_wifi_not_connected), Toast.LENGTH_LONG).show();
 
             //dialog for wifi enable
             new AlertDialog.Builder(this)
-                    .setTitle("Enable Wifi")
-                    .setMessage("You need Wifi connection to communicate with LED strip")
+                    .setTitle(getString(R.string.s_enable_wifi))
+                    .setMessage(getString(R.string.s_alert_enable_wifi_desciption))
 
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     .show();
 
         } else {
-            Toast.makeText(MainActivity.this, "WIFI connected!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.s_wifi_connected), Toast.LENGTH_SHORT).show();
             String ipString = getDeviceIP(false);
 
             EditText eT_ip = findViewById(R.id.eT_ip);

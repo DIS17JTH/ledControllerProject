@@ -61,4 +61,10 @@
     <string name="s_select_mode">Select Mode</string>
     <string name="toggle_pulse">Toggle Pulse</string>
     <string name="s_STATUS">STATUS</string>
+    <string name="s_alert_enable_wifi_desciption">You need Wifi connection to communicate with LED strip</string>
+    <string name="s_enable_wifi">Enable Wifi</string>
+    <string name="s_wifi_not_connected">WIFI not connected!</string>
+    <string name="s_wifi_connected">Wi-Fi connected</string>
+    <string name="s_search_started">Search started</string>
+    <string name="s_search_complete">Search complete!</string>
 </resources>

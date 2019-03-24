@@ -64,7 +64,7 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         b_strobe_sin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        System.out.println("Sine Button Clicked");
+                        //System.out.println("Sine Button Clicked");
                         selectButton(1);
                     }
                 }
@@ -72,7 +72,7 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         b_strobe_sqr.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        System.out.println("Square Button Clicked");
+                        //System.out.println("Square Button Clicked");
                         selectButton(2);
                     }
                 }
@@ -80,7 +80,7 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         b_strobe_tri.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        System.out.println("Triangle Button Clicked");
+                        //System.out.println("Triangle Button Clicked");
                         selectButton(3);
                     }
                 }
@@ -88,7 +88,7 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
         b_strobe_saw.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        System.out.println("Sawtooth Button Clicked");
+                        //System.out.println("Sawtooth Button Clicked");
                         selectButton(4);
                     }
                 }
@@ -160,19 +160,19 @@ public class StrobeActivity extends AppCompatActivity implements SeekBar.OnSeekB
     public void onStopTrackingTouch(SeekBar seekBar) {
         switch (seekBar.getId()) {
             case R.id.seekBar_frequency:
-                System.out.println("--SeekBar onStop frequency");
+                //System.out.println("--SeekBar onStop frequency");
                 break;
             case R.id.seekBar_amplitude:
-                System.out.println("--SeekBar onStop amplitude");
+                //System.out.println("--SeekBar onStop amplitude");
                 break;
             case R.id.seekBar_height:
-                System.out.println("--SeekBar onStop height");
+                //System.out.println("--SeekBar onStop height");
                 break;
             case R.id.seekBar_offset:
-                System.out.println("--SeekBar onStop offset");
+                //System.out.println("--SeekBar onStop offset");
                 break;
             default:
-                System.out.println("--SeekBar onStop default");
+                //System.out.println("--SeekBar onStop default");
                 break;
 
         }
