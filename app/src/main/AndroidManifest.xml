@@ -45,10 +45,6 @@
             android:label="@string/s_pick_color"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
         <activity
-            android:name=".ModeActivity"
-            android:label="@string/s_mode"
-            android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />
-        <activity
             android:name=".SelectModeActivity"
             android:label="@string/s_select_mode"
             android:parentActivityName="androidx.appcompat.app.AppCompatActivity" />

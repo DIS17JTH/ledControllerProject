@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String s = getItem(position).getIp();//getItem(position);
                 Boolean b = getItem(position).getIsChecked();
-                //Mode modes = getItem(position);
                 ((ViewHolder) convertView.getTag()).ipTextView.setText("" + s);
                 ((ViewHolder) convertView.getTag()).ipCheckBox.setChecked(b);
 
