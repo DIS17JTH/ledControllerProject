@@ -101,7 +101,20 @@ public class Clients {
     }
 
     public static String formatQueryString() {
-        String sendMode = String.format("w%03dr%03dg%03db%03ds%01dx%01dh%03df%03da%03do%03du%01dc%01dl%010d",
+        //
+        String sendMode = String.format("w%03d" + //0 brightness
+                        "r%03d" + //4   red
+                        "g%03d" + //8   green
+                        "b%03d" + //12  blue
+                        "s%01d" + //16  strobe
+                        "x%01d" + //18  strobe waveform
+                        "h%03d" + //22  strobe height
+                        "f%03d" + //26  strobe frequency
+                        "a%03d" + //30  strobe amplitude
+                        "o%03d" + //34  strobe offset
+                        "u%01d" + //36  audio sync
+                        "c%01d" + //38  led control
+                        "l%010d", //40  LEDs
                 currentLedControlSettings.get(0),
                 currentLedControlSettings.get(1),
                 currentLedControlSettings.get(2),
